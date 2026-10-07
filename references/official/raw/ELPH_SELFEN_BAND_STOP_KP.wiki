@@ -1,0 +1,29 @@
+{{DISPLAYTITLE:ELPH_SELFEN_BAND_STOP_KP}}
+{{TAGDEF|ELPH_SELFEN_BAND_STOP_KP|[integer]|-1}}
+
+Description: Index of the last <math>k'</math> band included in the electron self-energy sum; -1 uses all bands up to {{TAG|ELPH_NBANDS}}, and -2 activates automatic determination based on energy conservation.
+{{Available|6.6.0}}
+
+----
+The Fan-Migdal self-energy involves a sum over intermediate scattering states at <math>k' = k + q</math>:
+
+:<math>\Sigma^{\text{FM}}_{n\mathbf{k}}(T) = \frac{1}{N_q}\sum_{m\nu\mathbf{q}} |g_{mn\mathbf{k},\nu\mathbf{q}}|^2 \left[\frac{\cdots}{\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k}+\mathbf{q}} \pm \omega_{\nu\mathbf{q}} + i\delta}\right]</math>
+
+{{TAG|ELPH_SELFEN_BAND_START_KP}} and {{TAG|ELPH_SELFEN_BAND_STOP_KP}} control the range of band indices <math>m</math> (at <math>k'</math>) included in this sum.
+This is distinct from {{TAG|ELPH_SELFEN_BAND_START}} and {{TAG|ELPH_SELFEN_BAND_STOP}}, which select the bands <math>v</math> at <math>k</math>for which the self-energy is computed.
+
+The following values are accepted:
+
+* <code>-1</code> (default): include all bands up to {{TAG|ELPH_NBANDS}}.
+* <code>-2</code>: determine the upper bound automatically from energy conservation. Only <math>k'</math> bands whose eigenvalues fall within ±ω<sub>max</sub> of the target <math>k</math> bands are included, where ω<sub>max</sub> is the maximum phonon energy. This can significantly reduce the cost when {{TAG|ELPH_NBANDS}} is large.
+* Positive integer: use the specified band index as the upper bound.
+
+Setting both {{TAG|ELPH_SELFEN_BAND_START_KP}} and {{TAG|ELPH_SELFEN_BAND_STOP_KP}} to <code>-2</code> is recommended when a large number of bands is required for convergence but most of them lie far from the relevant energy window.
+
+==Related tags and articles==
+* {{TAG|ELPH_SELFEN_BAND_START_KP}}
+* {{TAG|ELPH_SELFEN_BAND_STOP}}
+* {{TAG|ELPH_NBANDS}}
+* {{TAG|ELPH_RUN}}
+
+[[Category:INCAR tag]][[Category:Electron-phonon_interactions]]

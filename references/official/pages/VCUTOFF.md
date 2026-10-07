@@ -1,0 +1,12 @@
+{{TAGDEF|VCUTOFF|[real] | 1.1 {{TAG|ENCUTGW}}}}
+
+Description: The parameter {{TAG|VCUTOFF}} sets the energy cutoff for bare Coulomb matrix elements and controls the basis set for the bare Coulomb interaction.
+## Related tags and articles
+{{TAG|ENCUTGW}},
+{{TAG|Constrained–random-phase–approximation_formalism}}
+
+{{sc|VCUTOFF|Examples|Examples that use this tag}}
+
+----
+
+Category:INCAR tagCategory:Many-body perturbation theoryCategory:Constrained-random-phase approximation

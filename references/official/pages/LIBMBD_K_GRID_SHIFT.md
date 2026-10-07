@@ -1,0 +1,16 @@
+{{DISPLAYTITLE:LIBMBD_K_GRID_SHIFT}}
+{{TAGDEF|LIBMBD_K_GRID_SHIFT|[real]|0.5 (default in libMBD)}}
+
+Description: {{TAG|LIBMBD_K_GRID_SHIFT}} sets the shift for the k-mesh of the collective oscillations defined in the methods available in the library libMBD of many-body dispersion methods{{cite|libmbd_1}}{{cite|libmbd_2}}{{cite|hermann:jcp:2023}}.
+----
+{{TAG|LIBMBD_K_GRID_SHIFT}} allows to choose a shift for the k-mesh of the collective oscillations defined in the methods available in the library libMBD of many-body dispersion methods. The value is internally passed to the libMBD input **k_grid_shift** described at the page {{cite|libmbd_input}}.
+{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}
+libMBD is a separate library package that has to be downloaded{{cite|libmbd_2}} and compiled before VASP is compiled with the corresponding precompiler options and links to the libraries.
+## Related tags and articles
+{{TAG|LIBMBD_METHOD}},
+{{TAG|LIBMBD_K_GRID}}
+
+{{sc|LIBMBD_K_GRID_SHIFT|Examples|Examples that use this tag}}
+## References
+----
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:van der Waals functionals

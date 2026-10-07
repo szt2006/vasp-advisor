@@ -1,0 +1,14 @@
+{{TAGDEF|EMIN|[real]}}
+{{DEF|EMIN| lowest KS eigenvalue  - \Delta | }}
+
+Description: {{TAG|EMIN}} specifies the  lower boundary of the energy range for the evaluation of the electronic density of states (DOS).
+----
+The DOS is evaluated each {{TAG|NBLOCK}} steps, {{FILE|DOSCAR}} is updated each {{TAG|NBLOCK}}*{{TAG|KBLOCK}} steps. 
+{{NB|tip| Set {{TAG|EMIN}} to a value larger than {{TAG|EMAX}}, if you are not sure where the region of interest lies.}}
+## Related tags and articles
+{{TAG|EMAX}}, {{TAG|NEDOS}},
+{{FILE|DOSCAR}}
+
+{{sc|EMIN|Examples|Examples that use this tag}}
+
+Category:INCAR tagCategory:Density of states

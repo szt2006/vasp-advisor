@@ -1,0 +1,17 @@
+{{DISPLAYTITLE:ML_TYPE}}
+{{TAGDEF|ML_TYPE|kernel {{!}} vasp {{!}} grace | kernel}}
+
+Description: String-based tag selecting type of machine-learned force field to use. {{available|6.6.0}}
+----
+Given that machine-learned force fields are enabled ({{TAG|ML_LMLFF|.TRUE.}}) this tag selects which type of force field is used.
+
+<ul>
+<li>{{TAG|ML_TYPE|kernel, vasp}}: <p>Use {{VASP}}'s native [[#Category:Machine-learned_force_fields|machine-learned force fields]] with theoretical background described [[Machine_learning_force_field:_Theory|here]]. The strings <code>kernel</code> and <code>vasp</code> are synonymous in this context.</p>
+<li>{{TAG|ML_TYPE|grace}}: <p>Use [[Running_GRACE_force_fields_in_VASP|GRACE force fields]], available only for {{TAG|ML_MODE|run}} if [[Makefile.include#GRACE_support|GRACE support]] is enabled at compile time.</p>
+</ul>
+
+== Related tags and articles ==
+{{TAG|ML_LMLFF}}, {{TAG|ML_MODE}}, {{TAG|ML_GRACE_MODEL}}
+----
+
+[[Category:INCAR tag]][[Category:Machine-learned force fields]]

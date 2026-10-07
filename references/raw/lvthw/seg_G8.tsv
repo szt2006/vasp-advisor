@@ -1,0 +1,149 @@
+post_id	起行	止行	主题	要点
+A03	1	12	YAML front-matter	标题/日期/tags/category，无技术内容
+A03	13	27	引言：附录篇开场	菜鸟篇结束，进入"日常工作小技巧"；本组主题=效率工具而非物理
+A03	28	36	菜鸟篇：cd 基本	`cd xxx/xxx`、`cd ..`、`cd ../..`
+A03	37	46	初出茅庐：回上一目录	`cd -` 与 `cd $OLDPWD` 等价（前者会回显目录）；批量提交任务时必用
+A03	47	70	进阶篇：cd + alias	`alias ..='cd ../../'` 逐级加深；三条注意：`**.` 等于 source、等号两侧无空格、右侧用引号
+A03	71	108	高级篇：cd + alias + && / || / |	`&&` 前成功才执行、`||` 前失败仍执行；管道 `|` 的三个计算场景单行命令（含 OUTCAR 取数）
+A03	109	119	cd 私人定制篇	把深层课题目录 alias 成短命令，避免鼠标点目录
+A03	120	135	cd 整蛊篇 + 小结	恶作剧 alias；练习建议（无技术内容）
+A04	1	12	YAML front-matter	标题/日期/tags（KPOINTS/脚本/Bash）
+A04	13	29	1 什么是脚本	脚本=可读文本+程序语言+可执行；建议观察执行流程
+A04	30	57	2.1 kpoints.sh 版本1（前两行）	`echo K-POINTS > KPOINTS` 会**清空重建**；`>>` 才是追加；第 2 行 `0` = 自动网格
+A04	58	77	C.3–C.6 逐行含义	第 3 行 G = Gamma-centered（建议一直用）；第 4 行 `$1 $2 $3` = 命令参数；第 5 行 0 0 0 = 网格移动
+A04	78	113	2.2 运行脚本	`bash kpoints.sh 3 3 1` 与 `chmod u+x`；`./kpoints.sh` 才可执行；放进 `~/bin` 才能全局调用
+A04	114	127	2.3 版本2：shebang + 注释	`#!` 指定解释器；用 `#` 写功能/作者/用法，便于日后维护
+A04	128	146	2.4 升级方向 + 练习 + 总结	可用 if 让模式（G/M）也可传参；建议数据分析改用 python3
+A05	1	12	YAML front-matter	标题/日期/tags（POTCAR/脚本/Bash）
+A05	13	23	三条前置强调	Win 用户别用记事本；上传后先 `dos2unix <脚本>`；计算出错第一件事是排除未 dos2unix
+A05	24	40	1 手动示例	按 POSCAR 元素顺序把各元素 POTCAR 用 `cat ... > POTCAR` 合并；分两步练习
+A05	41	79	脚本目的与赝势库调用	把元素各自的 POTCAR 存在一处固定库；`cat <库>/<元素>/POTCAR ... > POTCAR`；用 `grep TIT POTCAR` 核对回显
+A05	80	110	2 脚本预览（正文代码块）	先设定库目录（等号前后不能有空格）；已有 POTCAR 则重命名备份；`for i in $*` 逐个 `cat >> POTCAR`；缺元素只 echo 警告后**跳过**
+A05	111	152	3 逐行讲解	if 句型 `[ ] ; then ; fi`；`[ ]` 内外必须有空格（三种错写法）；分号规则；`$*` 传任意个参数；elif 处理压缩包分支；else 报警
+A05	153	194	4 运行脚本与注意	`chmod u+x` + `mv ~/bin`；跑通、给错元素名会警告；**报错后的两步排查**：先 dos2unix POSCAR，再确认库里真没有该元素
+A05	195	239	5 脚本分析：变体赝势	同一元素有多个赝势变体（如带 _pv/_sv/_GW、H1.25 这类后缀）；脚本按**目录名逐字**取，直接输元素符号=取同名目录
+A05	240	295	6 读 POSCAR 元素行生成（防错秘诀）	元素在第 6 行；`head -n 6 POSCAR | tail -n 1` 或 `sed -n 6p POSCAR` 取出后作为参数传给脚本；可 alias 成 `pos2pot`
+A05	296	306	7 扩展练习 + 总结	去官网看同元素不同 POTCAR 的区别；练习把"防错"写成脚本；总结（站点信息已剔除）
+A06	1	13	YAML front-matter	标题/日期/tags（VASP出错/解决问题类），无技术内容
+A06	14	17	引言	只给方向不给实例；主张"自己解决问题"
+A06	18	32	第1阶段：靠自己	凭经验；按输出错误改；查官网参数；多读手册；**不懂的参数不要往 INCAR 里放**
+A06	33	44	第2阶段：主动搜索	把错误信息原文粘到百度；再粘到 Google（能读到官网论坛/国外站点），到这一步约 60% 问题可解
+A06	45	56	第3阶段：问组内	两天没解决就带着"错误信息+已尝试方法"问师兄师姐/老师，成功率 70–100%
+A06	57	86	第4阶段：论坛与群	论坛答复水平参差，"只能当参考（记住，是所有人）"；群求助；此步约 95% 可解
+A06	87	96	第5阶段：VASP 官方论坛	需注册；一般问题已被问过，粘到搜索引擎即可
+A06	97	128	第6阶段：求助礼仪与信息清单	要给的五项：体系/内容/INCAR/错误信息/KPOINTS+POSCAR；不要打包 CHG/CHGCAR/WAVECAR；不要多群重复发；虚心接受批评
+A06	129	130	末尾（含站点信息，已剔除）	作者联系渠道与教程站点——按红线不录入
+A07	1	12	YAML front-matter	标题/日期/tags（Bader/Henkelman）
+A07	13	18	引言与官方参考	先给 Henkelman 组 bader 代码页；要求认真读参考网址
+A07	19	42	计算流程：VASP 侧	先优化结构→CONTCAR 改名 POSCAR；INCAR 加 `LAECHG=.TRUE.`/`LCHARG=.TRUE.`/`NSW=0`/`IBRION=-1`；KPOINTS 可沿用或稍密；难收敛体系留 WAVECAR，否则 `NELM=200`
+A07	43	59	获取 VTST/外部脚本	从 VTST 站点取 `chgsum.pl`、从 Henkelman 站点取 `bader`；复制到 `~/bin`；权限问题用 `chmod u+x`
+A07	60	90	处理结果三件套与报错	`chgsum.pl AECCAR0 AECCAR2` → `CHGCAR_sum`；`bader CHGCAR -ref CHGCAR_sum`；没有 AECCAR0/AECCAR2 → 查 `LAECHG`；服务器上跑 bader 报 `FATAL:kernel too old` + `Segmentation fault` → 挪到本地跑
+A07	91	110	输出文件与 ACF.dat 判读	产物 ACF.dat/BCF.dat/AVF.dat；ACF.dat 第 1 列=POSCAR 原子序号；CHARGE 列=该原子**总价电子数**；净电荷 = 该值 − POTCAR 的价电子数（作者以 SiH4 举例）
+A07	111	134	get-charge.py 取任意原子电荷	`get-charge.py <原子序数>`；只支持一个原子，多个用 for 循环；用前必须确认原子在 POSCAR 中的序号（可用 p4vasp 查）
+A07	135	170	脚本内容	读 ACF.dat → 只保留首列为数字的行（跳过表头与表尾）→ 按输入序号打印该行第 5 个字段（CHARGE）
+A07	171	188	原理 + 扩展练习 + 总结	列表筛选原理；练习读 VTST 官网、拿简单分子练手
+A08	1	11	YAML front-matter	标题/日期/tags（Bader/Henkelman）
+A08	12	35	VTST 网站	Henkelman 组主页 / bader 代码页 / VTST 脚本页三个入口
+A08	36	50	精度与 ACF.dat 列含义	Bader 是**定性**辅助工具，小数点后两位足够；`CHARGE` 列 = 每个原子**总的价电子数目**（划重点：总的 + 价电子）
+A08	51	64	如何判断带电 + 取价电子数	净电荷 = `CHARGE` − 该原子 POTCAR 的价电子数；取法：`grep ZVAL POTCAR`
+A08	65	72	划重点：不要用周期表价电子数	POTCAR 的价电子数与周期表口径可能差很多（作者举 4f 元素为例；具体数值属 POTCAR 内容，本报告不录）
+A08	73	95	减完怎么分析（符号约定）	CHARGE>ZVAL → 得电子 → 负价；作者也给出更直接的写法 ZVAL−CHARGE = 失去的电子数（正值）；得失电子与化合价方向相反
+A08	96	104	总结	两步：看官网知道怎么算；用 CHARGE 列与 POTCAR 价电子数判断带电
+A09	1	11	YAML front-matter	标题/日期/tags（超算中心）
+A09	12	20	引言	本节覆盖：装 VPN、连集群、把集群挂到本地互传文件；Windows 用户可跳过
+A09	21	32	1 下载 VPN 客户端	官网下载 Linux 版；**该客户端不支持某两个 Ubuntu 版本**（版本兼容性是本节唯一通用信息）
+A09	33	55	2 安装 VPN	图形化安装步骤（勾 Execute、双击安装）
+A09	56	89	3 连接 VPN	New→填 Host/Port/凭据；管理方给了多个备用主机地址（地址不录）；勾 Remember Password；连接成功的样子
+A09	90	138	4 ssh + sshfs 挂载	装 `sshfs`；建挂载点目录；在 `.bashrc` 里写三条 alias（连/挂/卸）；`mkdir ~/bin` 放脚本
+A09	139	190	5 上传下载（挂载后 cp）	**必须先挂载再复制**；挂载后可像本地盘一样 `cp/mv/rsync`；两个下载/上传实例
+A09	191	214	6 注意事项与异常处理	未挂载就复制 → 挂载后看不见；不要用文件管理器点目录（很慢）；卸载时输的是**本机**凭据（不是集群的）；挂载报错→先卸载再重挂，仍不行找管理员
+A09	215	220	小结	把准备工作做完，下一节提交任务
+A10	1	11	YAML front-matter	标题/日期/tags（Bader/Henkelman——原站 tags 明显是模板残留）
+A10	12	30	提交实例：一脚本一命令	目录里有 INCAR/KPOINTS/POSCAR/POTCAR + job_sub；一条批处理命令提交；返回 job id；查询命令看排队状态
+A10	31	58	job_sub 内容与参数含义	脚本里导出库路径 + 一行 MPI 运行命令；提交参数：分区/节点数/任务名（具体值不录）；给出用多节点的例子
+A10	59	88	不同版本：先定位可执行文件	集群上通常装了多个 VASP 版本与 VTST 版本；一层层 cd 到 `bin/` 找到可执行文件（含 gam/ncl/std 三个），再用 `pwd` 拿绝对路径
+A10	89	105	改脚本最后一行	把运行命令换成刚 `pwd` 出来的路径 + 可执行文件名（要点：换 VTST 算过渡态就要指向 VTST 版二进制）
+A10	106	117	小结与联系方式（站点信息，已剔除）	仅保留"连 VPN→挂载→互传→脚本提交"这条流程链
+A11	1	13	YAML front-matter	标题/日期/tags（Sbatch/Slurm/VASP）
+A11	14	25	Slurm 简介	开源调度器，三大功能：分配资源、启动/监测任务、排队；被大量 TOP500 机器使用
+A11	26	36	Sbatch：为什么写脚本	`sbatch` 参数多（时间/节点/队列/环境/任务名），写成脚本免得每次重敲；以官方 `sbatch` 文档为准
+A11	37	91	vasp.sh 两种写法 + 逐行含义	短选项（`-J/-o/-e/-p/-N/--ntasks-per-node/-t`）与长选项（`--job-name/...`）等价可混用；`%j`=作业号；时间为 `DD-HH:MM:SS`；最后两行=加载环境 + 运行 VASP
+A11	92	102	把常变参数挪到命令行	`-N`/`-J` 这类频繁变动的可写在提交命令里；作者自己固定写死
+A11	103	136	实例1：单点计算	指定分区/节点数/限时（具体值不录）、提交后 `squeue` 看到 R 状态；跑完目录里出现 CONTCAR/CHGCAR/vasprun.xml 等标准产物
+A11	137	202	实例2：CI-NEB	7 个中间点 + IS/FS 共 9 个目录；KPOINTS/POTCAR/INCAR 在顶层；`out.<jobid>` 头部逐行回显总核数与"每个 image 分到多少核"（后者是 VTST 版特征）
+A12	1	12	YAML front-matter	标题/日期/tags（超算中心/job-ID）
+A12	13	29	核心思想	`squeue` 取本人所有 job id；`scontrol` 取每个 id 的工作目录；**落到 txt 缓存**（因为作业做完 scontrol 就查不到目录了）；用 `.bashrc` 里的 alias 激活
+A12	30	52	准备流程	脚本 + 一个 python 脚本放 `~/bin` 并 `chmod u+x`；建缓存目录与空列表文件
+A12	53	64	改脚本里的账户与路径	把脚本里的账户改成自己的；路径用 `pwd` 的输出替换
+A12	65	118	python 脚本源码	get_id 用 `squeue -lu <user>` 并 `[2:]` 跳两行表头；get_dir 用 `scontrol show job <id>` 抓 `WorkDir=`；字典落盘 `id:dir`；参数做**子串**匹配后打印目录
+A12	119	137	ent.sh + .bashrc	两行脚本：取目录→cd；`alias ent='source ~/bin/ent.sh'`
+A12	138	157	运行实例	提交→cd 回家目录→`ent <部分id>` 直接跳进计算目录；注意示例里 `ent 999` 命中的是 14999（**子串匹配**）
+A13	1	11	YAML front-matter	标题/日期/tags（ASE/Windows/UBUNTU）
+A13	12	25	什么是/为什么用 ASE	Python 库；作者最看重**文件格式互转**（cif→POSCAR、POSCAR→xyz）；顺带学 Python
+A13	26	37	已装好的情况	把 ASE 的 bin 目录加进 PATH（`export PATH=$PATH:<...>`）即可用
+A13	38	67	自己装：pip	先装 pip（py2/py3 两套）；`pip install --upgrade --user ase`；再把 `~/.local/bin` 加进 PATH
+A13	68	75	验证	Tab 补全看到 ase* 系列命令；`ase --version` 打印版本
+A14	1	11	YAML front-matter	标题/日期/tags（ASE/格式转换）
+A14	12	23	两个前提	本机已装 ASE；有 POSCARtoolkit.py（用于补 Selective dynamics）
+A14	24	55	终端一行转换命令	`ase gui <file_from> -o <file_out>`；支持 cif/xyz/xsd 等；转不成=格式不支持，只能退回老办法
+A14	56	101	经验1：POSCAR→xyz（优点）	xyz 第 2 行写入 `Lattice=... pbc="T T T"`，便于再转回 POSCAR/CONTCAR；会打印一条 "You should be using ase convert" 警告，可忽略
+A14	102	123	经验2：xyz→POSCAR	输出用 **Cartesian** 坐标；元素名被写在**第 1 行**（注释行位置）
+A14	124	152	缺点1：输出是老式 VASP4 格式	第 6 行位置是计数行、**缺元素名行**；手工解决办法：把第 1 行的元素行复制到第 6 行前
+A14	153	195	缺点2：丢 Selective dynamics	没有固定层与 T/F 列；用 POSCARtoolkit.py `-i POSCAR -f` 补，产物名叫 POSCAR_C
+A14	196	201	小结	工具/脚本都有 bug，换新方法必须**先核对输出文件**再用
+A15	1	11	YAML front-matter	标题/日期/tags（p4vasp/python2/python3）
+A15	12	20	引言	py2 落幕、p4vasp 只支持 py2；两条路：改默认解释器 / 用 update-alternatives 切系统 python
+A15	21	58	办法-1：改两处解释器	把启动脚本最后一行与 p4v.py 首行的 `python` 改成 `python2`；运行仍会打印一堆 Gtk/libglade 警告与 TypeError ignored（**非致命噪音**）
+A15	59	98	办法-2：update-alternatives	两条 `--install` 分别登记 py2.7/py3.7 并给优先级；`--config` 交互切换
+A15	99	136	切换与验证	把 `--config` 写成 alias；`python --version` 与列表里的 `*` 号确认当前选中的是哪一个
+A15	137	165	切到 py3 后 p4vasp 立刻报错 + 小结	p4v.py 抛 `SyntaxError: invalid syntax`（py2 语法）；想用 p4vasp 就必须停在 py2
+A16	1	11	YAML front-matter	标题/日期/tags（p4vasp/ASE/扩胞）
+A16	12	22	扩胞需求与策略	直接优化 4×4 slab 费时 → **先优化 1×1 再扩胞再优化**；也可用 MS/p4vasp 等可视化工具
+A16	23	74	例子：CONTCAR → POSCAR_ex	输入含 Selective dynamics 与速度块；`python expand.py CONTCAR 2 2 1` 得到 POSCAR_ex；输出**第 6 行是数字**（无元素名行）、坐标已 Direct、F/T 标志随原子保留
+A16	75	92	脚本内容与前提	4 行核心：读 POSCAR（read_vasp）→ `cell*(x,y,z)` 扩胞 → `write_vasp(..., direct=True, sort=True)`；前提是已装 ASE
+S01	1	10	YAML front-matter	标题/日期/categories/tags（Share/Python/效率）
+S01	11	30	正文：推荐一本 Python 书	讲"写脚本可重复劳动自动化"的动机；获取方式靠公众号（按红线不录）——**无 VASP/计算知识**
+S02	1	10	YAML front-matter	标题/日期/categories/tags（文章/Nature Catalysis）
+S02	11	26	研究背景	醇的胺化替代传统路线的意义；本文用第一性原理+微观动力学做催化剂筛选
+S02	27	48	内容与讨论 A/B/C/D	机理三步（脱氢/成亚胺/加氢）；9 种金属密堆积面；NH3 覆盖 1/9 ML 才复现活性序；Eley–Rideal 描述关键步；scaling 关系把描述符降维到 C、O 吸附能；火山图与选择性描述符
+S02	49	62	图 4/5 与总结展望	实验验证 CoPt/CoPd 高活性低选择性、CoAg 双高；反应器动力学把环境因素引入
+S02	63	74	作者简介与获取方式	属站点信息（公众号），不录
+S03	1	11	YAML front-matter	标题/日期/categories/tags（文章/ACS Catalysis）
+S03	12	22	研究背景	SOEC 制氢；CeO2 靠 Ce3+/Ce4+ 循环；用 DFT+U（`U_eff = 4.5 eV`）描述 Ce 4f 强关联；研究**表面应力**的影响
+S03	23	41	研究内容与结论	水分解三步（生成氧空位/吸附成 OH⁻/OH⁻ 分解出 H2）；三种覆盖路径 2H/4H/5H；拉伸应变稳定中间体、抬高能垒；压缩应变 >3% 显著提速；OH⁻ 分解是最高能垒步；1000 K 与 1200 K 下最优路径不同
+S03	42	56	作者简介与链接	属站点信息，不录
+S04	1	12	YAML front-matter	标题/日期/categories/tags（Hall Petch）
+S04	13	21	引言 + Hall-Petch 公式	σ = σ0 + k·d^(−1/2)；k 对材料/温度/应变敏感；1951 年首次报道并提出 pile-up 模型
+S04	22	43	pile-up（位错阻塞）模型推导	位错源发射位错列被晶界挡住；n = (1−ν)dτe/(2μb)；τp = nτe；推出 d^(−1/2) 关系；但实验少见且定量偏差大
+S04	44	55	Cottrell 模型与 Li 晶界位错源模型	应力场诱发邻晶粒位错源（临界应力更小）；晶界本身是位错源 → ρ=3m/d → Taylor 公式 → 再得 d^(−1/2)；两模型是"晶内源/晶界源"两个极端
+S04	56	67	MD 佐证 + 参考文献	2002 年 MD 模拟观察到晶界位错形核；四条参考文献
+S05	1	12	YAML front-matter	标题/日期/categories/tags
+S05	13	19	加工硬化模型	把 k 看成与应变有关的量，可同时预测加工硬化；固定 d 时给出抛物线型应力-应变关系
+S05	20	28	几何必须位错模型	弯曲/不均匀变形自发产生几何必须位错，主要位于晶界；强度由晶界几何必须位错密度决定
+S05	29	41	复合模型	材料分"晶界部分 + 块体部分"；晶界先屈服→加工硬化→位错向晶内运动→整体屈服；可解释纳米晶的反常软化
+S05	42	50	小结 + 参考文献	实验上 −1/2 指数有很宽范围，只是"一个优美符号"
+S06	1	12	YAML front-matter	标题/日期/categories/tags（弹性常数）
+S06	13	20	SOECs 的意义与引入高阶	二阶弹性常数=简谐弹性；可由 Vogit-Reuss-Hill 平均得多晶力学性能（杨氏/剪切/体积模量、泊松比、硬度）；有限形变下非谐项不可忽略→TOEC/FOEC
+S06	21	29	TOEC/FOEC 的求解框架	能量对应变泰勒展开保留到四次→多项式拟合→解多元一次方程组；立方体系 TOEC 6 个、FOEC 11 个；**改用应力-应变展开可减少独立应变数**（作者对 Au 用 11 种独立应变）
+S06	30	41	关键经验（应变必须大）+ 与实验对比	按 SOEC 习惯取小应变 → 结果南辕北辙；加到 **15%** 后 TOEC 才相对理想（小应变仍在弹性区、非谐信号被数值误差淹没）；TOEC 对数值精度极敏感（表中 C144/C456 连符号都与实验不同）；建议**应变、k 点、截断能三者都做收敛测试**
+S06	42	45	参考文献	Wang & Li, PRB 79, 224102 (2009)
+S07	1	14	YAML front-matter	标题/日期/categories/tags（Ipad/SSHaking）
+S07	15	31	移动端 SSH 客户端优点	界面简洁无广告、多终端、多 Host、免费；作者推荐与开发者互动
+S07	32	41	安卓替代与获取方式	两个安卓 APP 名；公众号/链接属站点信息，不录
+M_01	1	13	YAML front-matter + 症状	Ubuntu 18 上启动 VESTA 报 `error while loading shared libraries libpng12.so.0`（17.x 版本同样存在）
+M_01	14	30	解决步骤	下载旧版 libpng12 的 deb 包→双击安装→重新启动即可
+M_03	1	19	YAML front-matter + 说明	本人日常收集的数据库/网站清单，会持续更新
+M_03	20	80	结构查找类	Materials Project、ioChem-BD、ChemSpider、PubChem、ICSD、CCDC、CCCBDB、团簇库、Wulffman、XPS、富勒烯异构体库
+M_03	81	98	热力学数据与结合能	NIST 常数、CRC Handbook、无机热力学表、结合能表、表面张力表、ATcT 等
+M_03	99	107	物理常数与单位换算	基本物理常数、能量单位换算表
+M_03	108	125	书籍文献下载	学术搜索、书籍下载站、文献求助论坛；作者强调"宁缺毋滥"
+M_03	126	171	VASP 相关	官网（最权威）、官方 workshop 视频、官方论坛（需注册）、Henkelman 组（VTST/bader/CHGCAR 脚本）、ASE、pymatgen、能带路径工具、ChemML、p4vasp、RDKit、VASPkit、VESTA、XCrySDen、OpenBabel
+M_03	172	191	程序软件相关	Bash/Python 教程、matplotlib、scipy、StackOverflow、geeksforgeeks
+M_03	192	213	大牛 GitHub 清单	八个 github 账号/个人脚本页（人名与账号属个人信息，本报告只记"存在一批可复用的 VASP 脚本仓库"）
+M_03	214	241	推荐书籍 + 溶剂数据	Density Functional Theory: A Practical Introduction；Atkins 物理化学；Concepts of Modern Catalysis and Kinetics；有机溶剂参数表
+M_03	242	256	求职相关	Psi-k Network（注册后收职位邮件）、LinkedIn、ResearchGate
+M_03	257	312	重复章节 + 周期表/LaTeX/图片	书籍段重复；颜色表、元素周期表三个站点、LaTeX 求助站点；末尾为公众号图片（不录）
+J01	1	13	YAML front-matter	标题/日期/categories/tags（招聘）
+J01	14	36	正文：课题组招聘	课题组方向（多尺度理论模拟：燃料电池/电催化/CO2 电催化/微观动力学/反应器流体力学）；导师履历；长期招硕士/博士/博士后；联系方式按红线不录
+J02	1	11	YAML front-matter	标题/日期/categories/tags（招聘）
+J02	12	43	正文：博士后招聘	方向=金属合金腐蚀性能的理论预测与腐蚀机理、高通量计算工作流开发；待遇与要求（含"较高编程能力优先"）；联系方式按红线不录

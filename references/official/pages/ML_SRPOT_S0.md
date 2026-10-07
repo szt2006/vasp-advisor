@@ -1,0 +1,21 @@
+{{DISPLAYTITLE:ML_SRPOT_S0}}
+{{TAGDEF|ML_SRPOT_S0|[real]|2.0}}
+
+Description: Specifies the broadening of a soft repulsive exponential potential used as an auxiliary potential in thermodynamic integration ({{TAG|VCAIMAGES}}).
+----
+This parameters sets the broadening \sigma of the following repulsive exponential potential
+
+ 
+V(r) = b e^{-(r/\sigma)^n}. 
+
+In most use cases a value between 1 and 2 is optimal.
+## Related tags and articles
+{{TAG|ML_LMLFF}}, {{TAG|ML_LCOUPLE}}, {{TAG|ML_ICOUPLE}}, {{TAG|ML_RCOUPLE}}, {{TAG|ML_NATOM_COUPLED}}, 
+{{TAG|ML_LEMPPOT}}, {{TAG|ML_EMPPOT_RCUT}}, {{TAG|ML_SRPOT_B0}}, {{TAG|ML_SRPOT_N0}}, 
+{{TAG|ML_MOPOT_NM}}, {{TAG|ML_MOPOT_DM}}, {{TAG|ML_MOPOT_RM}}, 
+{{TAG|ML_MOPOT_RKM}}, {{TAG|ML_MOPOT_IJM}}
+
+{{sc|ML_LCOUPLE|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Machine-learned force fields

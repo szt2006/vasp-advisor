@@ -1,0 +1,17 @@
+{{TAGDEF|IEPSILON|1 {{!}} 2 {{!}} 3 {{!}} 4}}
+
+Description: {{TAG|IEPSILON}} determines along which Cartesian direction the E field is applied.
+
+----
+*{{TAG|IEPSILON}}=1 x direction
+*{{TAG|IEPSILON}}=2 y direction
+*{{TAG|IEPSILON}}=3 z direction
+*{{TAG|IEPSILON}}=4 x, y and z direction; three indpendent calculations are performed
+{{NB|important|{{TAG|IEPSILON}} only applies to the time-propagation algorithm.}}
+## Related tags and articles
+{{TAG|BSE calculations}}
+
+{{sc|IEPSILON|Examples|Examples that use this tag}}
+
+----
+Category:INCAR tagCategory:Many-body perturbation theoryCategory:Bethe-Salpeter equations

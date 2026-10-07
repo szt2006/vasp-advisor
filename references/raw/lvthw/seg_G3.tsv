@@ -1,0 +1,19 @@
+post_id	起行	止行	主题	要点
+EX37	1	45	KPOINTS 与 NEDOS：DOS 的取样密度	标题与 front-matter；DOS 需要"非常细的 k 网格"；经验规则 K×a ≈ 45；NEDOS 默认 301、建议 3000 左右；NEDOS 越大 DOSCAR/vasprun.xml 越大；尖锐峰可先试加大 NEDOS
+EX37	46	129	ISMEAR=-5 的两类报错与适用边界	IBZKPT: Tetrahedron method fails for NKPT<4；官网"少于三个 k 点"与程序判据不一致（作者未裁定）；WARNING: DENTET: can't reach specified precision 的成因（积到费米面的电子数 ≠ 价电子数）；-5 适用所有体系的 DOS，但金属弛豫不能用、半导体绝缘体不能 >0、不适合能带计算；-5 时 SIGMA 无影响
+EX37	130	209	k 点不够时的退路、SIGMA 判据与总结	全体系可 ISMEAR=0 + 小 SIGMA；金属可 ISMEAR=1；判据：entropy T*S 平均到每原子 < 1 meV 的前提下 SIGMA 尽量大；官网 SIGMA=0.2；官网三段总结原文（绝缘体恒用 -5、金属弛豫恒用 1、DOS/精确总能不用弛豫时用 -5）
+EX38	1	47	DOS 一步还是两步：为什么会有"两步"的说法	可以直接自洽一步出 DOS；两步的三个理由（细 k 网格太贵、能带必须自洽、k 点对电荷密度收敛影响小）；两步写法：低 k 单点出 CHGCAR → ICHARG=11 读 CHGCAR 配高 k；只有能带计算必须两步
+EX38	48	81	LORBIT=10/11 与 WAVECAR 的取舍	LORBIT=10 = LDOS（原子 + s/p/d/f）；LORBIT=11 = PDOS（再分 px/py/pz）；ISTART 未设时默认读 WAVECAR；无 WAVECAR 时不报错继续算；LWAVE 控制输出；WAVECAR 可达 GB 级需先确认存储；优化阶段存了 WAVECAR 可在 DOS 步复用
+EX38	82	119	扩展阅读与"一步/两步 DOS 必须参数"总结	一步：ISMEAR=-5、LORBIT=11、高密度 k 点；两步第一步：ISMEAR=-5、LCHARG=.TRUE.、稍低密度 k 点；第二步：ISMEAR=-5、ICHARG=11（原文误写成 ICHARGE）、LORBIT=11、高密度 k 点；优化时存了 WAVECAR 则可一步
+EX39	1	41	算例设置：Ru 单胞的一步 DOS 计算	Ru 单胞 2 原子；cp CONTCAR POSCAR；INCAR：IBRION=-1 / NSW=0 / ISMEAR=-5 / LORBIT=11；KPOINTS 21 21 21 且 Γ 居中（六方结构）；提交并等待结束
+EX39	42	115	p4vasp 可视化：总 DOS 与分轨道/分原子 DOS	导入 vasprun.xml（p4v & 或 p4v vasprun.xml）；Electronic → DOS+bands 看总 DOS；Electronic → Local DOS+bands control 选元素/原子、选自旋 up/down/both、选轨道；LORBIT=10 时点 dxy 会连同其他 d 轨道一起选中，LORBIT=11 则只选 dxy；Add New line / remove line
+EX39	116	189	导出数据与空行分隔规则	Graph → Export（明确不是左上角 File）；文件名必须带 .dat；多按几次 Export 并去目录确认；N 条曲线 ⇒ N−1 个空行分隔；NEDOS 默认 301 ⇒ 301 行后有空行（NEDOS=500 ⇒ 500 行后）；有磁性时 up/down 也用空行分隔；各曲线横坐标完全相同
+EX39	190	238	用导出的数据自行作图与小结	空行前 = 总 DOS、空行后 = d 轨道 DOS；导入 Excel/Origin 作图即可复现 p4vasp 的图；小结强调最关键是"要会分析 DOS"
+EX40	1	66	DOS 积分的原理与两条积分区间口径	梯形/矩形法：ΔA=(x2−x1)(y1+y2)/2、A=ΣΔA；电子数从 −∞ 积到费米能级；p4vasp 图的 0 点已是费米能级；作者自曝同一例子重跑后图与原图不一致、"原因正在调查中"
+EX40	67	108	d 带中心公式与出处	d 带中心 = ∫ε·n_d(ε)dε / ∫n_d(ε)dε；ε = 能量、n_d(ε) = 态密度；积分区间按公式是 −∞ 到 +∞；出处 Nørskov 等 Fundamental Concepts in Heterogeneous Catalysis；d 带穿过费米能级 ⇒ Ru 是金属
+EX40	109	178	Excel 手动求积分逐步操作与小结	A=能量、B=密度、C=A×B；A4-A3 = Δε、B4+B3 = 两端密度和、C4+C3 = 两端 ε·n 之和；面积列 D*E*0.5（电子数）与 D*F*0.5（分子）；电子数求 G4→G137（G137 = 费米能级那点）；分子 H4→H303；分母 G4→G303
+EX41	1	107	Origin 求 d 带中心：操作与积分窗口讨论	复制能量/态密度/能量×态密度三列；plot → Line → Line；右键 Ungroup 后才能单选曲线；积分对话框 OK 后的 area = 公式分母；对"能量×密度"曲线积分 = 分子；窗口不是绝对的（密度为 0 的区间可省、高能端噪音大时可截断）；示例窗口 [-6,2] → −34.035/17.428 = −1.953
+EX41	108	139	电子数的积分、扩展练习与总结	电子数从 −∞ 积到费米能级，本例 −10→0 得 13.00；强调 d 带中心对整个区间积分、电子数积到费米能级；点出后续工具：VTST 的 DOS 脚本与 vaspkit
+M_02	1	38	缘起与一段自动判收敛的 bash 骨架	场景：用 reached 关键词判断任务是否收敛；给出 check=$(grep "reach" vasp.log | tail -1) + if [ "$check" == "" ] 的自动台账/自动把 POSCAR 覆盖成 CONTCAR 的骨架
+M_02	39	72	两类 reached 行的区分与"收敛"的判定条件	收敛实例的 grep reached OUTCAR 输出：3 行 aborting loop because EDIFF is reached + 1 行 reached required accuracy - stopping structural energy minimisation；只有后者代表离子步收敛；作者给的两条特征：只出现一次、出现在最后一行（作者口径，实测需修正）；首词是 reached
+M_02	73	113	具体命令：tail / cut / awk 与赋值比较	grep reached OUTCAR | tail -n 1 取最后一条；cut -c 2-8 或 awk '{print $1}' 取首词（该行行首有一个空格，故 cut 从第 2 个字符起）；b='reached'、c=$(...)、if [ c=b ] 的赋值与比较示例

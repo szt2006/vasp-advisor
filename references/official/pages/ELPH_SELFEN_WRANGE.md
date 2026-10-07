@@ -1,0 +1,19 @@
+{{DISPLAYTITLE:ELPH_SELFEN_WRANGE}}
+{{TAGDEF|ELPH_SELFEN_WRANGE|[real]|0}}
+
+Description: Together with {{TAG|ELPH_SELFEN_NW}} specifies the energy window in which to evaluate the phonon-induced electron self-energy.
+{{Available|6.5.0}}
+
+----
+
+The electron self-energy, \Sigma_{n \mathbf{k}}(\omega), depends on the frequency \omega (or energy \hbar \omega).
+The tag {{TAG|ELPH_SELFEN_WRANGE}} determines the width of the energy window in which to evaluate the self-energy.
+However, the location and width of the energy window is also influenced by the sign of {{TAG|ELPH_SELFEN_NW}}.
+For more information, we refer to the documentation of {{TAG|ELPH_SELFEN_NW}}.
+## Related tags and articles
+* {{TAG|ELPH_RUN}}
+* {{TAG|ELPH_SELFEN_FAN}}
+* {{TAG|ELPH_SELFEN_DW}}
+* {{TAG|ELPH_SELFEN_NW}}
+
+Category:INCAR tagCategory:Electron-phonon_interactions

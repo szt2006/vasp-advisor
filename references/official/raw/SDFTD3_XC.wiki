@@ -1,0 +1,25 @@
+{{DISPLAYTITLE:SDFTD3_XC}}
+{{TAGDEF|SDFTD3_XC|[string]|The functional set by the {{TAG|GGA}}, {{TAG|METAGGA}} or {{TAG|XC}} tag.}}
+
+Description: {{TAG|SDFTD3_XC}} sets the exchange-correlation functional which determines the van der Waals parameters used in the DFT-D3 method implemented in the [[simple-DFT-D3]] package.
+----
+{{TAG|SDFTD3_XC}} allows to choose the exchange-correlation functional that determines which set of van der Waals parameters is used in the DFT-D3 method implemented in the [[simple-DFT-D3]] package ({{TAG|IVDW}}=15).
+
+The possible choices (e.g., {{TAG|SDFTD3_XC}}=pbe, hse06, ...) depend on the damping function selected with the {{TAG|SDFTD3_DAMPING}} tag and are listed in the file param.f90 of the [[simple-DFT-D3]] source code.
+{{NB|mind|
+*The {{TAG|SDFTD3_XC}} tag is available from VASP.6.6.0 onwards.
+*The {{TAG|SDFTD3_XC}} tag can be used only for the simple DFT-D3 package ({{TAG|IVDW}}{{=}}15).}}
+
+== Related tags and articles ==
+{{TAG|IVDW}},
+{{TAG|SDFTD3_DAMPING}},
+{{TAG|GGA}},
+{{TAG|METAGGA}},
+{{TAG|XC}},
+{{TAG|DFTD4_XC}},
+[[simple-DFT-D3]]
+
+{{sc|SDFTD3_XC|Examples|Examples that use this tag}}
+
+----
+[[Category:INCAR tag]][[Category:Exchange-correlation functionals]][[Category:van der Waals functionals]]

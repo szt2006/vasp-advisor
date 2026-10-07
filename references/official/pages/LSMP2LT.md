@@ -1,0 +1,20 @@
+{{TAGDEF|LSMP2LT|.FALSE. {{!}} .TRUE.}}
+{{DEF|LSMP2LT|.FALSE.|}}
+
+Description: {{TAG|LSMP2LT}} selects a stochastic Laplace transformed MP2 algorithm.
+----
+
+If {{TAG|LSMP2LT}}=.TRUE. and {{TAG|ALGO}}=ACFTDRK is set, a quartic scaling stochastic Laplace transformed MP2 algorithm is selected.{{cite|schaefer:JCP2017}} 
+
+This tag should be used in combination with {{TAG|KPAR}} to tweak parallelization as described in this tutorial.
+## Related tags and articles
+{{TAG|NOMEGA}},
+{{TAG|ESTOP}},
+{{TAG|NSTORB}},
+{{TAG|KPAR}},
+{{TAG|ALGO}}
+
+{{sc|LMP2LT|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Many-body perturbation theoryCategory:MP2

@@ -1,0 +1,17 @@
+{{TAGDEF|EDIFFG|[real]|{{TAG|EDIFF}}&times;10}}
+
+Description: {{TAG|EDIFFG}} defines the break condition for the ionic relaxation loop.
+----
+When {{TAG|EDIFFG}} is positive, the relaxation is stopped when the change of the total energy is smaller than {{TAG|EDIFFG}} between two ionic steps.
+
+When {{TAG|EDIFFG}} is negative, the relaxation is stopped when the norms of all the forces are smaller than |{{TAG|EDIFFG}}|. This is usually a more convenient setting.
+
+If {{TAG|EDIFFG}} = 0, the ionic relaxation is stopped after {{TAG|NSW}} steps.
+{{NB|warning|{{TAG|EDIFFG}} does not apply to molecular-dynamics simulations.}}
+{{NB|tip|You can get information at each electronic step using {{TAG|NWRITE|2,3}}.}}
+## Related tags and articles
+{{TAG|EDIFF}}, {{TAG|NWRITE}}
+
+{{sc|EDIFFG|Examples|Examples that use this tag}}
+----
+Category:INCAR tagCategory:ForcesCategory:Ionic minimization

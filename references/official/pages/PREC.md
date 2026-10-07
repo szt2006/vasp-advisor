@@ -1,0 +1,61 @@
+{{TAGDEF|PREC|Normal {{!}} Single {{!}} SingleN {{!}} Accurate {{!}} Low {{!}} Medium {{!}} High}}
+{{DEF|PREC|Medium|for VASP.4.X|Normal|since VASP.5.X}}
+
+Description: {{TAG|PREC}} specifies the "precision" mode.
+----
+{{TAG|PREC}} sets default values for the energy cutoff {{TAG|ENCUT}}, the FFT grids ({{TAG|NGX}},{{TAG|NGY}},{{TAG|NGZ}}) and ({{TAG|NGXF}},{{TAG|NGYF}},{{TAG|NGZF}}), and the accuracy of the projectors in real space {{TAG|ROPT}} (used only when {{TAG|LREAL}}=.TRUE.). Details are given below in the table.
+
+We recommend using {{TAG|PREC}}=Normal or {{TAG|PREC}}=Accurate. {{TAG|PREC}}=Normal can be used for most routine calculations. {{TAG|PREC}}=Accurate leads to a denser grid ({{TAG|NGX}},{{TAG|NGY}},{{TAG|NGZ}}). Thus, it reduces egg-box effects and strictly avoids any aliasing/wrap-around errors. {{TAG|PREC}}=Normal and {{TAG|PREC}}=Accurate use an augmentation fine grid ({{TAG|NGXF}},{{TAG|NGYF}},{{TAG|NGZF}}) that is twice larger than the grid ({{TAG|NGX}},{{TAG|NGY}},{{TAG|NGZ}}) used for the representation of the pseudo-orbitals. {{TAG|PREC}}=Accurate increases the memory requirements somewhat, but it should be used (in combination with an increased value for {{TAG|ENCUT}}) when a very good accuracy is required, e.g., for accurate forces, for phonons and stress tensor or in general when second derivatives are computed. The accuracy of forces can also be sometimes further improved by specifying {{TAG|ADDGRID}}=.TRUE., however, reports from users are somewhat contradictory about whether this really helps. More details can be found at Energy cutoff and FFT mesh.
+{{NB|important|
+*We strongly recommend specifying the energy cutoff {{TAG|ENCUT}} always manually in the {{FILE|INCAR}} file to ensure the same accuracy between calculations. Otherwise, the default {{TAG|ENCUT}} may differ among the different calculations (e.g., for the calculation of the cohesive energy), with the consequence that the total energies, for instance, can not be compared.
+*Setting {{TAG|PREC}}{{=}}Accurate does not necessarily mean that the results are converged. The convergence of the results with respect to the energy cutoff {{TAG|ENCUT}} has to be checked separately.
+*Setting {{TAG|ENAUG}} has an effect only if {{TAG|PREC}} is set to one of the deprecated settings (Low, Medium or High); otherwise, it is ignored.}}
+{{NB|mind|
+*The value of a parameter set by {{TAG|PREC}} (e.g., {{TAG|ENCUT}}) can be overridden by specifying explicitly the value of that parameter in the {{FILE|INCAR}} file.
+*{{TAG|PREC}}{{=}}Normal and {{TAG|PREC}}{{=}}Accurate are only available in VASP.4.5 and newer versions. The setting {{TAG|PREC}}{{=}}Single is only available as of VASP.5.1, and has been updated in VASP.6.}}
+{{NB|deprecated|The old settings {{TAG|PREC}}{{=}}Medium, High and Low are no longer recommended and are available only for backward compatibility. Essentially, {{TAG|PREC}}{{=}}High only increases the energy cutoff by 30 %, which can also be achieved by just manually increasing {{TAG|ENCUT}}.}}
+## Default values set by {{TAG|PREC}}
+Default values set by {{TAG|PREC}} for the parameters {{TAG|ENCUT}}, ({{TAG|NGX}},{{TAG|NGY}},{{TAG|NGZ}}), ({{TAG|NGXF}},{{TAG|NGYF}},{{TAG|NGZF}}) and {{TAG|ROPT}}:
+
+::{| cellpadding="6" cellspacing="0" border="1"
+  {{TAG|PREC}} ||align="center"|{{TAG|ENCUT}} ||align="center"| {{TAG|NGX}},Y,Z ||align="center"| {{TAG|NGXF}},YF,ZF ||align="center"| {{TAG|ROPT}} ({{TAG|LREAL}}=A) ||align="center"| {{TAG|ROPT}} ({{TAG|LREAL}}=O)
+  Normal ||align="center"|max({{TAG|ENMAX}}) ||align="center"| 3/2&times;G_{\rm cut} ||align="center"|2&times;{{TAG|NGX}} ||align="center"|-5&times;10-4 ||align="center"| 1.0
+  Single (VASP.5) ||align="center"|max({{TAG|ENMAX}}) ||align="center"| 3/2&times;G_{\rm cut} ||align="center"|{{TAG|NGX}} ||align="center"|-5&times;10-4 ||align="center"| 1.0
+  Single (VASP.6) ||align="center"|max({{TAG|ENMAX}}) ||align="center"| 2&times;G_{\rm cut} ||align="center"|{{TAG|NGX}} ||align="center"|-5&times;10-4 ||align="center"| 1.0
+  SingleN (VASP.6) ||align="center"|max({{TAG|ENMAX}}) ||align="center"| 3/2&times;G_{\rm cut} ||align="center"|{{TAG|NGX}} ||align="center"| -5&times;10-4 ||align="center"| 1.0
+  Accurate ||align="center"|max({{TAG|ENMAX}}) ||align="center"|2&times;G_{\rm cut} ||align="center"|2&times;{{TAG|NGX}}||align="center"|-2.5&times;10-4 ||align="center"| 1.0
+  colspan="6" | **Deprecated settings:**
+  Low ||align="center"|max({{TAG|ENMIN}}) ||align="center"| 3/2&times;G_{\rm cut} ||align="center"|3&times;G_{\rm aug} ||align="center"|-1&times;10-2 ||align="center"| 2/3
+  Medium ||align="center"|max({{TAG|ENMAX}}) ||align="center"| 3/2&times;G_{\rm cut} ||align="center"|4&times;G_{\rm aug} ||align="center"|-2&times;10-3 ||align="center"| 1.0
+  High || 1.3&times;max({{TAG|ENMAX}}) ||align="center"|2&times;G_{\rm cut} ||align="center"|16/3&times;G_{\rm aug} ||align="center"|-4&times;10-4 ||align="center"| 1.5
+
+where max({{TAG|ENMAX}}) and max({{TAG|ENMIN}}) are the maxima of {{TAG|ENMAX}} and {{TAG|ENMIN}} found in the {{FILE|POTCAR}} file, and G_{\rm cut} and G_{\rm aug} are defined by
+:E_{\rm cut}=\frac{\hbar^2}{2m_e}G_{\rm cut}^2 \qquad E_{\rm aug}=\frac{\hbar^2}{2m_e}G_{\rm aug}^2
+with E_{\rm cut}={{TAG|ENCUT}} and E_{\rm aug}={{TAG|ENAUG}}.
+## Further remarks
+*With {{TAG|PREC}}=Normal, Single, and Accurate the grid ({{TAG|NGXF}},{{TAG|NGYF}},{{TAG|NGZF}}) representing the augmentation charges, charge densities and potentials has either the same size ({{TAG|PREC}}=Single) or the double size ({{TAG|PREC}}=Normal or Accurate) as the grid ({{TAG|NGX}},{{TAG|NGY}},{{TAG|NGZ}}). With the deprecated (and no longer recommended) settings for {{TAG|PREC}} (Low, Medium and High), the grid ({{TAG|NGXF}},{{TAG|NGYF}},{{TAG|NGZF}}) is determined by some heuristic formula from {{TAG|ENAUG}}.
+
+*{{TAG|PREC}}=Single uses the same grid ({{TAG|NGX}},{{TAG|NGY}},{{TAG|NGZ}}) as {{TAG|PREC}}=Normal in VASP.5, but the same grid as {{TAG|PREC}}=Accurate in VASP.6. However, the double grid technique is not used, i.e., ({{TAG|NGXF}},{{TAG|NGYF}},{{TAG|NGZF}})=({{TAG|NGX}},{{TAG|NGY}},{{TAG|NGZ}}). This is convenient if one needs to cut down on storage demands or if one wants to reduce the size of the files {{FILE|CHG}} and {{FILE|CHGCAR}}. Furthermore, {{TAG|PREC}}=Single avoids high-frequency oscillations caused by the double-grid technique and the resulting Fourier interpolation. It is often expedient for scanning tunneling simulations or other calculations where high-frequency wiggles of the charge density in the vacuum region are undesirable.
+
+*{{TAG|PREC}}=High should guarantee that the absolute energies are converged to a few meV and the stress tensor converged within a few kBar.
+## Related tags and articles
+{{TAG|NGX}},
+{{TAG|NGY}},
+{{TAG|NGZ}},
+{{TAG|NGXF}},
+{{TAG|NGYF}},
+{{TAG|NGZF}},
+{{TAG|ENCUT}},
+{{TAG|ENAUG}},
+{{TAG|ENMIN}},
+{{TAG|ENMAX}},
+{{TAG|ROPT}},
+{{TAG|LREAL}},
+{{TAG|ADDGRID}},
+{{TAG|PRECFOCK}},
+Energy cutoff and FFT mesh,
+Wrap-around errors
+
+{{sc|PREC|Examples|Examples that use this tag}}
+
+Category:INCAR tagCategory:Projector-augmented-wave methodCategory:Memory

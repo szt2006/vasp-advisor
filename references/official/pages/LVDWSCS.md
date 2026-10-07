@@ -1,0 +1,12 @@
+{{DEF|LVDWSCS|.TRUE.|if {{TAG|IVDW}}{{=}}202 (MBD@rsSCS method)|.FALSE.|otherwise}}
+
+Description: {{TAGDEF|LVDWSCS}} activates the {{TAG|self-consistent screening in Tkatchenko-Scheffler method}}.
+----
+## Related tags and articles
+{{TAG|IVDW}},
+{{TAG|Tkatchenko-Scheffler method}},
+{{TAG|Self-consistent screening in Tkatchenko-Scheffler method}}
+
+{{sc|LVDWSCS|Examples|Examples that use this tag}}
+----
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:van der Waals functionals

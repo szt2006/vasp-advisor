@@ -1,0 +1,16 @@
+{{TAGDEF|PARAM1|[real]|0.1234}}
+
+Description: \mu for {{TAG|GGA}}=MK, \beta for {{TAG|GGA}}=BO. 
+----
+
+The {{TAG|PARAM1}} tag determines the value corresponding to different parameters depending on the {{TAG|GGA}} functional that is chosen:
+*\mu in the optB86b{{cite|klimes:prb:2011}}, B86R{{cite|hamada:prb:2014}}, and DF3-opt2{{cite|chakraborty:jctc:2020}} exchange functionals, which have the same analytical form and correspond to {{TAG|GGA}}=MK. {{TAG|PARAM1}} should in principle be set to 0.1234 for the optB86b-vdW nonlocal functional{{cite|klimes:prb:2011}} or to 10/81\approx0.1234568 for the rev-vdW-DF2{{cite|hamada:prb:2014}} and vdW-DF3-opt2{{cite|chakraborty:jctc:2020}} nonlocal functionals.
+*\beta in the optB88{{cite|klimes:jpcm:2010}} exchange functional or \mu/\kappa in the DF3-opt1{{cite|chakraborty:jctc:2020}} exchange functional, which have the same analytical form and correspond to {{TAG|GGA}}=BO. {{TAG|PARAM1}} should in principle be set to 0.22/1.2\approx0.1833333333 for the optB88-vdW nonlocal functional{{cite|klimes:jpcm:2010}} or to (10/81)/1.1\approx0.1122334456 for the vdW-DF3-opt1{{cite|chakraborty:jctc:2020}} nonlocal functional.
+
+The complete {{TAG|INCAR}} file for the nonlocal van der Waals functionals mentioned above can be found at {{TAG|Nonlocal vdW-DF functionals}}.
+## Related tags and articles
+{{TAG|PARAM2}}, {{TAG|GGA}}, {{TAG|Nonlocal vdW-DF functionals}}
+
+{{sc|PARAM1|Examples|Examples that use this tag}}
+## References
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:van der Waals functionals

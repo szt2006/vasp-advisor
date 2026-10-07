@@ -1,0 +1,22 @@
+{{DISPLAYTITLE:VDW_S9}}
+{{TAGDEF|VDW_S9|[real]}}
+{{DEF|VDW_S9|1|if {{TAG|IVDW}}{{=}}13 (DFT-D4 package)|0|if {{TAG|IVDW}}{{=}}15 (simple DFT-D3 package)|0|if {{TAG|IVDW}}{{=}}11 or 12 ('''cannot be changed''')}}
+
+Description: {{TAG|VDW_S9}} sets the contribution of the three-body term to the dispersion energy.
+----
+{{TAG|VDW_S9}} allows to set the coefficient <math>s_{9}</math> that multiplies the three-body (Axilrod–Teller–Muto) term in the DFT-D3 and DFT-D4 methods implemented in the [[simple-DFT-D3]] ({{TAG|IVDW}}=15) and [[DFT-D4]] ({{TAG|IVDW}}=13) external packages, respectively.
+{{NB|mind|
+*The {{TAG|VDW_S9}} tag is available from VASP.6.6.0 onwards.
+*<math>s_{9}=0</math> for {{TAG|IVDW}}{{=}}11 and 12 (VASP implementation of [[DFT-D3]]) and cannot be changed with {{TAG|VDW_S9}}.}}
+
+== Related tags and articles ==
+{{TAG|IVDW}},
+{{TAG|VDW_S6}},
+{{TAG|VDW_S8}},
+[[simple-DFT-D3]],
+[[DFT-D4]]
+
+{{sc|VDW_S9|Examples|Examples that use this tag}}
+----
+
+[[Category:INCAR tag]][[Category:Exchange-correlation functionals]][[Category:van der Waals functionals]]

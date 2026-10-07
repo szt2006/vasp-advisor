@@ -1,0 +1,22 @@
+{{DISPLAYTITLE:LDOWNSAMPLE}}
+{{TAGDEF|LDOWNSAMPLE|[logical]|.FALSE.}}
+
+Description: {{TAG|LDOWNSAMPLE}} selects a sub-grid of k-points defined in {{FILE|KPOINTS}} from {{FILE|WAVECAR}}
+----
+
+If {{TAG|LDOWNSAMPLE}} is present, VASP selects a sub-grid of k-points defined in {{FILE|KPOINTS}} and stored in the {{FILE|WAVECAR}} file.
+This option is automatically selected for cRPA calculations, where it can be beneficial to perform the Wannier projection on a denser k-point grid than the actual cRPA calculation. For this purpose, the Wannier projection should be written to {{FILE|WANPROJ}}.
+
+This tag is not restricted to cRPA jobs and can be used for any other task that start from a pre-calculated {{FILE|WAVECAR}} and/or {{FILE|WANPROJ}} file.
+
+By default, the automatic search for the grid multiplier applies the same factor in all three reciprocal-lattice directions. For anisotropic k-point grids where the dense-to-coarse ratio differs per direction, set {{TAG|K_MULTIPLY}} explicitly. Setting {{TAG|K_MULTIPLY}} in the {{FILE|INCAR}} automatically enables {{TAG|LDOWNSAMPLE}}.
+## Related tags and articles
+{{TAG|K_MULTIPLY}},
+{{TAG|LWANNIER90}},
+{{TAG|LWANNIER90_RUN}},
+{{TAG|WANPROJ}}
+
+{{sc|LDOWNSAMPLE|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Wannier functionsCategory:Constrained-random-phase approximationCategory:Many-body perturbation theory

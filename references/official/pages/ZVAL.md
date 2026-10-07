@@ -1,0 +1,13 @@
+{{TAGDEF|ZVAL|[real]}}
+
+Description: {{TAG|ZVAL}} states the valency of the pseudopotential.
+
+----
+
+The values of {{TAG|ZVAL}} for all species are read from the {{TAG|POTCAR}} file and printed as a list to the {{FILE|OUTCAR}} file.
+
+The tables on the Available pseudopotentials page show the corresponding electronic valence configurations of all available potentials.
+## Related tags and articles
+{{TAG|POMASS}}, {{FILE|POTCAR}}
+
+Category:POTCAR tagCategory:Projector-augmented-wave methodCategory:Electronic occupancy

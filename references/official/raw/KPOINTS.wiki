@@ -1,0 +1,495 @@
+The {{FILE|KPOINTS}} file specifies the Bloch vectors ('''k''' points) used to sample the Brillouin zone.
+Converging this sampling is one of the essential tasks in many calculations concerning the [[Electronic minimization|electronic minimization]].
+A [[#Regular k-point mesh|regular mesh]] is the most common choice to select '''k''' points:
+ Regular 4 x 4 x 4 mesh centered at Gamma 
+ 0
+ Gamma
+ 4 4 4
+{{NB|tip|Choose the number of points along each direction approximately inversely proportional to the corresponding length of the unit cell.}}
+
+A [[:Category:Band structure | band structure]] is often visualized along high-symmetry paths.
+Some external tools{{cite|bilbao:kvec}}{{cite|seekpath}} help to identify these points for materials of any symmetry.
+Use the template below to setup [[#Band-structure calculations|band-structure calculations]].
+Alternatively, use a {{FILE|KPOINTS_OPT}} file to get the band structure as a postprocessing step after the regular calculation.
+
+ k points along high symmetry lines
+  40              ! number of points per line
+ line mode
+ fractional
+   0    0    0    Γ
+   0.5  0.5  0    X
+ 
+   0.5  0.5  0    X
+   0.5  0.75 0.25 W
+ 
+   0.5  0.75 0.25 W
+   0    0    0    Γ
+{{NB|tip|If the {{FILE|KPOINTS}} file is not present, the tag {{TAG|KSPACING}} determines the '''k'''-point sampling. Use that option for a quick first run but prefer generating a [[#Regular k-point mesh|regular mesh]] for production calculations.}}
+
+== Coordinate system ==
+
+When specifying coordinates in the {{FILE|KPOINTS}} file, use one of the following coordinate systems:
+
+;Fractional coordinate system: The '''k''' points are linear combinations of the reciprocal lattice vectors <math>{\mathbf b}_{1\ldots3}</math>
+:: <math>{\mathbf k} = x_1 {\mathbf b}_1 + x_2 {\mathbf b}_2 + x_3 {\mathbf b}_3~.</math>
+: Use the factors <math>x_{1\ldots3}</math> as the coordinates in {{FILE|KPOINTS}}.
+
+;Cartesian coordinate system: The coordinates <math>x_{1\ldots3}</math> directly correspond to the '''k''' point
+::<math>{\mathbf k} =\frac{2 \pi}{a} (x_1, x_2 , x_3)~.</math>
+: up to the scaling factor <math>2\pi / a</math>. Here, <math>a</math> is the scaling parameter specified on the second line of the {{FILE|POSCAR}} file.
+
+'''Example: face-centered-cubic (fcc) lattice'''
+
+The following lattice vectors <math>\mathbf a_i</math> span the unit cell:
+
+::<math>
+\mathbf a_1 = a \begin{pmatrix} 0 \\ 1/2 \\ 1/2\end{pmatrix} 
+\qquad
+\mathbf a_2 = a \begin{pmatrix} 1/2 \\ 0 \\ 1/2\end{pmatrix} 
+\qquad
+\mathbf a_3 = a \begin{pmatrix} 1/2 \\ 1/2 \\ 0\end{pmatrix}
+</math>
+
+The corresponding reciprocal lattice vectors <math>\mathbf b_i</math> are
+
+::<math>
+\mathbf b_1 = \frac{2 \pi}{a} \begin{pmatrix} -1 \\ 1 \\ 1 \end{pmatrix}
+\qquad
+\mathbf b_2 = \frac{2 \pi}{a} \begin{pmatrix} 1 \\ -1 \\ 1 \end{pmatrix}
+\qquad
+\mathbf b_3 = \frac{2 \pi}{a} \begin{pmatrix} 1 \\ 1 \\ -1 \end{pmatrix}~.
+</math>
+
+The following table shows several high-symmetry points of the fcc lattice expressed in Cartesian and fractional coordinates, respectively:
+
+ Point     Cartesian coordinates     Fractional coordinates
+             (units of 2pi/a)         (units of b1,b2,b3)
+ ----------------------------------------------------------
+   Γ         (  0    0    0  )         (  0    0    0  )
+   X         (  0    0    1  )         ( 1/2  1/2   0  )
+   W         ( 1/2   0    1  )         ( 1/2  3/4  1/4 )
+   K         ( 3/4  3/4   0  )         ( 3/8  3/8  3/4 )
+   L         ( 1/2  1/2  1/2 )         ( 1/2  1/2  1/2 )
+
+== Explicit '''k'''-point mesh ==
+
+When an explicit '''k'''-point mesh is provided, VASP uses exactly the provided points.
+The primary use case of this mode is to look at particular features in the band structure, e.g., for effective mass calculations.
+For [[#Regular regular k-point mesh|regular meshes]] and [[#Band structure calculations|band structures]], we recommend using the automatic generation to avoid mistakes.
+Nevertheless, all other modes write the processed input in this format to the {{FILE|IBZKPT}} file, so understanding this format helps analyze mistakes in setting up the {{FILE|KPOINTS}} file.
+A typical example has the following format:
+
+ <span style="color:var(--vgrey)">Explicit k-point list</span>
+ <span style="color:var(--vcyan)">4</span>
+ <span style="color:var(--vred)">Cartesian</span>
+ <span style="color:var(--vblue)">0.0  0.0  0.0   1
+ 0.0  0.0  0.5   1
+ 0.0  0.5  0.5   2
+ 0.5  0.5  0.5   4</span>
+
+* The first line is treated as a <span style="color:var(--vgrey)">comment line</span>.
+* Provide the <span style="color:var(--vcyan)">number of '''k''' points</span> on the second line.
+* The first character on the third line specifies the [[#Coordinate system|coordinate system]]. Use <span style="color:var(--vred)">''C'', ''c'', ''K'', or ''k'' to indicate Cartesian coordinates. Any other character is interpreted as fractional/reciprocal coordinates</span> but we advise writing ''fractional'' or ''reciprocal'' to make this clear.
+* Each following line contains the <span style="color:var(--vblue)">coordinates and weight of one '''k''' point</span>. VASP takes care that weights are properly normalized so only relative weight is important. Typically the weights correspond to the symmetry degeneracy of a '''k''' point.
+
+Use the explicit mode for
+
+* a (small) number of '''k''' points not forming a regular mesh.
+* the calculation of band structure when [[#Band structure calculations|the line mode]] is not suitable (example: [[Si_bandstructure|hybrid functionals]]).
+* the irreducible part of the [[KPOINTS#generalized_regular_meshes|genereralized regular meshes]] generated for a particular target sampling density.{{cite|wisesa:prb:2016}}{{cite|morgan:cms:2020}} Generate the corresponding {{FILE|KPOINTS}} files with KpLib{{cite|kplib}} or autoGR{{cite|auto_gr}}.
+
+'''Tetrahedron method'''
+
+:When using the tetrahedron method (see {{TAG|ISMEAR}}), extend the list of '''k''' points by a list of all tetrahedra.
+
+ Explicit k-point list
+ 4
+ Cartesian
+ 0.0  0.0  0.0   1
+ 0.0  0.0  0.5   1
+ 0.0  0.5  0.5   2
+ 0.5  0.5  0.5   4
+ Tetrahedra
+ 1  0.183333333333333
+ 6    1 2 3 4
+
+:The line following the list of '''k''' point coordinates and weights must start with 'T' or 't'. On the next line, enter the number of tetrahedra and the volume weight common to all the tetrahedra. The volume weight is simply the ratio between the volume of a tetrahedron and the volume of the first Brillouin zone.
+
+:Subsequently, list the symmetry-degeneration weight and the four corner points of each tetrahedron. The four integers represent the indices of the corners of the tetrahedron in the '''k'''-point list given above. Here, the counter starts at 1 and corresponds to the '''k''' point specified in the fourth line.
+{{NB|warning|VASP does not renormalize the weights of the tetrahedra. Make sure they are appropriately normalized.|:}}
+{{NB|important|Explicitly listing all the '''k''' points is not very convenient, especially in the context of the tetrahedron method. Keep in mind that the automatic modes generate the {{FILE|IBZKPT}} file in this format. For any nontrivial case, preferably modify an automatically-generated {{FILE|IBZKPT}} instead of building an explicit list from scratch.}}
+
+== Regular '''k'''-point mesh ==
+
+This mode will automatically generate a mesh where each lattice vector is subdivided into an explicitly defined number of subdivisions.
+It offers sufficient flexibility and stability and should be preferred for most production calculations.
+Choose the number of subdivisions <math>N_1</math>, <math>N_2</math> and <math>N_3</math> in the {{FILE|KPOINTS}} file like this
+
+ <span style="color:var(--vgrey)">Regular k-point mesh</span>
+ <span style="color:var(--vcyan)">0              ! 0 -> determine number of k points automatically</span>
+ <span style="color:var(--vred)">Gamma          ! generate a Gamma centered mesh</span>
+ <span style="color:var(--vblue)">4  4  4        ! subdivisions N_1, N_2 and N_3 along the reciprocal lattice vectors</span>
+ <span style="color:var(--vpurple)">0  0  0        ! optional shift of the mesh (s_1, s_2, s_3)</span>
+
+* The first line is a <span style="color:var(--vgrey)">comment line</span>.
+* In the second line, set the number of '''k''' points to <span style="color:var(--vcyan)">0 to indicate an automatic mesh generation</span>.
+* The first nonblank character of the third line determines the center of the mesh. The <span style="color:var(--vred)">possible choice are Γ-centered (''G'', ''g'') or the Monkhorst-Pack scheme (''M'', ''m'')</span>.{{cite|monkhorst:prb:1976}}
+* Specify the desired number of <span style="color:var(--vblue)">subdivisions</span> <math>N_1</math>, <math>N_2</math> and <math>N_3</math> in the fourth line.
+* Optionally add a fifth line to <span style="color:var(--vpurple)">shift</span> the mesh by <math>(s_1, s_2, s_3)</math> with respect to the default.
+
+;Γ-centered mesh
+: The following '''k''' points sample the Brillouin zone
+::<math> {\mathbf k} = \sum_{i = 1}^3 \frac{n_i+s_i}{N_i} {\mathbf b}_i  \qquad \forall {n_i \in [0, N_i[}</math>
+
+;Monkhorst-Pack mesh
+: The '''k''' point mesh results from this definition
+::<math> {\mathbf k} = \sum_{i = 1}^3 \frac{n_i+s_i+\frac{1-N_i}{2}}{N_i} {\mathbf b}_i  \qquad \forall {n_i \in [0, N_i[}</math>
+
+The spacing between the points is the same for both meshes.
+The only difference is the shift <math>(1-N_i)/2</math> in the numerator of the Monkhorst-Pack mesh.
+For an odd number of subdivisions, this term is an integer, and therefore the two meshes agree due to periodic boundaries.
+When the number of subdivisions is even the Γ-centered mesh is shifted by <math>s_i = 1/2</math> compared to the Monkhorst-Pack one.
+{{NB|important|Monkhorst-Pack meshes may converge faster than the Γ-centered ones. However, carefully read the [[KPOINTS#Symmetry reduction of the mesh|section on symmetry considerations]] to avoid breaking the symmetry with a Monkhorst-Pack mesh.}}
+
+'''Guidelines for the choice of the subdivisions'''
+
+As a rule of thumb, choose <math>N_1</math>, <math>N_2</math>, and <math>N_3</math> such that
+::<math>N_1 : N_2 : N_3 \approx |\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|~.</math>
+This guideline is also implemented for the automatic '''k'''-point generation using {{TAG|KSPACING}}.
+Nevertheless, specifying the <math>N_1</math>, <math>N_2</math>, and <math>N_3</math> manually ensures that changes in the lattice vectors do not affect the '''k'''-point mesh.
+When the primitive cell has (nearly) perpendicular axes (cubic, tetragonal, orthorhombic), this is equivalent to:
+::<math>N_1 : N_2 : N_3 \approx \frac{1}{|\mathbf a_1|} : \frac{1}{|\mathbf a_2|} : \frac{1}{|\mathbf a_3|}~.</math>
+Of course, this only provides a guide for the ratios between the subsections. The actual density of the '''k''' point mesh has to be increased until some relevant output quantity of the calculation is converged.
+
+== Symmetry reduction of the mesh ==
+
+VASP determines the [[:Category:Symmetry|symmetry of the system]].
+For {{TAG|ISYM}} <math>\ge</math> 0, the automatically generated '''k'''-point meshes are reduced to the irreducible subset.
+Every '''k''' point acquires a weight following their symmetry multiplicity.
+This can significantly reduce the total number of '''k''' points.
+{{NB|important|To enable an efficient symmetry reduction, the (shifted) regular mesh of '''k''' points should conserve the point-group symmetry of the reciprocal lattice. Specifically, the generating lattice (<math>\mathbf g_i = \mathbf k_i / N_i</math>) should belong to the same class of Bravais lattice as the reciprocal lattice.}}
+Consequently, refrain from using a shifted regular mesh for some Bravais lattices, see table.
+Importantly, this includes the default Monkhorst-Pack mesh for even numbers of subdivisions.
+Furthermore, the reciprocal lattice vectors do not in general align with lattice vectors.
+There is typically a difference in the subdivisions obtained from the inverse of the lattice vectors or the reciprocal lattice vectors.
+::<math>
+\frac{1}{|\mathbf a_1|} : \frac{1}{|\mathbf a_2|} : \frac{1}{|\mathbf a_3|} \neq |\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3| \qquad \text{in general}
+</math>
+In some special cases, the two options are equal, e.g., when the length of all vectors is the same, or they are mutually perpendicular.
+Unfortunately, either choice yields incompatible '''k''' point meshes for some of the Bravais lattices.
+Consult the table below to make an informed choice depending on the symmetry of the system.
+
+{| class=wikitable
+! Bravais lattice
+! variant
+! mesh choices
+! subsection choices
+|-
+| triclinic
+| primitive
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+|rowspan="2"| monoclinic
+| primitive
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+| base-centered
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+|rowspan="4"| orthorhombic
+| primitive
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+| base-centered
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+| body-centered
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>
+|-
+| face-centered
+| <math>\Gamma</math>-centered
+| <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+|rowspan="2"| tetragonal
+| primitive
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+| body-centered
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>
+|-
+|rowspan="2"| hexagonal
+| rhombohedral
+| <math>\Gamma</math>-centered
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+| hexagonal
+| <math>\Gamma</math>-centered
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+|rowspan="3"| cubic
+| primitive
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+| body-centered
+| <math>\Gamma</math>-centered, Monkhorst Pack
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|-
+| face-centered
+| <math>\Gamma</math>-centered
+| <math>|\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math>, <math>|\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>
+|}
+{{NB|tip|VASP issues an error when it detects an incompatible '''k'''-point mesh. The specific error message depends on the particular setup but includes the name of the routine ''IBZKPT'', some warning about the ''generating k-lattice'', and some suggestions to overcome the problem.}}
+
+Summarizing the information in the table above
+
+* Use '''only''' <math>\Gamma</math>-centered meshes for face-centered cubic (fcc), hexagonal, and fcc-orthorhombic crystalline lattices.
+* Choose the ratios of the subdivisions <math>N_1 : N_2 : N_3 = |\mathbf a_1|^{-1} : |\mathbf a_2|^{-1} : |\mathbf a_3|^{-1}</math> for ''body-centered tetragonal'' and ''body-centered orthorhombic'' lattices. Keep in mind that the {{TAG|KSPACING}} uses the reciprocal lattice vectors so may not be suitable for these symmetries.
+* For ''face-centered orthorhombic'' crystal structures, choose subdivisions according to <math>N_1 : N_2 : N_3 = |\mathbf b_1| : |\mathbf b_2| : |\mathbf b_3|</math>.
+* For any other symmetry, all combinations should work but a change to other subdivisions or meshes may overcome possible issues.
+
+Solve problems with the primitive cells of the body-centered tetragonal and body/face-centered orthorhombic Bravais lattices with one of these options:
+
+# Choose <math>N_1=N_2=N_3</math>. For <math>N \times N \times N</math> Monkhorst-Pack meshes the reciprocal lattice is always of the same Bravais lattice as the generating lattice. For body-centered tetragonal and face-centered orthorhombic primitive cells, the reciprocal lattices are body-centered tetragonal and body-centered orthorhombic, respectively. Therefore, choosing equal subdivisions is justified because the length of all reciprocal lattice vectors is the same <math>|\mathbf b_1|=|\mathbf b_2|=|\mathbf b_3|</math>.  
+# A simple but computationally-expensive option is to change to the conventional cell of the structure. For the body-centered tetragonal/orthorhombic structure, the conventional cell is two times bigger than the primitive cell.
+# Alternatively, define the '''k'''-point mesh for the conventional cell. This approach requires a [[KPOINTS#Generalized_regular_meshes|generalized regular mesh]] introduced in the next section and is demonstrated for the example of a body-centered orthorhombic lattice.
+
+== Generalized regular meshes ==
+
+When more control about the generated mesh is desired, one can specify the generating vectors explicitly.
+A typical use case would be to generate the mesh for the ''conventional'' unit cell and apply it to the ''primitive'' one.
+Build a {{FILE|KPOINTS}} file for this mode starting from this template
+
+ Automatic generation
+ 0
+ Cartesian
+ 0.25 0.00 0.00
+ 0.00 0.25 0.00
+ 0.00 0.00 0.25
+ 0.00 0.00 0.00
+
+The mode is activated by specifying the [[#Coordinate system|coordinate system]] with the first nonblank character in line 3.
+A ''C'', ''c'', ''K'' or ''k'' character determines that the generating basis vectors are in Cartesian coordinates.
+Use ''r'' or ''R'' to select the reciprocal coordinate system instead.
+The latter is also the default used if VASP cannot interpret the provided character but we recommend not relying on this behavior.
+Otherwise, the introduction of further automatic modes in the future versions of VASP may change the interpretation of the {{FILE|KPOINTS}} file. 
+
+VASP generates three vectors <math>\mathbf g_1</math>, <math>\mathbf g_2</math>, and <math>\mathbf g_3</math> from the coefficients <math>x_i</math> given in line 4–6.
+Depending on the selected [[#Coordinate system|coordinate system]] these vectors are either multiples of the reciprocal lattice vectors
+<math>\mathbf b_i</math> (reciprocal) or simply multiplying the coefficients by <math>2\pi/a</math> (Cartesian).
+Here <math>a</math> is the scaling parameter you have specified on the second line of the {{FILE|POSCAR}} file.
+{{NB|important|The generating vectors <math>\mathbf g_1</math>, <math>\mathbf g_2</math>, and <math>\mathbf g_3</math> must be commensurate with the reciprocal lattice. This means <math>\mathbf b_i = \textstyle \sum_{j} M_{ij} \mathbf g_j</math> where the matrix <math>M</math> contains only integer entries. If this is not the case the code will exit in error.}}
+
+Combined with the shift (<math>s_1</math>, <math>s_2</math>, <math>s_3</math>) specified in the last line, VASP uses the generating vectors <math>\mathbf g_i</math> to construct the '''k'''-point mesh
+
+::<math>{\mathbf k} = \sum_i {\mathbf g}_i (n_i + s_i) \qquad n_i \in [0, N_i[</math>
+
+where VASP chooses the <math>N_i</math> to include all possible points of the generating mesh in the first Brillouin zone.
+
+The [[#Regular k-point mesh|regular '''k'''-point meshes]] are a subset of the generalized regular meshes, for which
+::<math>\mathbf g_i = \mathbf b_i / N_i~.</math>
+Here, the generating lattice vectors are integer subdivisions of the reciprocal lattice vectors according to the <math>N_i</math> defined in the {{FILE|KPOINTS}} file.
+
+For instance, the generalized regular mesh given by
+
+ Automatic generation
+ 0
+ Reciprocal
+  0.25 0.00 0.00
+  0.00 0.25 0.00
+  0.00 0.00 0.25
+  0.50 0.50 0.50
+
+is equivalent to the Monkhorst-Pack mesh specified by
+
+ Automatic generation
+ 0
+ Monkhorst-pack
+  4 4 4
+  0 0 0
+
+
+A typical use-case for generalized regular meshes is to generate a '''k'''-point mesh based on the ''conventional'' cell of a particular Bravais lattice to be used with the ''primitive'' cell of that lattice (see the [[#Symmetry reduction of the mesh|subsection on symmetry considerations]]).
+As an example, consider the primitive cell of a ''body-centered orthorhombic'' lattice:
+::<math>
+A = a \left( \begin{array}{rrr}
+-1/2  &  b/2a &  c/2a \\
+ 1/2  & -b/2a &  c/2a \\
+ 1/2  &  b/2a & -c/2a \\
+\end{array} \right)
+</math>
+where the rows of <math>A</math> represent the lattice vector of the primitive cell.
+The corresponding conventional cell is given by
+::<math>
+A = a \left( \begin{array}{rrr}
+ 1  &  0   &  0   \\
+ 0  &  b/a &  0   \\
+ 0 &   0   &  c/a \\
+\end{array} \right)
+</math>
+
+and its reciprocal lattice by
+::<math>
+B = \frac{2\pi}{a} \left( \begin{array}{rrr}
+ 1  &  0   &  0   \\
+ 0  &  a/b &  0   \\
+ 0 &   0   &  a/c \\
+\end{array} \right)~.
+</math>
+
+Then the following generating lattice based on the reciprocal lattice of the conventional cell 
+::<math>
+G = \frac{2\pi}{a} \left( \begin{array}{rrr}
+ 1/N_1  &  0   &  0   \\
+ 0  &  a/bN_2 &  0   \\
+ 0 &   0   &  a/cN_3 \\
+\end{array} \right)
+</math>
+yields a roughly uniform sampling of the Brillouin zone when <math>N_1</math>, <math>N_2</math>, and <math>N_3</math> are chosen such that:
+::<math>N_1 : N_2 : N_3 \approx 1 : \frac{a}{b} : \frac{a}{c}</math>
+
+For instance, for a body-centered orthorhombic primitive cell with <math>a=5, \; b/a=1.2 \; c/a=0.5</math>, here given in {{FILE|POSCAR}} file format:
+
+<pre>
+body-centered orthorhombic primitive cell
+5.0
+-0.500000  0.600000  0.250000
+ 0.500000 -0.600000  0.250000
+ 0.500000  0.600000 -0.250000
+1
+direct
+0.000000 0.000000 0.000000
+</pre>
+
+this following {{FILE|KPOINTS}} file
+
+<pre>
+Generalized regular mesh
+0
+Cartesian
+ 0.50000000  0.00000000  0.00000000
+ 0.00000000  0.41666667  0.00000000
+ 0.00000000  0.00000000  0.50000000
+ 0.00000000  0.00000000  0.00000000
+</pre>
+
+corresponds to the aforementioned generating lattice for <math>N_1=2</math>, <math>N_2=2</math>, and <math>N_3=4</math>.
+
+Furthermore, using generalized regular meshes potentially requires fewer '''k''' points compared to Monkhorst-Pack meshes to converge total energy calculations.{{cite|wisesa:prb:2016}}{{cite|morgan:cms:2020}}
+Specifically this statement applies to the number of '''k''' points in the irreducible part of the Brillouin zone after symmetry reduction.
+For the moment, however, VASP does not automatically construct optimal generalized regular '''k'''-point meshes.
+But external tools{{cite|kplib}}{{cite|auto_gr}} construct meshes with certain target sampling density in the spirit of the aforementioned publications.
+
+== Band-structure calculations ==
+
+When properties depend on the '''k''' vector, it is often convenient to visualize the property along high-symmetry lines.
+The line mode generates '''k''' points between user-defined points in the Brillouin zone.
+The most common use case is analyzing the electronic band structure.
+{{NB|warning|The mesh generated by this mode is not suitable for self-consistent calculations. Please set {{TAG|ICHARG}} {{=}} 11 to avoid updating the density.}}
+{{NB|mind| For meta-GGA and hybrid functionals, a regular mesh must always be provided. Refer to [[Band-structure calculation using meta-GGA functionals |band-structure calculations using meta-GGA functionals]] ''or'' [[Band-structure calculation using hybrid functionals|using hybrid functionals]], respectively.}}
+Build the {{FILE|KPOINTS}} based on this template
+
+ <span style="color:var(--vgrey)">k points along high symmetry lines</span>
+ <span style="color:var(--vcyan)"> 40              ! number of points per line</span>
+ <span style="color:var(--vred)">line mode</span>
+ <span style="color:var(--vblue)">fractional</span>
+ <span style="color:var(--vpurple)">  0    0    0    Γ
+   0.5  0.5  0    X
+ 
+   0.5  0.5  0    X
+   0.5  0.75 0.25 W
+ 
+   0.5  0.75 0.25 W
+   0    0    0    Γ</span>
+
+* The first line is a <span style="color:var(--vgrey)">comment line</span>.
+* Specify the <span style="color:var(--vcyan)">number of points per line segment</span> on the second line.
+* The line mode activates when the first nonblank character on the third line is an <span style="color:var(--vred)">''L'' or ''l'' (for ''line mode'')</span>
+* The fourth line defines the [[#Coordinate system|coordinate system]]. Use <span style="color:var(--vblue)">Cartesian (''C'', ''c'', ''K'', or ''k'') or fractional (any other character) coordinates</span>.
+* Afterwards, any pair of lines define one <span style="color:var(--vpurple)">path through the Brillouin zone</span>. The empty lines and the label of the high-symmetry points are not required but simplify understanding the {{FILE|KPOINTS}} file. {{py4vasp}} uses the labels for the band structure plots.
+
+The generated '''k'''-point mesh depends on the selected [[#Coordinate system|coordinate system]].
+VASP produces equidistant '''k''' points for each segment such that the total of points including the endpoints equals the required number.
+Specifically for the template above, 40 points from <math>\Gamma</math> to X, 40 points from X to W, and 40 points from W to <math>\Gamma</math>.
+Because the endpoints are included every time, this generates two X and W points.
+
+Transforming the same template to Cartesian coordinates produces
+
+ k points along high symmetry lines
+  40              ! number of points per line
+ line mode
+ Cartesian
+   0   0   0   Γ
+   0   0   1   X
+ 
+   0   0   1   X
+   0.5 0   1   W
+ 
+   0.5 0   1   W
+   0   0   1   Γ
+
+External tools{{cite|bilbao:kvec}}{{cite|seekpath}} are useful to decide which paths in the Brillouin zone to include.
+The tools provide the coordinates and the labels for a given structure.
+Because these paths depend on the symmetry, take special care that the analysis is not tainted by finite precision or rounding.
+Also, keep in mind that the primitive and the conventional unit cell have different reciprocal coordinate systems.
+
+Here is an example of a hexagonal structure
+
+ k-points along high symmetry lines for hexagonal structure
+  40
+ line
+ reciprocal
+ 0.000    0.000    0.500  A
+ 0.000    0.000    0.000  Gamma
+ 
+ 0.000    0.000    0.000  Gamma 
+ 0.500    0.000    0.000  M
+ 
+ 0.500    0.000    0.000  M
+ 0.333333 0.333333 0.000  K 
+ 
+ 0.333333 0.333333 0.000  K
+ 0.000    0.000    0.000  Gamma
+{{NB|mind|The primary use of this particular mode of '''k'''-point generation is the calculation of DFT band structures. Because the mesh does not yield a good electronic density, it should only be used on a converged density. Therefore, run a calculation using a [[#Regular k-point mesh|regular '''k'''-point mesh]] first. Freeze this density by setting {{TAG|ICHARG}} {{=}} 11 and run a non-self-consistent calculation with the line-mode '''k'''-point mesh afterward.
+As of VASP.6.3, the {{FILE|KPOINTS_OPT}} file runs these two steps in a single calculation. It uses the same format and its presence triggers the postprocessing step. Use it for band-structure calculations with hybrid functionals to avoid the more cumbersome [[Si bandstructure|manual specification]].}}
+
+== Automatic '''k'''-point mesh ==
+{{NB|deprecated|The {{TAG|KSPACING}} tag provides almost the same functionality. Preferably use that method instead.}}
+The following {{FILE|KPOINTS}} file generates a regular <math>\Gamma</math>-centered '''k'''-point.
+The subdivisions <math>N_1</math>, <math>N_2</math>, and <math>N_3</math> are along the reciprocal lattice vectors <math>\mathbf b_1</math>, <math>\mathbf b_2</math>, and <math>\mathbf b_3</math>, respectively.
+
+ <span style="color:var(--vgrey)">Fully automatic mesh</span>
+ <span style="color:var(--vcyan)">0              ! 0 -> automatic generation scheme </span>
+ <span style="color:var(--vred)">Auto           ! fully automatic</span>
+ <span style="color:var(--vblue)">  10           ! length (R_k)</span>
+
+* The first line is a <span style="color:var(--vgrey)">comment line</span>.
+* <span style="color:var(--vcyan)">Automatically</span> determine the number of '''k''' points <span style="color:var(--vcyan)">by setting '0'</span> on the second line.
+* The first nonblank character in the third line is <span style="color:var(--vred)">''A'' or ''a'' activating the fully-automatic mode</span>.
+* The fourth line defines a <span style="color:var(--vblue)">length (<math>R_k</math>) that determines the subdivisions</span> <math>N_1</math>, <math>N_2</math>, and <math>N_3</math>.
+
+For every lattice vector <math>\mathbf b_i</math> the number of subdivisions is calculated as
+::<math>N_i = \text{int}\left(\max(1, R_k |{\mathbf b}_i| + 0.5)\right)~.</math>
+Note that this similar to the {{TAG|KSPACING}} tag, when the length <math>R_k = 2\pi/\text{KSPACING}</math>.
+The generated mesh is centered at <math>\Gamma</math>
+::<math>{\mathbf k} = \sum_{i=1}^3 {\mathbf b}_i \frac{n_i}{N_i} \qquad \forall n_i \in [0, N_i[ </math>
+
+Useful values for the length vary between <math>R_k = 10</math> (large gap insulators) and <math>R_k = 100</math> (''d'' metals).
+Please verify that changes to <math>R_k</math> do not affect the quantity of interest.
+For production calculations, preferably specify the mesh dimensions explicitly to avoid discontinuities between different cell sizes.
+
+== Related tags and sections ==
+{{TAG|KSPACING}}, {{FILE|KPOINTS_OPT}}, {{FILE|IBZKPT}}, [[Number of k points and method for smearing]]
+
+== References ==
+<references/>
+
+[[Category:VASP]][[Category:Files]][[Category:Input files]][[Category:Band structure]][[Category:Symmetry]][[Category:Crystal momentum]]

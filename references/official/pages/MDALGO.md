@@ -1,0 +1,54 @@
+{{TAGDEF|MDALGO|0 {{!}} 1 {{!}} 2 {{!}} 3 {{!}} 4 {{!}} 5 {{!}} 11 {{!}} 21 {{!}} 13  |0}}
+
+Description: Specifies the thermostat and lattice dynamics for molecular-dynamics calculations (in case {{TAG|IBRION|0}}).
+----
+
+The algorithm for the thermostat and lattice dynamics is a crucial choise for any molecular-dynamics (MD) calculations ({{TAG|IBRION|0}}). In combination with the selected lattice degrees of freedom ({{TAG|ISIF}}), {{TAG|MDALGO}} determines the ensemble that is sampled during the MD run. The main output file is the {{FILE|REPORT}} file.
+
+{{TAG|MDALGO|op=>=1}} can be applied in the context of standard molecular-dynamics calculations, constrained molecular dynamics, metadynamics calculations, the slow-growth approach, monitoring geometric parameters using the {{FILE|ICONST}} file, biased molecular dynamics, and more.
+{{NB|mind|{{TAG|MDALGO|0|op=>=}} requires compilation with the precompiler option -Dtbdyn. This option is present by default in all makefile.include templates since {{VASP}} 5.4.4.}}
+## Options
+### {{TAG|MDALGO|1}}: Andersen thermostat
+:The Andersen thermostat can be used to sample an NVT ensemble or NVE ensemble. It requires setting an appropriate value for {{TAG|ANDERSEN_PROB}}. For an NVE ensemble, set {{TAG|ANDERSEN_PROB|0.0}}. This is usually done after thermalization to a certain target temperature. {{NB|tip|Leave the value for {{TAG|TEBEG}} that was set in the thermalization. For {{TAG|TEBEG|0.1|op=<}}, some part of the code assumes it is used for structure optimization and not an MD run.|:}} 
+### {{TAG|MDALGO|2}}: Nosé-Hoover thermostat
+:The Nosé-Hoover thermostat is currently only available for the NVT ensemble. It requires setting an appropriate value for {{TAG|SMASS}}.
+{{NB|tip|The Nosé-Hoover thermostat is a special case of the Nosé-Hoover chain thermostat ({{TAG|MDALGO|4}} with {{TAGDEF|NHC_NCHAINS|1}}). The control tags for {{TAG|MDALGO|4}} may be more convenient to use than the older implementation ({{TAG|MDALGO|2}}).|:}}
+### {{TAG|MDALGO|3}}: Langevin thermostat
+:The Langevin thermostat is available for sampling the NVT ensemble, NpT ensemble and NpH ensemble. The Langevin dynamics in the NpT ensemble is calculated by the method of Parrinello and Rahman{{cite|parrinello:prl:1980}}{{cite|parrinello:jap:1981}} combined with a Langevin thermostat.
+:* NVT ensemble: Set an appropriate value for the friction coefficients ({{TAG|LANGEVIN_GAMMA}}) for all species in the {{FILE|POSCAR}} file to enables the Langevin thermostat. Fix the cell shape and volume with {{TAG|ISIF|2|op=<=}}.
+:* NpT ensemble: To enable lattice dynamics set {{TAG|ISIF|3}} and specify a separate set of friction coefficient for the lattice degrees-of-freedom ({{TAG|LANGEVIN_GAMMA_L}}) as well as a ficticious mass for the lattice degrees-of-freedom ({{TAG|PMASS}}). At the moment, dynamics with *fixed volume+variable shape* ({{TAG|ISIF|4}}) or *fixed shape+variable volume* ({{TAG|ISIF|7}}) are not available. Optionally, one may define an external pressure ({{TAG|PSTRESS}}). Like for the NVT ensemble, set an appropriate value for the friction coefficients ({{TAG|LANGEVIN_GAMMA}}) for all species in the {{FILE|POSCAR}} file to enables the Langevin thermostat.
+
+:Also see stochastic boundary conditions.
+### {{TAG|MDALGO|4}}: Nosé-Hoover chain thermostat
+:The Nosé-Hoover chain thermostat can be only used to sample an NVT ensemble and requires selecting the number of thermostats in the chain via {{TAG|NHC_NCHAINS}} as well as choosing an appropriate setting for the thermostat parameter {{TAG|NHC_PERIOD}}. 
+### {{TAG|MDALGO|5}}: Canonical sampling through velocity-rescaling (CSVR thermostat)
+{{NB|mind|This option is available as of VASP 6.4.3.|:}}
+:The CSVR thermostat can be used to sample an NVT ensemble. It requires setting {{TAG|CSVR_PERIOD}}.
+### {{TAG|MDALGO|13}}: Multiple Andersen thermostats
+:Up to three user-defined atomic subsystems may be coupled with independent Andersen thermostats{{cite|andersen:jcp:1980}} ({{TAG|MDALGO|1}}). The {{FILE|POSCAR}} file must be organized such that the positions of atoms of subsystem *i+1* are defined after those for the subsystem *i*, and the following tags must be set: {{TAG|NSUBSYS}}, {{TAG|TSUBSYS}}, and {{TAG|PSUBSYS}}.
+### {{TAG|MDALGO|0}} (deprecated)
+:Selects a Nosé-Hoover thermostat which allows sampling the NVT ensemble at temperature {{TAG|TEBEG}}. The Nosé-Hoover thermostat requires an appropriate setting for {{TAG|SMASS}}. To sample an NVE ensemble set {{TAG|SMASS|-3}}. {{NB|deprecated|If possible, we recommend using one of the newer Nosé-Hoover thermostat implementations {{VASP}} provides ({{TAG|MDALGO|2 or 4}}). While the results (ensemble averages) should be identical ,this variant comes with some drawbacks regarding post-processing: the atom coordinates in output files will always be wrapped back into the box if atoms cross the periodic boundaries. This makes it impossible to carry out certain analysis, e.g., computing the mean squared displacement (MSD).|:}}
+### {{TAG|MDALGO|11}} (deprecated)
+:For VASP 5.x {{TAGDEF|MDALGO|11}} selects the Andersen thermostat. This is replaced by {{TAG|MDALGO|1}}.
+### {{TAG|MDALGO|21}} (deprecated)
+:For VASP 5.x it selects the Nosé-Hoover thermostat. This is replaced by {{TAG|MDALGO|2}}.
+## Related tags and articles
+:::{| cellpadding="5" cellspacing="5" style="width: 90%; border-spacing: 5px;"
+  style="text-align:center; background-color:#DEC4EB;"| thermostats || style="text-align:center; background-color:#DEC4EB;"| related INCAR tag 
+  style="background-color:#D9F8F5;"| Langevin thermostat and dynamics ||style="background-color:#D9F8F5;"|  {{TAG|LANGEVIN_GAMMA}}, {{TAG|LANGEVIN_GAMMA_L}}, {{TAG|PMASS}}, {{TAG|PSTRESS}}
+  style="background-color:#D9F8F5;"| Andersen thermostat ||style="background-color:#D9F8F5;"| {{TAG|ANDERSEN_PROB}}
+  style="background-color:#D9F8F5;"| Multiple Andersen thermostats ||style="background-color:#D9F8F5;"| {{TAG|NSUBSYS}}, {{TAG|TSUBSYS}}, {{TAG|PSUBSYS}}
+  style="background-color:#D9F8F5;"| Nosé-Hoover thermostat  ||style="background-color:#D9F8F5;"| {{TAG|SMASS}}
+  style="background-color:#D9F8F5;"| Nosé-Hoover chain thermostat  ||style="background-color:#D9F8F5;"| {{TAG|NHC_NCHAINS}}, {{TAG|NHC_PERIOD}}, {{TAG|NHC_NRESPA}}, {{TAG|NHC_NS}}
+  style="background-color:#D9F8F5;"| CSVR thermostat  ||style="background-color:#D9F8F5;"| {{TAG|CSVR_PERIOD}}
+
+General MD-related tags: {{TAG|IBRION}}, {{TAG|NSW}}, {{TAG|POTIM}}, {{TAG| ISIF}}, {{TAG|RANDOM_SEED}}
+
+MD output: {{FILE|REPORT}}
+
+{{sc|MDALGO|Howto|Workflows that use this tag}}
+## References
+<references>
+</references>
+
+Category:INCAR tagCategory:Molecular dynamics

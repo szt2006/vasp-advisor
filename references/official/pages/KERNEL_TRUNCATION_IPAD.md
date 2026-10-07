@@ -1,0 +1,45 @@
+{{DISPLAYTITLE:KERNEL_TRUNCATION/IPAD}}
+{{TAGDEF|KERNEL_TRUNCATION/IPAD| integer}}
+{{DEF|KERNEL_TRUNCATION/IPAD|3|if {{TAG|KERNEL_TRUNCATION/IDIMENSIONALITY|0}}|2|if {{TAG|KERNEL_TRUNCATION/IDIMENSIONALITY|2}}}}
+
+**Description:**  
+{{TAG|KERNEL_TRUNCATION/IPAD}} controls the padding strategy used for the Coulomb kernel truncation in reciprocal space. Padding defines how much additional empty space is introduced around the charge density before applying truncation.{{cite|vijay:prb:2025}} This affects both the accuracy of the truncated Coulomb potential and the computational cost.
+
+----
+
+Setting {{TAG|KERNEL_TRUNCATION/IPAD}} allows fine control over how much zero-padding is applied along each reciprocal-space direction. Padding ensures that the truncated Coulomb kernel does not artificially interact with its periodic replicas in non-periodic directions.  
+
+Typically, increasing {{TAG|KERNEL_TRUNCATION/IPAD}} improves accuracy at the expense of computational cost.  
+{{NB|mind|
+*{{TAG|KERNEL_TRUNCATION/LTRUNCATE}} must be set to .TRUE. for {{TAG|KERNEL_TRUNCATION/IPAD}} to have any effect.
+*This tag is only available as of VASP.6.5.0.}}
+{{NB|warning|When padding is used, the vaccum is added on the edges of the cell, as such it is very important that the motif is centered in the simulation box. If you encounter problems using Coulomb truncation with padding, try the same calculations without padding (see examples bellow).}}
+## Example
+KERNEL_TRUNCATION {
+     LTRUNCATE       = T
+     IDIMENSIONALITY = 2
+     ISURFACE        = 3
+     IPAD            = 2
+     FACTOR          = 1
+}
+
+In this case an additional empty cell is added along the z direction as padding. The coulomb interaction is truncated beyond a z length. This ensures maximum usage of the simulation box.
+
+KERNEL_TRUNCATION {
+     LTRUNCATE       = T
+     IDIMENSIONALITY = 2
+     ISURFACE        = 3
+     IPAD            = 1
+     FACTOR          = 0.5
+}
+
+This setup corresponds to truncating the Coulomb interaction along the surface normal (z-direction) for a 2D material, using no vacuum padding and a truncation length of z/2. In this case, half of the simulation box is effectively unused, but the algorithm remains simpler. This configuration can be useful for debugging purposes.
+## Related tags and articles
+{{TAG|KERNEL_TRUNCATION/LTRUNCATE}},  
+{{TAG|KERNEL_TRUNCATION/IDIMENSIONALITY}},  
+{{TAG|KERNEL_TRUNCATION/LCOARSEN}},  
+{{TAG|KERNEL_TRUNCATION/FACTOR}},
+{{TAG|KERNEL_TRUNCATION/ISURFACE}}
+## References
+Category:INCAR tag
+Category:Electrostatics

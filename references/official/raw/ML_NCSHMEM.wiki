@@ -1,0 +1,18 @@
+{{DISPLAYTITLE:ML_NCSHMEM}}
+{{TAGDEF|ML_NCSHMEM|[integer]}}
+{{DEF|ML_NCSHMEM|komplex see below|VASP.6.6.0 or higher|Number of available ranks per computational node|else}}
+
+Description: Specifies the number of MPI ranks that share a single shared memory segment. 
+----
+{{NB|warning|When compiling with shared memory MPI support (-Duse_shmem), it is utterly important to pin the MPI ranks to the physical cores of the node. For guidance on how to understand the hardware topology of your system and how to correctly set up rank pinning accordingly, refer to [[Optimizing the parallelization#Understanding the hardware|here]].}}
+'''Default''': The default is chosen such that the number of available ranks per computational node are divided by 2 (maximum up to three times) until the value is lower than or equal to 24 or the value cannot be subdivided further since it becomes an odd number. E.g. 128 becomes 16, 48 becomes 24, 80 becomes 20, 86 becomes 43 and 16 stays 16. 
+
+The total number of memory segments created equals the number of cores per node divided by {{TAG|ML_NCSHMEM}}. All memory segments have identical sizes, so a larger number of segments results in higher total memory consumption. 
+
+However, on systems with multiple NUMA domains, performance can degrade significantly during machine-learned force field inference if all domains access the same memory segment. For optimal performance, each NUMA domain should have its own dedicated shared memory segment. For more details, we refer to {{TAG|NCSHMEM}}.
+
+== Related tags and articles ==
+{{TAG|ML_LMLFF}}, {{TAG|ML_MODE}}, {{TAG|NCSHMEM}}, [[Shared memory]]
+----
+
+[[Category:INCAR tag]][[Category:Machine-learned force fields]]

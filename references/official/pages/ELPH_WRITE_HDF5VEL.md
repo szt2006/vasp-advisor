@@ -1,0 +1,18 @@
+{{DISPLAYTITLE:ELPH_WRITE_HDF5VEL}}
+{{TAGDEF|ELPH_WRITE_HDF5VEL|[logical]|.FALSE.}}
+
+Description: If set, writes the electron group velocities to the {{FILE|vaspout.h5}} file.
+{{Available|6.5.0}}
+----
+The dataset is stored in the {{FILE|vaspout.h5}} file
+  $ h5ls -r vaspout.h5 | grep velocity
+  /results/electron_phonon/electrons/velocity Dataset {3, 1, 20, 8}
+The group velocities are written in ev Å units in cartesian coordinates.
+This tag can be used independently of {{TAG|ELPH_WRITE_TEXTVEL}}.
+The number of bands is the one set by {{TAG|ELPH_NBANDS}} which can in some cases be different from {{TAG|NBANDS}}.
+If both are set, both outputs are written.
+## Related tags and articles
+* {{TAG|ELPH_RUN}}
+* {{TAG|ELPH_WRITE_TEXTVEL}}
+
+Category:INCAR tagCategory:Electron-phonon_interactions

@@ -1,0 +1,57 @@
+{{TAGDEF|LMAXFOCKAE|[integer]}}
+
+{{DEF|LMAXFOCKAE|-1|DFT, Hartree-Fock|4|post-DFT methods}}
+
+Description: Sets the maximum angular momentum quantum number L up to which the all-electron charge density is restored on the plane-wave grid by shape restoration.
+----
+Shape restoration adds radial functions with vanishing multipole moment to the PAW compensation charge, so that the *shape* of the all-electron density inside the augmentation spheres — and not only its moments — is reproduced on the plane-wave grid. The related tag {{TAG|LMAXFOCK}} controls the corresponding truncation for the ordinary compensation charge in Hartree-Fock-type routines.
+{{NB|mind|Shape restoration applies to the Fock exchange and to many-body perturbation theory, i.e., GW, RPA and MP2. The default for DFT and Hartree-Fock, {{TAG|LMAXFOCKAE|-1}}, restores only the moments of the all-electron charge density.}}
+## Effective value
+The requested value is not always the one used. For each species the effective maximum is the smallest of {{TAG|LMAXFOCK}}, 2\,l_{\mathrm{max}}, and {{TAG|LMAXFOCKAE}}. Here, l_{\mathrm{max}} is the largest angular momentum quantum number among the projectors of that species' {{FILE|POTCAR}} dataset. Raising {{TAG|LMAXFOCKAE}} beyond this bound has no effect. Two consequences are worth keeping in mind:
+
+* For a dataset with only *s* and *p* projectors, 2\,l_{\mathrm{max}}=2 and the effective maximum never exceeds 2, whatever is requested.
+* For a dataset with *f* projectors, 2\,l_{\mathrm{max}}=6, so the default {{TAG|LMAXFOCK|4}} becomes the binding constraint. Requesting {{TAG|LMAXFOCKAE|6}} therefore requires raising {{TAG|LMAXFOCK}} as well; otherwise the effective maximum stays at 4.
+
+The bound is applied per species, so in a cell with several species there is no single effective value for the whole calculation: each species is capped against its own dataset.
+
+To check what VASP read from the {{FILE|INCAR}} file, look in the *Exchange correlation treatment* block near the top of the {{FILE|OUTCAR}} file:
+
+{{CB|grep -e LMAXFOCKAE -e NMAXFOCKAE OUTCAR|:}}
+
+ {{TAGBL|LMAXFOCKAE}}=   4    L truncation for all-electron charge restoration on plane wave grid
+ {{TAGBL|NMAXFOCKAE}}=   1    number of basis functions for all-electron charge restoration
+
+The two lines do not mean the same thing. The echoed {{TAG|NMAXFOCKAE}} is the value in use, because out-of-range input is clamped while the {{FILE|INCAR}} file is read: a request of 5 appears here as 2. The echoed {{TAG|LMAXFOCKAE}}, by contrast, is the requested value, reported before the per-species cap is applied, so it can be larger than the value actually used. The capped value itself is never written to the {{FILE|OUTCAR}} file.
+
+What *is* reported per species is the augmentation setup, further down the same file under *Radii for the augmentation spheres in the non-local exchange*. For a cell with two species:
+
+{{CB|grep -e 'augmentation radius' -e 'error exchange integrals' OUTCAR|:}}
+
+ for species   1 augmentation radius   1.277 (default was   1.277)
+ error exchange integrals (PW-AE in eV) (mean, max) 0.437 2.117 density error[0,qmax] 0.0233
+ for species   2 augmentation radius   1.062 (default was   1.062)
+ error exchange integrals (PW-AE in eV) (mean, max) 0.529 4.955 density error[0,qmax] 0.0275
+
+The *error exchange integrals* line is written only while shape restoration is active, one line per species, and gives the mean and maximum difference between the plane-wave and the all-electron exchange integrals for that species together with the corresponding density error. Its presence for every species is therefore the practical confirmation that shape restoration was set up throughout, and the numbers show how well it succeeded for each dataset. When {{TAG|LMAXFOCKAE|-1}} is set, the line is absent.
+## Recommendations
+Choose {{TAG|LMAXFOCKAE}} according to the elements in the calculation:
+* ***s* and *p* elements**: {{TAG|LMAXFOCKAE|2}}
+* ***d* elements**: {{TAG|LMAXFOCKAE|4}}, since a *d* electron creates charge densities with L up to 4
+* ***f* elements**: {{TAG|LMAXFOCKAE|6}} may be required; test for each case, and raise {{TAG|LMAXFOCK}} accordingly, as described in § Effective value
+
+Setting {{TAG|LMAXFOCKAE|4}} or larger forces an accurate treatment of the charge augmentation on the plane-wave grid. This can be selected in Hartree-Fock-type calculations as well, but it introduces additional noise. To suppress that noise in the correlation energies, set {{TAG|LMAXFOCKAE|-1}}.
+
+For DFT calculations the exact one-center terms are implemented, so shape restoration is not required and does not change the results. For post-DFT calculations the one-center terms are presently not implemented, and Refs. {{cite|shishkin:prb:2006}} and {{cite|unzog:prb:2022}} report a substantial gain in accuracy from shape restoration there.
+{{NB|mind|{{TAG|LMAXFOCKAE}} and {{TAG|NMAXFOCKAE}} are strongly coupled, and absolute correlation energies depend on both. Use consistent settings for both tags whenever energy differences are compared, and check both echoed values in the {{FILE|OUTCAR}} file.}}
+## Related tags and articles
+{{TAG|NMAXFOCKAE}}, {{TAG|LMAXFOCK}}, {{TAG|QMAXFOCKAE}}, {{TAG|LFOCKAEDFT}}, {{TAG|LFOCKSTD}}, Projector-augmented-wave formalism
+
+{{sc|LMAXFOCKAE|Howto|Workflows that use this tag}}
+## References
+Category:INCAR tag
+Category:ACFDT
+Category:Low-scaling GW and RPA
+Category:Exchange-correlation functionals
+Category:Hybrid functionals
+Category:Many-body perturbation theory
+Category:GW

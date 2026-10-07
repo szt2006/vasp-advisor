@@ -1,0 +1,18 @@
+{{TAGDEF|LKPOINTS_OPT|.TRUE.{{!}} .FALSE.}}
+{{DISPLAYTITLE:LKPOINTS_OPT}}
+{{DEF|LKPOINTS_OPT|.TRUE.|if {{FILE|KPOINTS_OPT}} file is present.}}
+
+Description: Enable reading the {{FILE|KPOINTS_OPT}} file.
+
+----
+
+To avoid reading the {{FILE|KPOINTS_OPT}} file without removing it from the working directory, set {{TAG|LKPOINTS_OPT|.FALSE.}} in the {{FILE|INCAR}} file.
+
+== Related tags and articles ==
+Tags: {{TAG|KSPACING_OPT}}
+
+Files: {{FILE|KPOINTS_OPT}}, {{FILE|PROCAR_OPT}}
+
+{{sc|LKPOINTS_OPT|HowTo|Workflows that use this tag}}
+
+[[Category:VASP]][[Category:INCAR tag]][[Category:Crystal momentum]]

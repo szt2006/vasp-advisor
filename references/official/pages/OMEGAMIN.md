@@ -1,0 +1,14 @@
+{{TAGDEF|OMEGAMIN|[real]|minimum transition energy (0.05 for metals)}}
+
+Description: {{TAG|OMEGAMIN}} sets the minimum frequency in the frequency grid. 
+----
+## Related tags and articles
+{{TAG|OMEGAMAX}},
+{{TAG|OMEGATL}},
+{{TAG|CSHIFT}},
+{{TAG|NOMEGA}}
+
+{{sc|OMEGAMIN|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Many-body perturbation theoryCategory:GWCategory:ACFDT

@@ -1,0 +1,13 @@
+{{TAGDEF|HFLMAX|[integer]|4}}
+
+Description: To be compatible w.r.t. old releases, VASP also reads the flag {{TAG|HFLMAX}} to the same effect as {{TAG|LMAXFOCK}}.
+
+----
+## Related tags and articles
+{{TAG|LMAXFOCK}},
+{{TAG|LMAXFOCKAE}}
+
+{{sc|HFLMAX|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:Hybrid_functionals

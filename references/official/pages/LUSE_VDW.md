@@ -1,0 +1,13 @@
+{{DISPLAYTITLE:LUSE_VDW}}
+{{TAGDEF|LUSE_VDW|[logical]|.FALSE.}}
+
+Description: {{TAG|LUSE_VDW}}=.TRUE. switches on the use of a nonlocal vdW-DF functional. These functionals depend on the electron density at two points in space and model long-range van der Waals (dispersion) correlation effects.
+----
+{{NB|mind|In versions of VASP prior to 6.4.0, a meta-GGA functional (e.g., SCAN) could be combined only with the rVV10 nonlocal functional. Conversely, a GGA functional could be combined only with the original nonlocal functional of Dion *et al.*. This restriction is lifted since VASP.6.4.0 thanks to the introduction of the {{TAG|IVDW_NL}} tag.}}
+## Related tags and articles
+{{TAG|GGA}}, {{TAG|METAGGA}}, {{TAG|IVDW_NL}}, {{TAG|LSPIN_VDW}}, {{TAG|Nonlocal vdW-DF functionals}}
+
+{{sc|LUSE_VDW|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory: van der Waals functionals

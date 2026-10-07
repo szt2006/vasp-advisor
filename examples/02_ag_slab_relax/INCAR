@@ -1,0 +1,36 @@
+#### examples/02_ag_slab_relax —— Ag(111) slab · 几何优化（固定底层） ####
+# 由 examples/_build_examples.py **现场生成**（不是静态文件，避免过期）。
+# 生成后会自动跑 scripts/validate.py 校验。
+SYSTEM = 02_ag_slab_relax
+
+#### 起始参数 I/O ####
+ISTART = 0
+ICHARG = 2
+LWAVE  = .FALSE.
+LCHARG = .FALSE.
+
+#### 电子步 ####
+ENCUT  = 300.0
+PREC   = Normal
+EDIFF  = 1e-06
+NELM   = 300
+NELMIN = 5
+# 展宽：金属用 MP
+ISMEAR = 1
+SIGMA  = 0.2
+LREAL  = .FALSE.
+
+#### 离子步 ####
+NSW    = 300
+IBRION = 2
+ISIF   = 2
+POTIM  = 0.2
+EDIFFG = -0.01
+
+#### 偶极修正（不对称 slab）####
+LDIPOL = .TRUE.
+IDIPOL = 3
+
+#### 并行（**与站点相关，请自己定**）####
+# NCORE = <<<请填写>>>
+# KPAR  = <<<请填写>>>

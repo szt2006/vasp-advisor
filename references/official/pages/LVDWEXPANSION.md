@@ -1,0 +1,13 @@
+{{TAGDEF|LVDWEXPANSION|.TRUE. {{!}} .FALSE.|.FALSE.}}
+
+Description: {{TAGDEF|LVDWEXPANSION}} decides whether to write the two- to six- body contributions to MBD dispersion energy in the {{TAG|OUTCAR}} file.
+----
+## Related tags and articles
+{{TAG|IVDW}},
+{{TAG|Many-body dispersion energy}},
+{{TAG|LSCSGRAD}}
+
+{{sc|LVDWEXPANSION|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory: van der Waals functionals

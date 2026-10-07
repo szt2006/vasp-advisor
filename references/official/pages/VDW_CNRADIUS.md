@@ -1,0 +1,20 @@
+{{DISPLAYTITLE:VDW_CNRADIUS}}
+{{TAGDEF|VDW_CNRADIUS|[real]}}
+{{DEF|VDW_CNRADIUS|21.17| if {{TAG|IVDW}}{{=}}11, 12 or 15|15.88|if {{TAG|IVDW}}{{=}}13}}
+
+Description: {{TAG|VDW_CNRADIUS}} (in Å) sets the coordination number cutoff of the DFT-D3 and DFT-D4 methods.
+----
+
+{{TAG|VDW_CNRADIUS}} (in Å) allows to set the coordination number cutoff for the DFT-D3 (DFT-D3 and simple-DFT-D3 implementations) and DFT-D4 methods.
+{{NB|mind|Available for the DFT-D4 and simple-DFT-D3 packages since VASP.6.6.0.}}
+## Related tags and articles
+{{TAG|IVDW}},
+{{TAG|VDW_RADIUS}},
+DFT-D3,
+simple-DFT-D3,
+DFT-D4
+
+{{sc|VDW_CNRADIUS|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:van der Waals functionals

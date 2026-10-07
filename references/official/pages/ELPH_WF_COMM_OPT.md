@@ -1,0 +1,17 @@
+{{DISPLAYTITLE:ELPH_WF_COMM_OPT}}
+{{TAGDEF|ELPH_WF_COMM_OPT|[integer]| 0}}
+
+Description:  
+Selects the MPI communication pattern used to exchange orbitals between different MPI ranks.  
+{{Available|6.5.0}}
+----
+The available options are:  
+* **0** — Use two-sided MPI communication (default)  
+* **1** — Use one-sided MPI communication  
+
+Some MPI libraries have shown instability or performance issues when using one-sided communication.  
+If unexpected behavior occurs, it is recommended to keep the default setting {{TAG|ELPH_WF_COMM_OPT|0}}.
+## Related tags and articles
+* {{TAG|ELPH_WF_CACHE_PREFILL}}
+* {{TAG|ELPH_WF_REDISTRIBUTE}}
+Category:INCAR tagCategory:Electron-phonon_interactions

@@ -1,0 +1,39 @@
+Let us take a tour through the resources that are available to you as a VASP user!
+
+== Become a VASP user ==
+
+The standard way to become a VASP user is that the head of your research group [https://www.vasp.at/sign_in/registration_form/ acquires a license] and registers you as a user on the [https://www.vasp.at/sign_in/portal/ VASP Portal]. At a high-performance-computing (HPC) center, you can then immediately get access to a VASP executable by stating your license number. 
+
+Alternatively, you can apply to participate in a workshop with hands-on experience. The VASP developers infrequently organize workshops that are announced in the [https://www.vasp.at/info/post/ news section of the VASP website]. Additionally, there are many Universities offering courses where VASP is taught, as well as independent workshops by experienced VASP collaborators.
+
+== Install VASP ==
+
+If you have a more-or-less powerful compute infrastructure available to you, you can [[Installing_VASP.6.X.X| install VASP]] by compiling it yourself. There are some calculations that can even [[Personal_computer_installation|run on a standard laptop]], but we recommend a more powerful infrastructure to unlock the full potential of VASP. Download the source code of the latest release from the  [https://www.vasp.at/sign_in/portal/ VASP Portal] and follow the [[Installing_VASP.6.X.X| installation guide]] on the [[The_VASP_Manual| VASP Wiki]]. If you need help, post your question in the [https://www.vasp.at/forum/ VASP Forum]. There is a section addressing solely [https://www.vasp.at/forum/viewforum.php?f=2&sid=cda3c8abf5b010db3aa23a407d72beee installation issues]. To get a forum account, you need to be a registered VASP user.
+
+Which hardware exactly fits your purpose depends on the kind of calculations you want to run. Furthermore, hardware development is a rapidly evolving field, so we cannot recommend specific hardware specifications, e.g., node size or a specific vendor, to you. Have a look at the [Toolchains |toolchains] we are frequently testing to ensure compatibility with the compilers that come with your desired hardware. Run some smaller test calculations to see how the calculations for your application scale and have a look at factors that influence the [[Performance| performance of VASP]]. Particularly, consider what [[Parallelization| parallelization options]] and [[Memory| memory requirements]] apply. 
+
+== Basic usage ==
+
+To get hands-on experience with the [[Calculation setup|setup of a calculation]], check out the {{Tutorial|tutorials:home|tutorials based on Python notebooks}}. You will quickly learn how to create the input for VASP by creating the proper input files and setting the correct tags to select the algorithm or adjust parameters. Additionally, there are [[:Category:Examples|examples]] and [[:Category:Tutorials|tutorials]] on the VASP Wiki. A lecture on {{Video|quick_start:marietherese:2024|a quick start to ab-initio calculations}} is available on our YouTube channel.
+
+== Navigate the VASP Wiki ==
+
+The [[The VASP Manual|main page of the VASP Wiki]] shows [[The VASP Manual#Featured topics|featured topics]] that represents a rough book-like table of contents. It covers a range from introductory topics, (i.e., the theoretical background and calculation setup), over the central chapters (the electronic ground state, ionic degree of freedom, and excitations) up to some advanced considerations, (i.e., obtaining a local basis for the electronic state or optimizing performance).
+
+Each [[:Special:Categories|category page]] provides an introduction to the topic. It links to tag and file documentation, further [[:Category:Theory|theory pages]], and [[:Category:Howto| how-to pages]] to describe common workflows. If the explanation is unclear or information is missing, visit the [https://www.vasp.at/forum/ VASP Forum]. The section [https://www.vasp.at/forum/viewforum.php?f=2 Using VASP] is dedicated to queries on the usage of VASP. The VASP developers are continuously improving the documentation, so this kind of feedback can help identify where we need to improve.
+
+== Learn a new method ==
+
+VASP has a [https://www.vasp.at/info/about/ broad spectrum of applications] in different fields all the way from [[many-body perturbation theory]] to classical [[molecular dynamics]]. A quick start is usually to find a corresponding [https://www.vasp.at/tutorials/latest/ tutorial], [[:Category:Examples| example]] or [[:Category:Howto|how-to page]] in the corresponding [[:Special:Categories|category]]. Also, study the [[Theory|theoretical background]] by watching [https://www.youtube.com/channel/UCBATkNZ7pkAXU9tx7GVhlaw video lectures on the VASP Channel], attending a workshop announced in the [https://www.vasp.at/info/post/ news section of the VASP website] or a course at your University. To dive deeper, read [[Theory|theory pages]] in the corresponding [[:Special:Categories|category]] on the VASP Wiki and follow the related references.
+
+== Analyze VASP output ==
+
+The [[Output files|output files]] written by VASP depends on the kind of calculation you are running. 
+{{py4vasp}} is the most seamless tool to extract data from VASP calculations. It is a Python package developed by VASP developers and helps to get a quick look at data, as well as parse it to other common formats. Mind that it requires a VASP executable with [[Makefile.include#HDF5_support_.28strongly_recommended.29|HDF5 support]]. Apart from that, most [[Output files|output files]] are human-readable, and there are various third-party tools to visualize the results.
+
+== Get help ==
+
+First, consider whether your issue is amongst the [[Known_issues|known issues]] or [https://www.vasp.at/info/faq/ frequently asked questions (FAQs)].
+Regarding installing or using VASP, the VASP developers try to answer your questions as swiftly as possible on the [https://www.vasp.at/forum/ VASP Forum]. We also greatly appreciate any [https://www.vasp.at/forum/viewforum.php?f=3 bug report] on the [https://www.vasp.at/forum/ VASP Forum] and created some space for [https://www.vasp.at/forum/viewforum.php?f=8 user-to-user discussion]. Please kindly understand that we offer support on a courtesy basis only and not as a contractual service. Thus, first carefully read the [[The_VASP_Manual| VASP Wiki]] and perhaps consider if this is a research question that a literature search or your principal investigator (PI) could help with.
+
+For any other issues, see how to [https://www.vasp.at/info/contact/ contact the VASP team]!

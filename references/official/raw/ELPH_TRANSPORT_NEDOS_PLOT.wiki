@@ -1,0 +1,27 @@
+{{DISPLAYTITLE:ELPH_TRANSPORT_NEDOS_PLOT}}
+{{TAGDEF|ELPH_TRANSPORT_NEDOS_PLOT|[integer]| -1}}
+
+Description:  
+Specifies the number of energy points used to sample the [[Electronic_transport_coefficients#Transport_distribution_function | transport distribution function]] for plotting.  
+{{Available|6.5.0}}
+----
+
+This parameter defines the resolution of the energy grid used to compute and store the transport distribution function in {{FILE|vaspout.h5}}.  
+The transport function for plotting is evaluated on a linear energy grid of energies between {{TAG|ELPH_TRANSPORT_EMIN_PLOT}} and {{TAG|ELPH_TRANSPORT_EMAX_PLOT}} and with {{TAG|ELPH_TRANSPORT_NEDOS_PLOT}} points.   
+A higher value increases the energy resolution of the plotted transport quantities but also slightly increases the post-processing time.  
+
+The default value of -1 means that the transport function for plotting is not computed by default. If the number if positive (for example 501) then it corresponds to the number of points in the dataset:
+
+<pre class="mw-collapsible">
+ $ h5ls -r vaspout.h5 | grep plot
+ /results/electron_phonon/electrons/transport_1/energy_plot Dataset {501}
+ /results/electron_phonon/electrons/transport_1/transport_function_plot Dataset {7, 1, 3, 3, 501}
+</pre>
+
+==Related tags and articles==
+* {{TAG|ELPH_TRANSPORT}}
+* {{TAG|ELPH_TRANSPORT_EMIN_PLOT}}
+* {{TAG|ELPH_TRANSPORT_EMAX_PLOT}}
+* {{TAG|ELPH_RUN}}
+* {{TAG|TRANSPORT_RELAXATION_TIME}}
+[[Category:INCAR tag]][[Category:Electron-phonon_interactions]]

@@ -1,0 +1,18 @@
+{{TAGDEF|LFOCKSTD|[logical]|False}}
+
+Description: Evaluate the exact exchange in RPA and GW calculations fully consistent with the standard treatment in HF calculations.
+----
+{{Available|6.6.0}}
+This feature is available for low-scaling ACFDT/random-phase approximation (RPA) and GW calculations, i.e., {{TAG|ALGO}}=ACFDTR, RPAR, EVGW0R, GWR.
+
+It is strongly recommended to set {{TAG|LFOCKSTD|True}} for all GW and RPA calculations starting from version 6.6.0.
+
+VASP typically employs shape restoration (see {{TAG|NMAXFOCKAE}} and {{TAG|LMAXFOCKAE}}) to calculate the RPA correlation energy and the exact exchange energy during RPA/GW calculations. However, this results in significant noise in the exact exchange energy and its nuclear gradients. To mitigate this issue, the {{TAG|LFOCKSTD}} option was introduced, to use the standard HF treatment for the exact exchange while continuing to use shape restoration for the correlation energy. This reduces the noise in energies and RPA forces, and it leads to an exact exchange energy that is fully compatible with the exact exchange energy in standard HF calculations.  This means that the energy HF-free energy      FHF in RPA calculations is identical to the free  energy   TOTEN when reading the {{FILE|WAVECAR}} file and performing a single-step total energy evaluation ( {{TAG|ALGO}} = Eigenval; {{TAG|LHFCALC}} = True ; {{TAG|AEXX}} = 1.0 ; {{TAG|NELM}} = 1), i.e., compatible with the stepwise computation of the total energy.
+
+{{NB|important|VASP uses one-center terms to correct the exact exchange energy for the difference in shape between all-electron and pseudo-orbitals. Therefore, shape restoration is neither required nor beneficial for the exact exchange term (see {{TAG|NMAXFOCKAE}} and {{TAG|LMAXFOCKAE}}).}}
+## Related tags and articles
+{{TAG|LRPAFORCE}}, {{TAG|LMAXFOCKAE}}, {{TAG|NMAXFOCKAE}}, Projector-augmented-wave formalism
+
+{{sc|LFOCKSTD|Howto|Workflows that use this tag}}
+## References
+Category:INCAR tagCategory:Many-body perturbation theoryCategory:GW Category:ACFDTCategory:Low-scaling GW and RPA

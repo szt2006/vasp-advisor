@@ -1,0 +1,15 @@
+{{TAGDEF|PLUGINS/ML_OUTPUT_MODE| [integer] | 1}}
+
+Description: Equivalent to {{TAG|ML_OUTPUT_MODE}} for calculations run via plugins instead of using VASP internal force fields. 
+----
+
+== Related tags and articles ==
+[[Plugins]],
+{{TAG|ML_OUTPUT_MODE}},
+{{TAG|PLUGINS/FORCE_AND_STRESS}},
+{{TAG|PLUGINS/ML_MODE}},
+{{TAG|PLUGINS/ML_OUTBLOCK}}
+
+{{sc|PLUGINS/ML_OUTPUT_MODE|Examples|Examples that use this tag}}
+
+[[Category:INCAR tag]]

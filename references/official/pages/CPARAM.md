@@ -1,0 +1,8 @@
+{{TAGDEF|CPARAM|[real]|0.0093}}
+
+Description: The tag {{TAG|CPARAM}} allows to specify the value of the parameter C in the kernel of the nonlocal rVV10 correlation functional.{{cite|sabatini:prb:2013}}
+----
+## Related tags and articles
+{{TAG|BPARAM}}, {{TAG|Nonlocal vdW-DF functionals}}
+## References
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:van der Waals functionals

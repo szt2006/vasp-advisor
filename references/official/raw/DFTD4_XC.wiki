@@ -1,0 +1,22 @@
+{{DISPLAYTITLE:DFTD4_XC}}
+{{TAGDEF|DFTD4_XC|[string]|The functional set by the {{TAG|GGA}}, {{TAG|METAGGA}} or {{TAG|XC}} tag.}}
+
+Description: {{TAG|DFTD4_XC}} sets the exchange-correlation functional which determines the van der Waals parameters used in the DFT-D4 method implemented in the [[DFT-D4]] package.
+----
+{{TAG|DFTD4_XC}} allows to choose the exchange-correlation functional that determines which set of van der Waals parameters is used in the DFT-D4 method implemented in the [[DFT-D4]] package ({{TAG|IVDW}}=13).
+
+The possible choices (e.g., {{TAG|DFTD4_XC}}=pbe, hse06, ...) are listed in the file param.f90 of the [[DFT-D4]] source code.
+{{NB|mind|The {{TAG|DFTD4_XC}} tag is available from VASP.6.6.0 onwards}}
+
+== Related tags and articles ==
+{{TAG|IVDW}},
+{{TAG|GGA}},
+{{TAG|METAGGA}},
+{{TAG|XC}},
+{{TAG|SDFTD3_XC}},
+[[DFT-D4]]
+
+{{sc|DFTD4_XC|Examples|Examples that use this tag}}
+
+----
+[[Category:INCAR tag]][[Category:Exchange-correlation functionals]][[Category:van der Waals functionals]]

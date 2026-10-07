@@ -1,0 +1,21 @@
+{{DISPLAYTITLE:LANGEVIN_GAMMA_L}}{{TAGDEF|LANGEVIN_GAMMA_L|[Real]|0}}
+
+Description: {{TAG|LANGEVIN_GAMMA_L}} specifies the friction coefficient (in ps<sup>-1</sup>) for lattice degrees-of-freedom in case of Parrinello-Rahman dynamics (in case VASP was compiled with [[Precompiler_flags|-Dtbdyn]]).
+----
+When running ''NpT'' simulations with a [[MDALGO#LangevinEOM|Langevin thermostat]]{{Cite|allen:book:1991}} ({{TAG|MDALGO}}=3), using the method of [[MDALGO#ParrinelloRahman|Parrinello and Rahman]]{{Cite|parrinello:prl:1980}}{{Cite|parrinello:jap:1981}}, the friction coefficient for lattice degrees-of-freedom have to be specified (in ps<sup>-1</sup>) by means of the {{TAG|LANGEVIN_GAMMA_L}}-tag.
+A fictitious mass for the lattice degrees-of-freedom has to be assigned using the {{TAG|PMASS}} tag.
+
+The friction coefficients &gamma; for the atomic degrees-of-freedom are specified using the {{TAG|LANGEVIN_GAMMA}}-tag.
+
+== Related tags and articles ==
+{{TAG|LANGEVIN_GAMMA}},
+{{TAG|PMASS}},
+{{TAG|MDALGO}}
+
+{{sc|LANGEVIN_GAMMA_L|Examples|Examples that use this tag}}
+
+== References ==
+
+----
+
+[[Category:INCAR tag]][[Category:Molecular dynamics]][[Category:Thermostats]]

@@ -1,0 +1,17 @@
+{{DISPLAYTITLE:VALUE_MAX}}{{TAGDEF|VALUE_MAX|[real array]}}
+
+Description: {{TAG|VALUE_MAX}} sets the upper limits for the monitoring of geometric parameters (in case VASP was compiled with -Dtbdyn).
+----
+For {{TAG|MDALGO}}=1 {{!}} 2, the geometric parameters defined in the {{FILE|ICONST}} file may be monitored without being subjected to a constraint or bias potential (STATUS=7 in the {{FILE|ICONST}}-file).
+
+If all values of monitored parameters defined in the {{FILE|ICONST}} file (STATUS=7) are smaller than {{TAG|VALUE_MIN}} or larger than {{TAG|VALUE_MAX}}, the simulation terminates.
+
+Upper limits for monitored coordinates, must be supplied for each geometric parameter in the {{FILE|ICONST}} file with STATUS=7.
+## Related tags and articles
+{{TAG|VALUE_MIN}},
+{{TAG|MDALGO}}
+
+{{sc|VALUE MAX|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Molecular dynamics

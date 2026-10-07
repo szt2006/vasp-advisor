@@ -1,0 +1,215 @@
+As a [https://vasp.at license holder], you can download the source code of VASP from the [https://vasp.at VASP Portal] (and [[Verify_your_VASP_download|verify your download with the accompanying checksums file]]). If your system fulfills the [[#Requirements | requirements]], you can install VASP.6.X.X by following the [[#Install VASP with makefile.include|steps below]]. There are two separate ways to install VASP:
+# With the traditional makefile.include templates included in the <code>/path/to/vasp.x.x.x/arch</code> directory. See section [[Installing_VASP.6.X.X#Install_VASP_with_makefile.include|Install VASP with makefile.include]].
+# Using the CMake build system. See section [[Installing_VASP.6.X.X#Install_VASP_with_CMake|Install VASP with CMake]].
+
+There is a separate [[Installing_VASP.5.X.X|guide to installing VASP.5.X.X]].
+== Requirements ==
+
+For the compilation of VASP one needs:
+
+* Compilers for Fortran (at least F2008 compliant), C, and C++. For instance, one of the following compiler suites:
+:- [https://gcc.gnu.org gcc]
+:- [https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#base-kit intel-oneapi-base-kit]+[https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#hpc-kit intel-oneapi-hpc-kit]
+:- [https://developer.nvidia.com/hpc-sdk NVIDIA HPC-SDK]
+:- [https://developer.amd.com/amd-aocc AOCC] (for AMD CPUs)
+{{NB|mind| For the [[GPU ports of VASP]] on must use the compilers from the [https://developer.nvidia.com/hpc-sdk NVIDIA HPC-SDK] (>{{=}}21.2) (to run on NVIDIA GPUs), the  [https://cpe.ext.hpe.com/docs/25.03/cce/index.html HPE Cray compiler environment CCE] (>{{=}} 19.0) (to run on AMD GPUs), or the Intel [https://www.intel.com/content/www/us/en/developer/tools/oneapi/fortran-compiler.html Intel Fortran Compiler IFX] (>{{=}}2025.3.0) (to run on Intel GPUs)|:}}
+
+* Numerical libraries: FFTW, BLAS, LAPACK, and ScaLAPACK. For example, one of the following combinations:
+:- [https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#base-kit intel-oneapi-mkl]
+:- [http://www.fftw.org FFTW] + [https://www.openblas.net OpenBLAS] + [http://www.netlib.org/scalapack ScaLAPACK]
+:- [https://developer.nvidia.com/hpc-sdk NVIDIA HPC-SDK] (comes with OpenBLAS and ScaLAPACK) + [http://www.fftw.org FFTW]
+:- [https://developer.amd.com/amd-aocl AOCL] (for AMD CPUs)
+
+* An implementation of the Message Passing Interface (MPI). For instance, one of the following:
+:- [https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#hpc-kit intel-oneapi-mpi]
+:- [https://www.open-mpi.org OpenMPI]
+:- [https://developer.nvidia.com/hpc-sdk NVIDIA HPC-SDK] (comes with OpenMPI)
+
+These are the required components to build VASP. Additionally, we strongly recommend enabling HDF5 support by providing a suitable HDF5 library in the makefile.include file (see the [[makefile.include#HDF5 support (strongly recommended, and mandatory for some features)|HDF5 section here]]). Optional features available through external libraries such as libxc, libbeef, and others can also be found [[makefile.include|here]]. 
+
+To find a combination of compilers and libraries that works, have a look at [[Toolchains|our list of validated toolchains]]. On a personal computer, i.e., your desktop machine or laptop, you may use [[Personal computer installation|these validated instructions]].
+
+== Install VASP with makefile.include==
+
+=== Step 1: Download === 
+:Download the source code of VASP from the [https://vasp.at| VASP Portal], copy it to the desired location on your machine, and unzip the file to obtain the folder <code>/path/to/vasp.x.x.x</code> and reveal [[#Subdirectories in vasp.6.x.x|its content]].
+
+=== Step 2: Prepare [[makefile.include]] === 
+
+:Create a makefile.include starting from a template in <code>/path/to/vasp.x.x.x/arch</code> that resembles your system:
+
+:<pre>cp arch/makefile.include.your_choice  ./makefile.include</pre>
+
+:[[makefile.include|Adapt your makefile.include file]] to your system and select optional features.
+
+=== Step 3: Make === 
+
+:Build VASP with
+
+: <pre>make DEPS=1 -jN <target></pre>
+
+:where <code> DEPS=1 -jN</code> is optional and selects the parallel mode of make with <code>N</code> being the number of jobs you want to run, and <code><target></code> corresponds to <code>std</code>, <code>gam</code>, <code>ncl</code> or  <code>all</code>. This builds the standard, gamma-only, noncollinear or all versions of VASP. The executables are <code>vasp_std</code>, <code>vasp_gam</code>, and <code>vasp_ncl</code>, respectively, which are located at <code>/path/to/vasp.X.X.X/bin/</code>.
+
+=== Step 4: Test ===  
+:Run the [[Validation tests|test suite]] with 
+
+: <pre>make test</pre>
+
+:to confirm the build was successful.
+{{NB|tip|If there are issues, the VASP Forum [[https://www.vasp.at/forum/viewforum.php?f=2 installation issues]] is the appropriate place to seek support.|:}}
+{{NB|warning|VASP.6.1.0, VASP.6.1.1, and VASP.6.1.2 have a potentially serious issue related to the test suite. Please read about it in the [[Validation_tests#Known_issues|known issues]].|:}}
+
+=== Step 5: Install === 
+:Copy the executables to the system <code>$PATH</code> or append <code>/path/to/vasp.x.x.x/bin/</code> to the environment variable with
+
+: <pre>export PATH=$PATH:/path/to/vasp.x.x.x/bin</pre>
+
+:for instance in your <code>~/.bashrc</code>. Consider also setting ulimit -s unlimited and OMP_STACKSIZE=512m before running the program (or put it in your job script / <code>~/.bashrc</code>) to ensure sufficient stack memory for each OpenMP thread (if [[Precompiler_options#-D_OPENMP|OpenMP support]] was activated) and prevent segmentation faults caused by large stack allocations in the code.
+
+== Install VASP with CMake ==
+
+As an alternative to the [[Installing_VASP.6.X.X#Install_VASP_with_makefile.include|traditional Makefile-based build]] system, VASP can also be compiled using the [https://cmake.org/ CMake] build infrastructure provided on 
+[https://github.com/vasp-dev/cmake github.com/vasp-dev/cmake]. This method configures the build automatically detecting compilers and external libraries on the fly. Requires cmake version 3.24 or later.
+
+=== Step 1: Download VASP ===
+
+Download the VASP source code from the [https://vasp.at| VASP Portal] and unpack:
+
+<pre>
+tar -xf vasp.X.X.X.tgz
+cd vasp.X.X.X
+</pre>
+
+=== Step 2: Download CMake files ===
+
+Next obtain the CMake build infrastructure from our [https://github.com/vasp-dev/cmake github repository]:
+
+<pre>
+git clone -b 6.6.x https://github.com/vasp-dev/cmake.git
+</pre>
+
+run now the following command to prepare the build system:
+
+<pre>
+bash cmake/setup.sh
+</pre>
+
+this will create symbolic links of the <code>CMakeLists.txt</code> files in the source directory.
+
+=== Step 3: CMake Configure ===
+
+Create a separate build directory and configure the project using CMake:
+
+<pre>
+mkdir cmake_build
+cd cmake_build
+cmake /your/vasp/directory \
+  -DVASP_OPENMP=ON \
+  -DVASP_HDF5=ON
+</pre>
+
+During configuration CMake automatically searches for required dependencies such as MPI, BLAS/LAPACK, ScaLAPACK, and FFTW. If necessary, their locations can be provided using standard CMake variables (e.g. <code>BLA_VENDOR</code>  for BLAS/LAPACK configuration).
+
+Optional features (e.g. HDF5 support) can be enabled via additional CMake options, <code>-DVASP_HDF5=ON</code> etc. See also the README.md file in the cmake repository for more details on available options.
+
+=== Step 4: Build ===
+
+Compile VASP using:
+
+<pre>
+make -jN
+</pre>
+
+where `N` is the number of parallel build jobs. This will by default build all targets. You can specify which VASP version is build via targets" `vasp_std`, `vasp_gam`, or `vasp_ncl`.
+
+This produces the standard VASP executables (e.g. `vasp_std`, `vasp_gam`, and `vasp_ncl`) in the build/bin directory.
+
+=== Step 5: Test ===
+
+Run the [[Validation tests|test suite]] to verify the installation:
+
+<pre>
+make test
+</pre>
+
+Note, that cmake will copy the testsuite into the build dir for running the testsuite.
+
+=== Step 6: Install ===
+
+Optionally install the executables to a chosen location via `-DCMAKE_INSTALL_PREFIX` during configuration, and then run:
+
+<pre>
+make install
+</pre>
+
+Alternatively, copy the generated executables to a directory included in your `$PATH`. Consider also setting ulimit -s unlimited and OMP_STACKSIZE=512m before running the program (or put it in your job script / <code>~/.bashrc</code>) to ensure sufficient stack memory for each OpenMP thread (if [[Precompiler_options#-D_OPENMP|OpenMP support]] was activated) and prevent segmentation faults caused by large stack allocations in the code.
+
+== Subdirectories in vasp.6.x.x ==
+
+The build system of VASP (as of versions >= 5.4.1) comprises the following subdirectories:
+
+                   vasp.x.x.x (root directory)
+                                |
+          ------------------------------------------------
+         |        |        |         |          |         |
+        arch     bin     build      src     testsuite   tools
+                                     |
+                               ----------------------
+                              |      |      |        |       
+                             lib   parser  fftlib  vaspml
+
+;/path/to/vasp.x.x.x/
+:Holds the high-level makefile and several subdirectories.
+
+;/path/to/vasp.x.x.x/src
+:Holds the source files of VASP and a low-level makefile.
+
+;/path/to/vasp.x.x.x/src/lib
+:Holds the source of the VASP library (used to be vasp.X.lib) and a low-level makefile.
+
+;/path/to/vasp.x.x.x/src/parser
+:Holds the source of the {{TAG|LOCPROJ}} parser (as of versions >= 5.4.4) and a low-level makefile.
+
+;/path/to/vasp.x.x.x/src/fftlib
+:Holds the source of the <tt>fftlib</tt> library that may be used to cache <tt>fftw</tt> plans.
+
+;/path/to/vasp.x.x.x/src/vaspml
+:Holds the source of the [[VASPml library|<tt>vaspml</tt> library]] containing machine-learning features (versions >= 6.5.0).
+
+;/path/to/vasp.x.x.x/arch
+:Holds a collection of <tt>makefile.include.*</tt> files.
+	
+;/path/to/vasp.x.x.x/build
+:The different versions of VASP, i.e., the standard, gamma-only, non-collinear versions will be built in separate subdirectories of this directory.
+
+;/path/to/vasp.x.x.x/bin
+:Here make will store the executables.
+
+;/path/to/vasp.x.x.x/testsuite
+:Holds a suite of correctness tests to check your build.
+
+;/path/to/vasp.x.x.x/tools
+:Holds several python scripts related to the use of HDF5 input/output files.
+
+== Validated Toolchains via CI ==
+
+Please find on this [[Toolchains|toolchains page]] a comprehensive guid on which software stacks and versions are validated by our CI. Makefiles for those validated toolchains can be found in the arch subdirectory in VASP, or on this [[makefile.include|separate page]].
+
+== Install on a common Linux distribution == 
+
+If you plan to install VASP on any of the big linux distributions e.g. Debian, Ubuntu, Fedora, or Rocky Linux, please take a closer look on the separate page for [[Personal computer installation|Personal computer installations]]. There you also find instructions for Max OS X on M-series chips. For installation under Windows 11, please use WSL to install one of the supported distributions first.
+
+==Related sections==
+[[Toolchains]],
+[[makefile.include]],
+[[Precompiler options]],
+[[Compiler options]],
+[[Linking to libraries]],
+[[Validation tests]],
+[[GPU ports of VASP]]
+
+
+[[Category:VASP]]
+[[Category:Installation]]
+[[Category:Performance]]
+[[Category:GPU]]

@@ -1,0 +1,38 @@
+{{DISPLAYTITLE:ML_MB}}
+{{TAGDEF|ML_MB|[integer]|see below}}
+
+Description: This tag sets the maximum number of local reference configurations (i.e. basis functions in the kernel) in the machine learning force field method.
+----
+The defaults for {{TAG|ML_MB}} are different for each different {{TAG|ML_MODE}} setting. Here are the defaults for each mode:
+*{{TAG|ML_MODE|train}}: 
+**No {{TAG|ML_AB}} present (learning from scratch): min(1500 , max({{TAG|NSW}} , 2*{{TAG|ML_MCONF_NEW}} * MAXAT_SP)
+**{{TAG|ML_AB}} present (continuation of learning): MB_AB + min(1500, max({{TAG|NSW}} , 2*{{TAG|ML_MCONF_NEW}} * MAXAT_SP)
+*{{TAG|ML_MODE|select}}: MB_AB + {{TAG|ML_MCONF_NEW}} * MAXAT_SP
+*{{TAG|ML_MODE|refit}}: MB_AB + MAXAT_SP
+*{{TAG|ML_MODE|refitbayesian}}: MB_AB + MAXAT_SP
+*{{TAG|ML_MODE|run}}: MB_AB
+using the following definitions:
+*MAXAT_SP = greatest number of atoms within all species among the current structures and the structures in the {{TAG|ML_AB}} file (if present).
+*MB_AB = greatest number of local reference configurations within all species in the {{TAG|ML_AB}} file.
+
+The default value for {{TAG|ML_MODE|train}} and {{TAG|ML_MODE|select}} is a relatively safe value for most materials. However one might need to increase it to a greater value for liquids, polymers and amorphous systems, or when a MLFF for many different polytypes is trained. By default ({{TAG|ML_LBASIS_DISCARD|.TRUE.}}), if the number of local reference configurations would exceed {{TAG|ML_MB}}, VASP would continue the calculation and disposes of these, but one should make extensive tests whether the generated MLFF is sufficiently accurate.
+
+If VASP stops, subsequent training can be restarted from the existing ML_AB file. This avoids loss of already acquired training data.
+
+Depending on the calculation mode VASP adds a little overhead in the allocation of {{TAG|ML_MB}} arrays to buffer for new candidate structures. Here are the buffer sizes for each mode:
+*{{TAG|ML_MODE|train}}: 
+**No {{TAG|ML_AB}} present (learning from scratch): min({{TAG|NSW}} , {{TAG|ML_MCONF_NEW}}) * MAXAT_SP
+**{{TAG|ML_AB}} present (continuation of learning): min({{TAG|NSW}} , {{TAG|ML_MCONF_NEW}}) * MAXAT_SP
+*{{TAG|ML_MODE|select}}: {{TAG|ML_MCONF_NEW}} * MAXAT_SP
+*{{TAG|ML_MODE|refit}}: MAXAT_SP
+*{{TAG|ML_MODE|refitbayesian}}: MAXAT_SP
+*{{TAG|ML_MODE|run}}: 0
+
+The flag {{TAG|ML_MB}} also determines the maximum number of rows of the design matrix.   This is usually a huge matrix. The design matrix is allocated statically at the beginning of the run, since several parts of the code use MPI shared memory and dynamic reallocation of these arrays can cause issues on many operating systems. An estimate of the size of the design matrix and all other large arrays is printed out to the {{TAG|ML_LOGFILE}} before allocation. The design matrix is fully distributed in a block-cyclic fashion for scaLAPACK, and thus the memory requirement for each core scales inversely proportional to the number of used cores.
+## Related tags and articles
+{{TAG|ML_LMLFF}}, {{TAG|ML_MODE}}, {{TAG|ML_MCONF_NEW}}, {{TAG|ML_MCONF}}, {{TAG| ML_LBASIS_DISCARD}}
+
+{{sc|ML_MB|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Machine-learned force fields

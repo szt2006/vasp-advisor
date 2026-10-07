@@ -1,0 +1,15 @@
+{{DISPLAYTITLE:NHC_NCHAINS}}
+{{TAGDEF|NHC_NCHAINS|[integer]|0}}
+
+Description: Length of the Nosé-Hoover chain. 
+
+----
+{{TAG|NHC_NCHAINS}} sets the length of the chain for the  Nosé-Hoover chain thermostat. Typically, this tag is set to a value between 1 and 5. The maximal allowed value is 20. 
+
+In case {{TAG|NHC_NCHAINS}}=0, the thermostat is switched off and the underlying dynamics generate a microcanonical (NVE) ensemble. {{TAG|NHC_NCHAINS}}=1 corresponds to the standard Nosé-Hoover thermostat.
+## Related tags and articles
+{{TAG|NHC_PERIOD}}, Nosé-Hoover chain thermostat
+
+----
+
+Category:INCAR tagCategory:Thermostats

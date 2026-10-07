@@ -1,0 +1,26 @@
+{{DISPLAYTITLE:VDW_S6}}
+{{TAGDEF|VDW_S6|[real]}}
+
+Description: {{TAG|VDW_S6}} sets a parameter in the damping function of van der Waals methods.
+----
+{{TAG|VDW_S6}} allows to set the value of a parameter in the following methods: 
+*Scaling <math>s_{6}</math> of the dipole-dipole dispersion of the [[DFT-D2]] ({{TAG|IVDW}}=1), DFT-D3, [[DFT-D4]] ({{TAG|IVDW}}=13), [[DFT-ulg]] ({{TAG|IVDW}}=3), and Tkatchenko-Scheffler methods  ({{TAG|IVDW}}=2 and 21). {{TAG|VDW_S6}} can be used for both implementations of DFT-D3: [[DFT-D3]] ({{TAG|IVDW}}=11 or 12) and [[simple-DFT-D3]] ({{TAG|IVDW}}=15).
+*Steepness factor <math>a_0</math> in [[DDsC_dispersion_correction|DDsC]] ({{TAG|IVDW}}=4).
+{{NB|mind|The setting of <math>s_{6}</math> with {{TAG|VDW_S6}} when {{TAG|IVDW}}{{=}}11 or 12 (VASP implementation of [[DFT-D3]]) is possible since VASP.6.6.0.}}
+
+== Related tags and articles ==
+{{TAG|IVDW}},
+{{TAG|VDW_S8}},
+[[DFT-D2]],
+[[DFT-D3]],
+[[simple-DFT-D3]],
+[[DFT-D4]],
+[[DFT-ulg]],
+[[Tkatchenko-Scheffler_method|Tkatchenko-Scheffler method]],
+[[Tkatchenko-Scheffler method with iterative Hirshfeld partitioning]],
+[[DDsC_dispersion_correction|DDsC]]
+
+{{sc|VDW_S6|Examples|Examples that use this tag}}
+----
+
+[[Category:INCAR tag]][[Category:Exchange-correlation functionals]][[Category:van der Waals functionals]]

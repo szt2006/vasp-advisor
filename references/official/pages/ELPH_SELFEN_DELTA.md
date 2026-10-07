@@ -1,0 +1,21 @@
+{{DISPLAYTITLE:ELPH_SELFEN_DELTA}}
+{{TAGDEF|ELPH_SELFEN_DELTA|[real array]| 0.01}}
+
+Description: Complex imaginary shift to use when computing the self-energy due to electron-phonon coupling.
+{{Available|6.5.0}}
+
+----
+If the value is set to 0.0 then the tetrahedron method is used to perform the Brillouin zone integrals and evaluate only the imaginary part of the electron self-energy. This is the recommended option for transport calculations. A finite value instead replaces the exact tetrahedron integration with a Lorentzian smearing of width {{TAG|ELPH_SELFEN_DELTA}} around the Fan self-energy pole, which can likewise be used for transport calculations.
+
+For  bandgap renormalization since one is mainly interested in the real part of the self-energy due to electron-phonon coupling, a small finite value should be used and a dense <b>k</b> point mesh used.
+
+If more than one value is specified, the number of self-energy accumulators is increased such that one exists for each value in this array.
+It is possible to compute the self-energy using the tetrahedron method and a finite complex shift in the same run.
+## Related tags and articles
+* Bandstructure renormalization
+* {{TAG|ELPH_RUN}}
+* {{TAG|ELPH_SELFEN_GAPS}}
+* {{TAG|ELPH_SELFEN_FAN}}
+* {{TAG|ELPH_SELFEN_STATIC}}
+
+Category:INCAR tagCategory:Electron-phonon_interactions

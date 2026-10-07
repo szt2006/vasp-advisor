@@ -1,0 +1,23 @@
+{{DISPLAYTITLE:ELPH_WRITE_TEXTVEL}}
+{{TAGDEF|ELPH_WRITE_TEXTVEL|[logical]|.FALSE.}}
+
+Description: If set, writes the electron group velocities to a {{FILE|velocity}} human-readable text file.
+{{Available|6.5.0}}
+----
+
+The {{FILE|velocity}} file contains the following information:
+ # band kpoint spin direction energy(eV)  velocity
+  1 1 1 1 e1 vel1
+  2 1 1 1 e2 vel2
+  ...
+  8 1 1 1 e8 vel8
+  ...
+The group velocities are written in ev Å units in cartesian coordinates.
+This tag can be used independently of {{TAG|ELPH_WRITE_HDF5VEL}}.
+The number of bands is the one set by {{TAG|ELPH_NBANDS}} which can in some cases be different from {{TAG|NBANDS}}.
+If both are set, both outputs are written.
+## Related tags and articles
+* {{TAG|ELPH_RUN}}
+* {{TAG|ELPH_WRITE_HDF5VEL}}
+
+Category:INCAR tagCategory:Electron-phonon_interactions

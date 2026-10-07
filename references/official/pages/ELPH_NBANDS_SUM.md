@@ -1,0 +1,30 @@
+{{DISPLAYTITLE:ELPH_NBANDS_SUM}}
+{{TAGDEF|ELPH_NBANDS_SUM|[integer array]|{{TAG|ELPH_NBANDS}}}}
+
+Description: Number of intermediate states to include in the computation of the phonon-induced electron self-energy.
+{{Available|6.5.0}}
+
+----
+
+The computation of the self-energy is achieved via a sum over intermediate states |\Psi_{m \mathbf{k} + \mathbf{q}}\rangle.
+{{TAG|ELPH_NBANDS_SUM}} specifies the maximum number of bands, N_{\text{b}}, such that m runs from 1 \ldots N_{\text{b}}.
+
+Multiple values can be specified for {{TAG|ELPH_NBANDS_SUM}}, in which case the self-energy is computed once for each value.
+The results are reported in separate groups inside the {{FILE|vaspout.h5}} file:
+
+/results/electron_phonon/electrons/self_energy_1
+/results/electron_phonon/electrons/self_energy_2
+/results/electron_phonon/electrons/self_energy_3
+...
+
+This tag is useful for studying the convergence of the self-energy with respect to the number of intermediate states.
+At a certain point, including more bands in the summation over states should no longer change the result.
+{{NB|mind|When computing the renormalization of the electronic bandstructure, a large number of intermediate states may be necessary to reach convergence. If the self-energy still changes noticeably around {{TAG|ELPH_NBANDS_SUM|{{TAG|ELPH_NBANDS}}}}, then you may have to increase {{TAG|ELPH_NBANDS}}.}}
+## Related tags and articles
+* Bandstructure renormalization
+* {{TAG|ELPH_RUN}}
+* {{TAG|ELPH_NBANDS}}
+* {{TAG|ELPH_SELFEN_FAN}}
+* {{TAG|ELPH_SELFEN_DW}}
+
+Category:INCAR tagCategory:Electron-phonon_interactions

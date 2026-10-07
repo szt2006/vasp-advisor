@@ -1,0 +1,13 @@
+{{TAGDEF|EMAX|[real]}}
+{{DEF|EMAX| highest KS eigenvalue  + \Delta | }}
+
+Description: {{TAG|EMAX}} specifies the  upper boundary of the energy range for the evaluation of the electronic density of states (DOS).
+----
+The DOS is evaluated each {{TAG|NBLOCK}} steps, {{FILE|DOSCAR}}  is updated each  {{TAG|NBLOCK}}*{{TAG|KBLOCK}} steps.
+## Related tags and articles
+{{TAG|EMIN}}, {{TAG|NEDOS}},
+{{FILE|DOSCAR}}
+
+{{sc|EMAX|Examples|Examples that use this tag}}
+
+Category:INCAR tagCategory:Density of states

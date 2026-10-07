@@ -1,0 +1,25 @@
+{{DISPLAYTITLE:DEG_THRESHOLD}}
+{{TAGDEF|DEG_THRESHOLD|[real]}}
+{{DEF|DEG_THRESHOLD| $2 \times 10^{-3}$ | }}
+
+Description: {{TAG|DEG_THRESHOLD}} specifies whether two eigenvalues should be treated as degenerate during clustering of orbitals in the linear response code. {{TAG|DEG_THRESHOLD}} is specified in units of eV.
+
+----
+This parameter is used to find degenerate clusters of orbitals. It is used within VASP whenever linear-response calculations are performed (either with respect to external fields or with respect to ionic displacements). VASP internally uses an inverse-iteration solver with imaginary shifting to solve the Sternheimer linear-response equation.  If the value is too large,  non-degenerate eigenvalue pairs may be detected as degenerate pairs. This can lead to very poor convergence or erroneous results, in particular, for systems with low symmetry and flat semi-core bands. Conversely, too small a value might not lead to a proper detection of all degenerate eigenvalues. For insulating systems, this usually does not lead to substantial errors, since the imaginary shift can handle degenerate eigenvalue/eigenvector pairs (so VASP implements two strategies to handle degenerate pairs and combining them yields more robust results).
+
+It is recommended to use small values for systems without symmetry (e.g., around $10^{-5}$). For highly symmetric insulators, results should be largely insensitive to the choice of {{TAG|DEG_THRESHOLD}}. For metals, degenerate states with partial occupancies must be correctly resolved to obtain highly accurate results (so {{TAG|DEG_THRESHOLD}} must be set to a value that allows safe detection of degenerate states).
+
+{{NB|tip|If you experience large drifts in the Born effective charges and adding more k-points does not help, try adjusting this parameter. The total drift in the Born effective charges (calculated with {{TAG|LEPSILON}} &#61; .TRUE.) can be found in the {{FILE|OUTCAR}} file, in a block with the following form (see the final line):  
+
+       POSITION         DIRECTION 1           BORN EFFECTIVE CHARGE    (rigid.aug.   ionic)
+  -----------------------------------------------------------------------------------------
+         ***          ***          ***         ***      ***      ***   (    ***      ***  )
+  -----------------------------------------------------------------------------------------
+     total drift (improves with k-points):     XXX      XXX      XXX  
+
+This block is printed separately for each Cartesian direction. For example, DIRECTION 1 is the $x$ direction.
+}}
+## Related tags and articles
+{{TAG|LSUBROT}}, {{TAG|LEPSILON}}
+
+Category:INCAR tagCategory:Linear response

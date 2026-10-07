@@ -1,0 +1,31 @@
+# LVTHW 附带脚本与数据清单（**只登记，内容不入库**）
+# 由 references/raw/_inventory_assets.py 生成。
+# 路径相对于 LVTHW 的 source/_posts/。
+# ⚠️ 版权不明的（如第三方教材）与 POTCAR 相关的一律**不复制**，本表只说明用途。
+# rel_path	size_bytes	type	note
+A18/li_conductivity.py	1160	py	离子电导率后处理。
+A19/expand.py	364	py	ASE 扩胞小脚本。
+A20/smiles_to_xyz.py	2401	py	SMILES → XYZ（建初始构型用）。
+A23/Ubuntu_A23.pdf	194091	pdf	🟡 系统安装类操作记录 —— 非 VASP 知识。
+A24/pda.vasp	444426	vasp	数据/结构文件 —— 仅登记，不复制。
+A24/pda.vesta	34570	vesta	数据/结构文件 —— 仅登记，不复制。
+A24/test.py	530	py	离子迁移相关的小脚本。
+A26/.ipynb_checkpoints/get_data_from_pymatgen-checkpoint.ipynb	393258	ipynb	Jupyter Notebook —— 含可执行代码与内嵌数据，**不复制内容**。
+A26/get_data_from_pymatgen.ipynb	393258	ipynb	Jupyter Notebook —— 含可执行代码与内嵌数据，**不复制内容**。
+A26/materials_bg_gt_4.csv	242470	csv	数据/结构文件 —— 仅登记，不复制。
+A27/.ipynb_checkpoints/get_data_from_citrine-checkpoint.ipynb	72	ipynb	Jupyter Notebook —— 含可执行代码与内嵌数据，**不复制内容**。
+A27/get_data_from_citrine.ipynb	23649	ipynb	Jupyter Notebook —— 含可执行代码与内嵌数据，**不复制内容**。
+A28/通过ASE获取原子之间的距离.pdf	966182	pdf	🟡 该篇的 PDF 版 —— 正文已在 E 层。
+A32/IDM_Vaspwiki.pdf	117361	pdf	🟡 VASP wiki 的 Improved Dimer 页导出 —— 来源是官方 wiki，但**导出件本身不必入库**（官方页已在 G 层）。
+a10/getjpg.py	948	py	🟡 从网页抓配图的小工具 —— **与 VASP 无关**，只是作者的写作辅助。
+ex15/Density_Functional_Theory_A_Practical_Introduction.zip	9741075	zip	⛔ **第三方教材（有版权）** —— 原站附的是下载包。本项目的规矩是**版权不明/受限的东西不进仓库**，引用其内容时只标『作者推荐的书 + 章节』，不放文件。
+ex50/vtotav-v5.2.f	2829	f	VASP 官方工具源码（Fortran）：读 LOCPOT 做**平面平均**，输出 VLINE。本 skill 的 postprocess.py 已核对过它的索引用法。
+ex50/wplot-f.py	370	py	同上，读 Fortran 版输出。
+ex50/wplot.py	504	py	画平面平均势曲线（需要 matplotlib）。读的是 VLINE/LOCPOT_Z。
+ex51/dire2cart.py	3581	py	Direct → Cartesian 转换，**会保留 Selective dynamics 的 T/F**。Python 2 语法。
+ex52/get-vacuum.py	2889	py	**从平面平均势估真空能级** —— 取「最高原子 z 与晶胞 z 的中点」±1 Å 求平均。⚠️ 它自己写明「这只是粗略估计」，且要求**先看图确认中点落在平台上**。Python 2 语法。
+ex53/ex53.txt	3981	txt	
+ex59/sortcar.py	2058	py	CONTCAR/POSCAR 整理脚本。
+ex61/script_yh.zip	1604	zip	打包的脚本/练习集 —— 仅登记，不复制。
+ex63/scripts-ex63.zip	2818	zip	打包的脚本/练习集 —— 仅登记，不复制。
+ex67/ex67-exercise.zip	25319	zip	打包的脚本/练习集 —— 仅登记，不复制。

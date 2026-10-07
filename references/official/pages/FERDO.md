@@ -1,0 +1,15 @@
+{{TAGDEF|FERDO|[real array]}}
+
+Description: {{TAG|FERDO}} sets the occupancies of the states in the down-spin channel for {{TAG|ISMEAR}}=-2 and {{TAG|ISPIN}}=2.
+----
+To set the occupancies, specify
+  {{TAG|FERDO}} = f(1) f(2) f(3) ... f({{TAG|NBANDS}}&times;N**k**)
+The occupancies must be specified for all bands and k points. The band-index runs fastest. The occupancies must be between 0 and 1.
+{{TAG|FERDO}} has the same format as {{TAG|FERWE}}, please consider the notes on that page when setting {{TAG|FERDO}}.
+## Related tags and articles
+{{TAG|FERWE}},
+{{TAG|ISMEAR}}
+
+{{sc|FERDO|Examples|Examples that use this tag}}
+
+Category:INCAR tagCategory:Electronic occupancyCategory:Density of states

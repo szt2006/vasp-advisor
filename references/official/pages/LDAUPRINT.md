@@ -1,0 +1,18 @@
+{{TAGDEF|LDAUPRINT|0 {{!}} 1|0}}
+
+Description: {{TAG|LDAUPRINT}} controls the verbosity of a DFT+U calculation.
+----
+*{{TAG|LDAUPRINT}}=0: No onsite occupancy matrix is written to the {{FILE|OUTCAR}} file.
+*{{TAG|LDAUPRINT}}=1: The spin up and spin down onsite occupancy matrices of the atoms types to which a U is applied are written to the {{FILE|OUTCAR}} file at each iteration (below "onsite density matrix"). The eigenvalues and eigenvectors of the total (spin up + spin down) onsite matrix is also written (below "occupancies and eigenvectors").
+## Related tags and articles
+{{TAG|LDAU}},
+{{TAG|LDAUTYPE}},
+{{TAG|LDAUL}},
+{{TAG|LDAUU}},
+{{TAG|LDAUJ}},
+{{TAG|LMAXMIX}}
+
+{{sc|LDAUPRINT|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:DFT+UCategory:Strongly correlated electrons

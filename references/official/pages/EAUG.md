@@ -1,0 +1,14 @@
+{{TAGDEF|EAUG|[real]|value read from {{FILE|POTCAR}}}}
+
+Description: {{TAG|EAUG}} specifies the energy cutoff for the plane-wave representation for the augmentation charges in eV for the pseudopotential it is read from.
+
+----
+
+For a multi-element {{FILE|POTCAR}} file, the maximum {{TAG|EAUG}} determines the cutoff energy for the plane-wave representation of the augmentation charges.
+{{NB|deprecated|The value of {{TAG|EAUG}} can be overwritten by setting {{TAG|ENAUG}} in the {{FILE|INCAR}} file, but this functionality is deprecated and should not be used anymore.}}
+## Related tags and articles
+{{FILE|POTCAR}}, pseudopotentials
+
+----
+
+Category:POTCAR tagCategory:Projector-augmented-wave method

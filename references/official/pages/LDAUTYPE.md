@@ -1,0 +1,34 @@
+{{TAGDEF|LDAUTYPE|1 {{!}} 2 {{!}} 4|2}}
+
+Description: {{TAG|LDAUTYPE}} specifies the DFT+U variant that will be used.
+----
+The following variants of the DFT+U are available:
+
+*{{TAG|LDAUTYPE}}=1: The rotationally invariant DFT+U introduced by Liechtenstein *et al.*{{cite|liechtenstein:prb:95}}
+
+*{{TAG|LDAUTYPE}}=2: The simplified (rotationally invariant) approach to DFT+U, introduced by Dudarev *et al.*{{cite|dudarev:prb:98}}
+
+*{{TAG|LDAUTYPE}}=3: Linear response ansatz of Cococcioni et al. {{cite|cococcioni:2005}} to compute U. See how to calculate U.
+{{NB|mind|For {{TAG|LDAUTYPE}}{{=}}3, the {{TAG|LDAUU}} and {{TAG|LDAUJ}} tags specify the strength of the spherical potential acting on the spin-up and spin-down manifolds, respectively.|:}}
+
+*{{TAG|LDAUTYPE}}=4: Same as {{TAG|LDAUTYPE}}=1, but without exchange splitting.
+
+A method to estimate the parameters for DFT+U is the constrained-random-phase approximation. Another method is the linear response ansatz with {{TAG|LDAUTYPE}}=3, mentioned above. On the other hand, in many applications, the DFT+U parameters are used as tuning parameters to fit experimental data.
+{{NB|tip|For band-structure calculations, increase {{TAG|LMAXMIX}} to 4 (d elements) or 6 (f elements).}}
+This is because the {{FILE|CHGCAR}} file contains only information up to angular momentum quantum number set by {{TAG|LMAXMIX}} for the on-site PAW occupancy matrices. When the {{FILE|CHGCAR}} file is read and kept fixed in the course of the calculations ({{TAG|ICHARG}}=11), the results will necessarily not be identical to a self-consistent run. The deviations are often large for DFT+U calculations.
+{{NB|warning|The total energy will depend on the parameters U ({{TAG|LDAUU}}) and J ({{TAG|LDAUJ}}). It is, therefore, not meaningful to compare the total energies resulting from calculations with different U and/or J; or U-J in the case of Dudarev's approach ({{TAG|LDAUTYPE}}{{=}}2).}}
+
+It is possible to use {{TAG|LDAUTYPE}}=1, 2, and 3 for a non–spin-polarized calculation with {{TAG|ISPIN}}=1.
+## Related tags and articles
+{{TAG|LDAU}},
+{{TAG|LDAUL}},
+{{TAG|LDAUU}},
+{{TAG|LDAUJ}},
+{{TAG|LDAUPRINT}},
+{{TAG|LMAXMIX}}
+
+{{sc|LDAUTYPE|Examples|Examples that use this tag}}
+## References
+----
+
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:DFT+UCategory:Strongly correlated electrons

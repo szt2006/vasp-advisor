@@ -1,0 +1,12 @@
+{{TAGDEF|ENINI|[real]|{{TAG|ENCUT}}}}
+
+Description: {{TAG|ENINI}} controls the cutoff during the initial (steepest descent) phase for {{TAG|IALGO}}=48.
+
+----
+## Related tags and articles
+{{TAG|ENCUT}},
+{{TAG|IALGO}}
+
+{{sc|ENINI|Examples|Examples that use this tag}}
+
+Category:INCAR tagCategory:Electronic minimizationCategory:Projector-augmented-wave method

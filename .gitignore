@@ -1,0 +1,159 @@
+# .gitignore —— 哪些东西**绝不进仓库**
+
+# ---------------------------------------------------------------------------
+# 1. ⛔ POTCAR 及其任何衍生文件（**许可限制，最要紧的一条**）
+# ---------------------------------------------------------------------------
+# 依据：references/official/pages/POTCAR.md
+#   "Since the release of the potpaw.54 potential set (VASP version 5.4)
+#    POTCAR files also contain a copyright notice and a unique hash ..."
+#   "The settings in the POTCAR file are read-only and must not be edited."
+# ⇒ POTCAR 受 VASP 许可保护，**不得再分发**。
+#   本 skill 不生成、不复制、不缓存它的任何内容。
+POTCAR
+POTCAR.*
+*POTCAR*
+!POTCAR.README
+!references/official/pages/POTCAR.md
+!references/official/raw/POTCAR.wiki
+
+# ---------------------------------------------------------------------------
+# 2. ⛔ 站点信息出口（**永不进仓库**）
+# ---------------------------------------------------------------------------
+# 用户自己维护的"这台机器/这个集群"的事实：VASP 可执行文件路径、队列名、
+# 核数、module load 的东西、赝势目录位置……
+# 理由见 references/MAINTENANCE.md §0.1「机器细节不进，结论进」：
+# 把某一台机器的细节写进通用文档，下一次换机器就会把人带沟里。
+SITE.md
+site.md
+*_site.md
+site/
+srv/
+
+# ---------------------------------------------------------------------------
+# 3. ⛔ 外部学习资料（版权 + 体积）
+# ---------------------------------------------------------------------------
+# 课程讲义 PDF、算例原始文件、外部教程站点导出都在这里。它们**不进仓库**：
+#   · 讲义有明确版权声明（不得复制传播）；
+#   · 算例目录里有 POTCAR 与 WAVECAR/CHGCAR 这类大文件；
+#   · LVTHW 那个站点导出里有**真实的集群地址、账号、密钥相关命令**
+#     （与本项目的「机器细节不进」冲突），还有 94 MB 配图。
+# 仓库里只保留**抽取后的文本**（references/raw/*.txt）与**登记清单**。
+#
+# ⚠️ **用通配 + 数字，不要写死单个目录名。**
+# 历史事故（见 CHANGELOG 的 CR-032）：原来只写了 `things to study/`，
+# 后来出现了 `things to study2/`，就**没有被忽略** ——
+# 那个目录里有 2595 个文件（含真实账号 `xxx@xxx`、集群 IP、POTCAR 头部回显），
+# 一次 `git add .` 就会把它们全部入库。
+# 现在写成 `things to study*/`，任何编号的同类目录都覆盖。
+things to study*/
+things-to-study*/
+study/
+*.rar
+*.7z
+*.tar.gz
+*.zip
+
+# 大文件（VASP 常见输出）
+WAVECAR
+CHGCAR
+CHG
+PROCAR
+DOSCAR
+EIGENVAL
+vasprun.xml
+OUTCAR
+XDATCAR
+LOCPOT
+ELFCAR
+PCDAT
+IBZKPT
+POT
+*.vasp
+POSCAR
+CONTCAR
+KPOINTS
+INCAR
+!examples/**/INCAR
+!examples/**/KPOINTS
+!examples/**/POSCAR
+!conformance/**/INCAR
+!conformance/**/KPOINTS
+!conformance/**/POSCAR
+!references/templates/**/INCAR
+!references/templates/**/KPOINTS
+!references/templates/**/POSCAR
+
+# ---------------------------------------------------------------------------
+# 3b. ⛔ LVTHW 归档的**站点信息**（2026-XX 发现的一个真实缺口）
+# ---------------------------------------------------------------------------
+# `references/raw/lvthw/` 是网站**逐字导出**，它自己的 `SITEINFO.tsv` 就记着
+# **673 条**站点信息：home 路径 329 / 集群名 89 / QQ 71 / 邮箱 39 /
+# 账号@主机 37 / opt 路径 33 / 排队系统 21 / **IP 17** / **密钥 16** / …
+#
+# ⚠️ 原来这里**没挡** —— 上面第 3 节只挡了**外部源目录**（`things to study*/`），
+#    不挡这份**抽取后的归档**。⇒ 132 个 `.txt`（22 881 行）会被 `git add .` 全部入库。
+#
+# ⛔ **不要试图用正则脱敏**：实测按类别做模式替换**只清掉约 30%**
+#    （`/home` 340→241、IP 17→12、密钥 20→16、`module load` 4→**4**）。
+#    类别是**语义标签**（"集群名"），而集群名在正文里可能就是普通英文词。
+#    **"尽力而为的脱敏"会给出 false 的信心，比不脱敏更危险。**
+#
+# ✅ **正确做法见 `references/MAINTENANCE.md` §12 与 `_publish_prep.py`**：
+#    发布版只保留**行数骨架**（`(content withheld)`），因为
+#    `_audit_citations.py` 核对 `EX80:42` 时**只需要行数、不读内容** ——
+#    实测两条护栏（引用审计 / 覆盖性）在空壳上**都仍然 exit 0**。
+# ⚠️ **不要整目录忽略 `references/raw/lvthw/`** —— 那会把**骨架也挡掉**，
+#    于是克隆下来的人跑 `_audit_citations.py` 会**报 28 条、exit 1**
+#    （实测过）。**这正是"整个 ignore"走不通的原因。**
+#
+#    正确做法（见 `MAINTENANCE.md` §12 与 `_publish_prep.py`）：
+#      · 仓库里放的**就是骨架**（132 篇 .txt，每行 `(content withheld)`）；
+#      · **原文只存在仓库外**（`_publish_prep.py --restore` 会提示路径）；
+#      · 所以 `lvthw/` **不忽略**，否则骨架提交不上来。
+#
+#    生成/恢复：
+#      python _publish_prep.py --make    --out references/raw/lvthw
+#      python _publish_prep.py --restore --src <仓库外原文目录>
+
+# 脱敏工具的中间产物（**它把站点信息集中成一张表，比正文更敏感**）
+_SITEINFO_VALUES.tsv
+_scrub_report.md
+
+# ---------------------------------------------------------------------------
+# 4. 本地缓存 / 临时产物
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+
+# 外部资料抽取时的临时目录
+references/raw/_tmp/
+references/official/_fetch_log.txt
+
+# 出图产物（按需生成，不入库）
+*.png
+*.eps
+*.pdf
+x_*.csv
+fake_*.csv
+fake_*.png
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+*.swp
+*~
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 某次运行留下的搜索结果/临时日志（本地调试用）
+_scratch/
+*.tmp
+*.log

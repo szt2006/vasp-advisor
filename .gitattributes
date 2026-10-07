@@ -1,0 +1,41 @@
+# 一律 LF 行尾 —— **在仓库里钉死，不依赖每个使用者本地的 git 设置**
+#
+# 为什么必须写在这里（而不是指望 core.autocrlf=false）：
+#   本仓库有多处**行尾敏感**的校验 ——
+#     · `references/raw/L*.txt` / `D*.txt` 的**行号引用体系**
+#       （CRLF 会让"L2.txt 第 N 行"全部错位）；
+#     · `_audit_citations.py` 对 `path:行号` 的越界断言；
+#     · `_inject_test.py` 的写入-复原比对。
+#   Windows 上 `core.autocrlf=true`（Git for Windows 的默认建议）
+#   一次 `checkout`/`rebase` 就能让这几个套件同时变红。
+#   依赖每个使用者本地的 git 设置是不可靠的 —— **写进仓库才可靠**。
+* text=auto eol=lf
+
+# 二进制文件不要做行尾转换
+*.gz    binary
+*.rar   binary
+*.zip   binary
+*.7z    binary
+*.png   binary
+*.jpg   binary
+*.pdf   binary
+*.bindat binary
+*.WAVECAR binary
+*.CHGCAR binary
+
+# 抓取的官方 wiki 原文：逐字节保留，不要做任何转换
+references/official/raw/*.wiki  -text
+
+# 原始素材层：逐字保留
+references/raw/L*.txt   -text
+references/raw/D*.txt   -text
+
+# Markdown 与 Python：强制 LF，且不要在 diff 里显示为二进制
+*.md    text eol=lf
+*.py    text eol=lf
+*.tsv   text eol=lf
+*.yml   text eol=lf
+*.sh    text eol=lf
+*.txt   text eol=lf
+*.inp   text eol=lf
+*.vasp  text eol=lf

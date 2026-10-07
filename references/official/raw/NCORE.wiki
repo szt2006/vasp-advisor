@@ -1,0 +1,55 @@
+{{TAGDEF|NCORE|[integer]|1}}
+
+Description: {{TAG|NCORE}} controls how many MPI ranks collaborate on a single band, parallelizing the [[Energy_cutoff_and_FFT_meshes#FFT_mesh|FFTs]] for that band.
+----
+{{available|5.2.13}}
+
+VASP distributes the available MPI ranks into band groups that each work on one band, parallelizing the [[Energy_cutoff_and_FFT_meshes#FFT_mesh|FFTs]] for that band. For the common case that {{TAG|IMAGES|1}} and no other algorithm-dependent parallelization (e.g., {{TAG|NOMEGAPAR}}) is active:
+
+:<math>\text{available ranks} = \frac{\text{total MPI ranks}}{\text{KPAR}}</math>
+
+{{TAG|NCORE}} sets the size of each band group. The number of bands treated in parallel is then:
+
+{{TAG|NPAR}} = <math>\text{available ranks}</math> / {{TAG|NCORE}}
+
+This makes {{TAG|NCORE}} and {{TAG|NPAR}} strict inverses of one another for a given number of available ranks. '''Do not set {{TAG|NCORE}} and {{TAG|NPAR}} at the same time.''' If both are present in the {{FILE|INCAR}}, {{TAG|NPAR}} takes precedence for legacy reasons. Nevertheless, we strongly encourage using {{TAG|NCORE}} instead of {{TAG|NPAR}} for all modern VASP versions.
+
+== Common settings ==
+
+* {{TAG|NCORE}} = <math>\sim \sqrt{\text{available ranks}}</math>: each band group of NCORE ranks parallelizes its FFTs internally. This reduces both memory requirements (projector functions are shared within the group) and the cost of orthogonalization. '''This is the recommended regime for modern multi-core machines.'''
+
+* {{TAG|NCORE|1}} (default): each band is handled by a single rank. The maximum number of bands is treated in parallel, but the non-local projector functions must be stored in full on every rank, leading to high memory usage. In addition, orthogonalizing the bands requires heavy all-to-all communication between all ranks. This setting is appropriate for small unit cells or machines with limited communication bandwidth.
+
+* {{TAG|NCORE}} = <math>\text{available ranks}</math>: all ranks collaborate on a single band, distributing only the plane-wave coefficients. No band parallelization occurs. This is almost always very slow and should be avoided.
+{{NB|warning|When running with [[Combining MPI and OpenMP|OpenMP threading]] or any of the [[GPU ports of VASP|GPU-offloaded code paths]], {{TAG|NCORE}} is automatically reset to {{TAG|NCORE|1}}, regardless of the value set in the {{FILE|INCAR}} file. FFT parallelization is then handled by OpenMP threads or the GPU. Use the number of OpenMP threads per rank for fine-grained control over FFT parallelization in those cases.}}
+
+== Recommendations ==
+{{NB|tip|Consult the [[optimizing the parallelization]] page for a step-by-step guide on how to optimize your parallelization. The examples below are only rough guidelines. For any non-trivial production run, perform a short benchmarking scan over a few values of {{TAG|NCORE}} before committing to one setting.}}
+
+General guidelines:
+
+* '''Small systems or slow networks''' (up to ~8 cores, Gbit Ethernet interconnect): use {{TAG|NCORE|1}}. The limited number of ranks and slow interconnect make FFT parallelization within band groups inefficient.
+
+* '''Modern multi-core clusters''' (Infiniband or equivalent fast interconnect): set {{TAG|NCORE}} to a value between 2 and the number of cores per node. {{TAG|NCORE}} should be a factor of the number of cores per node to ensure that all intra-group FFT communication stays within a single node. As a rule of thumb, {{TAG|NCORE|4}} works well for ~100 atoms; {{TAG|NCORE|12}}–{{TAG|NCORE|16}} is often better for unit cells with more than 400 atoms.
+
+* '''NUMA-aware setting''': setting {{TAG|NCORE}} equal to the number of cores per [[Optimizing_the_parallelization#Understanding_the_hardware|NUMA domain]] is often a particularly good choice, because all intra-group FFT communication then stays within the fastest memory domain of the hardware. Use <code>lstopo</code> or <code>numactl --hardware</code> to determine the NUMA layout of your machine.
+
+== Related tags and articles ==
+{{TAG|NPAR}},
+{{TAG|KPAR}},
+{{TAG|LPLANE}},
+{{TAG|LSCALU}},
+{{TAG|NSIM}},
+{{TAG|LSCALAPACK}},
+{{TAG|LSCAAWARE}},
+
+[[GPU ports of VASP]],
+[[Combining MPI and OpenMP]],
+
+[[Optimizing the parallelization]],
+[[Parallelization]],
+[[Energy cutoff and FFT meshes]]
+
+{{sc|NCORE|HowTo|Workflows that use this tag}}
+
+[[Category:INCAR tag]][[Category:Performance]][[Category:Parallelization]]

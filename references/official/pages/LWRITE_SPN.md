@@ -1,0 +1,23 @@
+{{TAGDEF|LWRITE_SPN|.TRUE. {{!}} .FALSE.|.FALSE.}}
+{{DISPLAYTITLE:LWRITE_SPN}}
+Description: Write **wannier90.spn** file for noncollinear calculations.
+----
+
+For noncollinear calculations ({{TAG|LNONCOLLINEAR}}=T using vasp_ncl) the **wannier90.spn** file is written when 
+
+  {{TAGBL|LWANNIER90}}=T ! switch on Wannier90 interface 
+  {{TAGBL|LWRITE_SPN}}=T 
+
+The file is formatted, and the appropriate line (spn_formatted = .true.) is automatically added to the **wannier90.win** file.
+{{NB|warning|Only the default setting for {{TAG|SAXIS}} is supported.}}
+{{NB|mind|Available for VASP version > 6.4.2.}}
+## Related tags and articles
+{{TAG|LWANNIER90}},
+{{TAG|LWRITE_UNK}},
+{{TAG|LWRITE_MMN_AMN}},
+{{TAG|LWANNIER90_RUN}},
+{{TAG|NUM_WANN}}
+
+{{sc|LWANNIER90|Examples|Examples that use this tag}}
+
+Category:INCAR tagCategory:Wannier functionsCategory:Magnetism

@@ -1,0 +1,13 @@
+{{DISPLAYTITLE:LNMRSHIELD}}
+{{TAGDEF|LNMRSHIELD|.TRUE.{{!}} .FALSE.}}
+{{DEF|LNMRSHIELD|.TRUE.|}}
+
+Description: {{TAG|LNMRSHIELD}} controls whether the shielding or shift is printed.
+{{Available|6.6.0}}
+----
+The chemical shielding \sigma_{ij} is printed by default (i.e. {{TAG|LNMRSHIELD}} = .TRUE.) in the {{FILE|OUTCAR}} file. When {{TAG|LNMRSHIELD}} = .FALSE. is set, the chemical shift \delta_{ij} is printed instead (\delta_{i,j} = -\sigma_{ij}), as was the default prior to VASP.6.6.0.
+{{NB|mind|The NICS is always shielding and is unaffected by {{TAG|LNMRSHIELD}}.}}
+## Related tags and articles
+{{FILE|LCHIMAG}}
+
+Category:INCAR tagCategory:NMR

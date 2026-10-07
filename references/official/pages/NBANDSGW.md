@@ -1,0 +1,15 @@
+{{TAGDEF|NBANDSGW|[integer]| twice the number of occupied states}}
+
+Description: The flag determines how many QP energies are calculated and updated in GW type calculations. 
+
+----
+
+This value usually needs to be increased somewhat for partially or fully self-consistent calculations. Very accurate results
+are only obtained when {{TAG|NBANDSGW}} approaches {{TAG|NBANDS}}, although this  dramatically increases the computational requirements.
+## Related tags and articles
+{{TAG|NBANDS}}
+
+{{sc|NBANDSGW|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Many-body perturbation theoryCategory:GW

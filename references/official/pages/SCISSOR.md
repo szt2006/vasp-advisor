@@ -1,0 +1,12 @@
+{{TAGDEF|SCISSOR|[real]}}
+{{DEF|SCISSOR|0|}}
+
+Description: {{TAG|SCISSOR}} specifies the shift for the scissor operator in eV.
+----
+
+The scissor operator in BSE and GW calculations shifts the unoccupied states relative to the valence states{{cite|vincenzo:prb:1995}}. For example, the scissor operator can be used in the BSE calculations to match the band gap to the known experimental value, thus achieving the right offset in the calculated spectrum. Notably, unlike the self-energy operator in GW, the scissor operator applies a universal shift to all conduction states, i.e., the shift is independent of energy or momentum and leaves the valence states unchanged. The scissor operator only shifts empty states, thus partially occupied orbitals are not affected by it.
+## Related tags and articles
+{{TAG|BSE calculations}}
+## References
+----
+Category:INCAR tagCategory:Bethe-Salpeter_equationsCategory:Many-body perturbation theoryCategory:GW

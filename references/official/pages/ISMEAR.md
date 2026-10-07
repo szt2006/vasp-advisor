@@ -1,0 +1,38 @@
+{{TAGDEF|ISMEAR|-15 {{!}} -14 {{!}} -5 {{!}} -4 {{!}} -3 {{!}} -2 {{!}} -1 {{!}} 0 {{!}} [integer]>0 |1}}
+
+Description: {{TAG|ISMEAR}} determines how the partial occupancies *f*n**k** are set for each orbital. {{TAG|SIGMA}} determines the width of the smearing in eV.
+----
+
+Please consider how-to guide to choose the optimal smearing technique.
+## Tag options
+*{{TAG|ISMEAR|0|op=>}}: method of Methfessel-Paxton order {{TAG|ISMEAR}} with width {{TAG|SIGMA}}.
+{{NB|mind|Methfessel-Paxton can yield erroneous results for insulators because the partial occupancies can be unphysical.|:}}
+
+*{{TAG|ISMEAR|0}}: Gaussian smearing with width {{TAG|SIGMA}}.
+
+*{{TAG|ISMEAR|-1}}: Fermi smearing with width {{TAG|SIGMA}}.
+
+*{{TAG|ISMEAR|-2}}: Partial occupancies are read in from the {{FILE|WAVECAR}} and kept fixed throughout run. Alternatively, you can also choose occupancies in the {{FILE|INCAR}} file with the tag {{TAG|FERWE}} (and {{TAG|FERDO}} for {{TAG|ISPIN|2}} calculations).
+
+*{{TAG|ISMEAR|-3}}: perform a loop over {{TAG|SMEARINGS}} parameters supplied in the {{FILE|INCAR}} file.
+
+*{{TAG|ISMEAR|-4}}: Tetrahedron method without smearing.
+
+*{{TAG|ISMEAR|-5}}: Tetrahedron method with Blöchl corrections{{cite|bloechl:prb:1994}} without smearing.
+
+*{{TAG|ISMEAR|-14}}: Tetrahedron method with Fermi-Dirac smearing {{TAG|SIGMA}}.
+
+*{{TAG|ISMEAR|-15}}: Tetrahedron method with Blöchl corrections{{cite|bloechl:prb:1994}} with Fermi-Dirac smearing {{TAG|SIGMA}}.
+{{NB|mind|Use a &Gamma;-centered **k**-mesh for the tetrahedron methods.|:}}
+## Related tags and articles
+{{TAG|SIGMA}},
+{{TAG|EFERMI}},
+{{TAG|FERWE}},
+{{TAG|FERDO}},
+{{TAG|SMEARINGS}},
+Smearing technique,
+K-point integration
+
+{{sc|ISMEAR|Examples|Examples that use this tag}}
+## References
+Category:INCAR tagCategory:Electronic occupancyCategory:Electronic minimizationCategory:Density of states

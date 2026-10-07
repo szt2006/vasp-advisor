@@ -1,0 +1,25 @@
+{{TAGDEF|QMAXFOCKAE|[real array]|0}}
+
+Description: Sets the wave vector at which the local augmentation charges are fitted to restore the all-electron charge density on the plane-wave grid.
+----
+
+The fit is part of shape restoration, and {{TAG|NMAXFOCKAE}} gives how many wave vectors are used. One value is read per species, in the order of the species in the {{FILE|POSCAR}} file.
+
+The default, 0, is not itself a wave vector but a sentinel meaning *leave the built-in values alone*. As long as it is 0, the fit uses
+
+* 6 Å-1 for {{TAG|NMAXFOCKAE|1}}, a plane-wave energy of approximately 140 eV,
+* 5 and 10 Å-1 for {{TAG|NMAXFOCKAE|2}}, approximately 95 eV and 380 eV.
+
+A positive value replaces the **first** wave vector. The second is always twice the first and cannot be chosen independently, so with {{TAG|NMAXFOCKAE|2}} the setting
+
+ {{TAGBL|QMAXFOCKAE}} = 4
+
+fits at 4 and 8 Å-1. With {{TAG|NMAXFOCKAE|1}} the single wave vector is taken from {{TAG|QMAXFOCKAE}} directly.
+
+We do not recommend setting these values manually.
+## Related tags and articles
+{{TAG|NMAXFOCKAE}}, {{TAG|LMAXFOCKAE}}, {{TAG|LMAXFOCK}}, {{TAG|LFOCKAEDFT}}, {{TAG|LFOCKSTD}}, Projector-augmented-wave formalism
+
+{{sc|QMAXFOCKAE|Howto|Workflows that use this tag}}
+## References
+Category:INCAR tagCategory:Projector-augmented-wave method

@@ -1,0 +1,15 @@
+{{DISPLAYTITLE:ML_GRACE_MODEL}}
+{{TAGDEF|ML_GRACE_MODEL|[string]|./SavedModel}}
+
+Description: String-based tag specifying the GRACE force field name or path. {{available|6.6.0}}
+----
+If [[Running_GRACE_force_fields_in_VASP|GRACE force fields]] are requested via {{TAG|ML_TYPE|grace}} this tag allows to select the actual model to use in two ways:
+
+# The {{TAG|ML_GRACE_MODEL}} tag may be used to provide just the model name. In this case the model is assumed to reside in the default <code>tensorpotential</code> download directory <code>~/.cache/grace</code>.
+# If a full path is provided in the {{TAG|ML_GRACE_MODEL}} tag then the model at this exact location is used.
+
+== Related tags and articles ==
+{{TAG|ML_LMLFF}}, {{TAG|ML_MODE}}, {{TAG|ML_TYPE}}
+----
+
+[[Category:INCAR tag]][[Category:Machine-learned force fields]]

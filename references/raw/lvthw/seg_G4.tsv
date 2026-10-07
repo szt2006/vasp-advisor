@@ -1,0 +1,63 @@
+EX42	1	21	元数据 + 表面计算总思路（bulk → slab）	元数据；思路两步：先算 bulk 拿稳定晶格常数，再搭 slab
+EX42	22	51	什么是 slab 模型：真空层、偶极矫正、四项注意	真空层避免第三维周期镜像互扰；一般表面反应 15 Å 够、功函数类要另说；LDIPOL=.TRUE.+IDIPOL=3（z 方向）；xy 大小/晶面/层数/对称性四项；开放的表面需要更多层，层数要自己测
+EX42	52	98	表面模型搭建之块体计算（Cu 单胞）	ISMEAR=1/SIGMA=0.1；ENCUT=700（原子少可设大）；EDIFFG=-0.01；ISIF=3/POTIM=0.1；PREC=H；LREAL=Auto 为了与后面表面能统一，不能拿 .FALSE. 与 Auto 的结果比能量；跨算例须固定 ENCUT/ENAUG/PREC/LREAL/ROPT；13x13x13 K 点；优化后 a=3.6370 Å（实验 3.615）
+EX42	99	111	结构优化注意事项与小结	参考手册 7.6.2；体材料先看金属/非金属/半导体选 ISMEAR 与 SIGMA；按原子数与后续计算选 LREAL
+EX42	112	133	Material Studio 切面与加真空层步骤 + 总结	VESTA 转 cif → MS 导入 → build/surface/cleave surface 输入 (hkl) → Surface Mesh 改 vectors、Surface Box 定终端与厚度 → Build vacuum slab（vacuum orientation=C，厚度 10/15 Å 或更大）→ Re-orient to standard 把真空放 z 轴
+EX43	1	23	元数据 + 承接上节	已有 POSCAR/POTCAR，本节准备 INCAR/KPOINTS 做单点
+EX43	24	55	Cu(111) slab 的 POSCAR 制作流程	先用 conventional cell；FCC 金属可用 primitive cell，其他体系用 primitive 切出来有问题；Build/Symmetry/primitive cell → cleave surface → Build Vacuum Slab 15 Å → 导出 cif 转 POSCAR；POSCAR 正文：a=2.5717、b=(-1.28585,2.22716)、c=21.2994；4 个 Cu，Direct
+EX43	56	72	KPOINTS：面内 13x13、z 方向只用 1	面内 a=b=2.5717 Å → 13x13；z 取 1；kpoints.sh 13 13 1；依据参考书 Page 88 英文原句：真空足够大时电子密度很快趋于零，b3 方向 1 个 k 点就足以给出准确结果
+EX43	73	106	单点 INCAR 十条注意事项 + 最终 INCAR	ISPIN 不用设（纯 Cu 无磁性；CuO 要设）；NSW=0 默认；ENCUT=450；EDIFF=1E-5；LDIPOL=.TRUE.;IDIPOL=3；NWRITE=0/LWAVE=.FALSE./LCHARG=.FALSE.；NCORE 经验为节点核数的一半
+EX43	107	120	取单点能、扩展练习与总结	单点能 -13.96918440 eV；命令 grep '  without' OUTCAR（2 空格）或 grep E0 OSZICAR | tail -n 1
+EX44	1	16	元数据 + 本节任务	在单点基础上学 slab 优化
+EX44	17	42	为什么固定底层；Selective Dynamics 与 T/F	固定部分原子模拟体相、放开表面原子；第 7 行后加 Selective Dynamics（VASP 只认首字母，可写 S）；每个坐标后 3 个 F/T；FFF 全固定、TTT 全放开、FFT 只在 z 放开；Selective 与 FT 必须同时出现，否则默认全部放开
+EX44	43	82	三种改 POSCAR 的办法；sed 三连	文本编辑器列块 / p4vasp / sed；sed -i '7aSelective Dynamics' POSCAR；sed -i '10,11s/$/ F F F/g'；sed -i '12,13s/$/ T T T/g'；注意第一个 F 前有空格；加 Selective 后坐标行号整体下移（变 10-13 行）
+EX44	83	122	KPOINTS/POTCAR 不变；优化 INCAR	IBRION=2（1 也行）；POTIM=0.1（默认 0.5 偏大）；EDIFFG=-0.01 已很严，别用 -0.001，不收敛可退到 -0.02；NSW=500；ISIF=2（slab 用默认值）
+EX44	123	136	提交检查、扩展练习、总结	查 OSZICAR/OUTCAR 末几行是否正常结束；练习把 EDIFFG 改 -0.02/-0.001 对比；尝试自己算 Cu(111) 表面能
+EX45	1	31	元数据 + 答辩心得	答辩体会：基础不扎实、前瞻性不够；以后每节分四部分（基础知识/计算细节/结果讨论/发表文章中的计算）
+EX45	32	39	表面弛豫：配位数、悬键、层间距	切开后表层配位数减少、有悬键；表面层与内部相互作用更强；体现在层间距（键长）上
+EX45	40	54	三份参考读物	维基解释（弛豫 vs 重构，法向弛豫最常见，多数金属表面是这类）；Surface Science: An Introduction；参考书第 94 页 4.5 节 SURFACE RELAXATION
+EX45	55	64	扩展练习与总结	了解表面弛豫、查书、重复 4.5 节练习
+EX46	1	14	元数据 + 引入	金属表面弛豫一般在垂直方向；体现在层间距和能量两方面
+EX46	15	33	优化前 POSCAR（Cartesian + Selective + TTT）	c=21.2994；4 个 Cu；Selective，Cartesian；z=0.0000/2.0999/4.1996/6.2995；前两个 F F F，后两个 T T T
+EX46	34	60	优化后 CONTCAR；层间距变化计算	表层 z 从 6.2995 → 6.2593（向体相收缩）；层间距 2.0999 → 2.0703；变化 (2.0999-2.0703)/2.0999*100% = 1.4%；负值表示向体相收缩
+EX46	61	95	弛豫能 = 末离子步 - 首离子步；首步必须收敛	首离子步 -13.96892338、末离子步 -13.97086603，弛豫能 -0.00194265 eV，为负说明放热；命令 grep '  without' OUTCAR | awk '{print $7}'；陷阱：首离子步电子步必须收敛，默认 NELM=60 步内没收敛则该能量不可用；处方：NELM=100 或更大重做单点，或调 ALGO
+EX46	96	134	dire2cart.py 用法与注意 + 扩展练习	用法 dire2cart.py POSCAR；产物名为 <输入名>_C；已是 Cartesian 会自动识别并终止；文中附 VASP 官网表面科学教程链接
+EX47	1	18	元数据 + 引入	本节讲表面能计算过程
+EX47	19	28	表面能定义	维基摘录：创造表面时破坏化学键所需能量；表面原子比内部能量高；新形成表面不稳定会重组/吸附以降低能量
+EX47	29	49	官方公式逐项拆解；E_bulk 的含义	E^rel = 弛豫能（切好表面优化到稳定释放的热量）；E^surf = 刚切好 slab 能量（可单点或取首离子步）；N_atoms = slab 原子数；E_bulk = 体相中单个原子能量（体相总能除以原子数，Cu 单胞 4 原子就除 4）；先拿稳定晶格常数（ISIF+大 ENCUT，或 BM 拟合），若用 ISIF=3 则把 CONTCAR 复制成 POSCAR 用 ISIF=2 + 正常 ENCUT 再单算一次
+EX47	50	69	除以 2 的理由；E^rel 为何不除 2	σ^unrel 是切开块体的功，切成 2 份所以除 2；σ = σ^unrel + E^rel；E^rel 不除 2 因为只放开了上面两层，即只优化了一个表面
+EX47	70	111	面积怎么求、单位换算、Ni(100) 算例	面积是 slab 那一层的表面积；A = x1*y2（菱形）或 x1*y2 - y1*x2（不正交）；Cu 例 A = 2.57170*2.22716 - 0.000*(-1.28585)；Ni(100) A = (0.5*0.5-0.5*(-0.5)) = 0.5，再乘缩放系数 0.5*3.53*3.53 = 6.23045 Å²；0.71 eV / 6.23045 = 0.114 eV/Å²；1 eV/Å² = 16.02 J/m²；换算后 1.826 J/m²
+EX47	112	126	参考书第 97 页换算写反；E^surf 必须收敛	自查算式 1 eV = 1.602176487e-19 J、1 Å² = 1e-20 m²；取 E^surf 必须检查单点是否收敛或第一个离子步是否收敛，否则表面能就是错的（σ^unrel 与 E^rel 都依赖它）
+EX47	127	162	作者论文的支持信息公式 + 扩展练习 + 总结	参考文献 Nanoscale 2017, 9, 13089-13094 支持信息公式 1；练习重复 Ni(100)、算 Cu(111)/Cu(100)/Cu(110) 并比较规律
+EX48	1	22	元数据 + 指出官方 0.845 eV 更正	官方 Hand-On-Session-III 最后的表面能应为 0.86-0.015 = 0.845 eV，而不是 0.71 eV
+EX48	23	42	为什么除以 2；E^rel 何时也除 2	单点计算包含 2 个面；slab 在 z 方向也周期，底部两层虽固定但仍是表面；E^rel 不除 2 是因为只优化了一个表面；若两个面都优化则 E^rel 也要除 2
+EX48	43	62	对称 slab 的简化公式	中间三层固定模拟体相、上下三层放开；σ = 1/(2A)(E_surf - N*E_bulk + E^rel) = 1/(2A)(E_surf^rel - N*E_bulk)；E_surf^rel 就是优化完的对称 slab 能量；各项获取方式同上节
+EX48	63	73	对称 vs 非对称 slab 的取舍；LDIPOL/IDIPOL	对称 slab 原子多、z 长、要更多真空层、计算量大；非对称 slab 会产生模型引入的偶极矩，吸附/反应时两 slab 间偶极相互作用影响结果，但可用参数消除；LDIPOL=.TRUE. + IDIPOL=1-4（1/2/3 为 x/y/z，4 为全部），两者必须同时加
+EX48	74	102	影响表面能的因素	Slab 能量侧：层数、表面大小（一般 p(1x1) 即可，p(1x1) 与 p(2x2) 比较时 K 点必须同步改）、真空层厚度都要测；Bulk 侧：单胞或原胞均可，扩胞也行，但比较不同大小模型的单原子能量时 K 点密度必须一致；推荐进阶参考书 Theoretical Surface Science（表面能在第 68 页）
+EX48	103	114	扩展练习与总结	重复 Cu(111)/Cu(110)/Cu(100)；读参考书表面能与 slab 章节
+EX49	1	18	元数据 + 引入	后两节讨论功函数计算
+EX49	19	42	功函数定义	维基：使电子立即从固体表面逸出所需的最小能量（eV）；功函数不是体相本征性质而是表面性质；W = -eφ - E_F，-eφ 是电子在表面附近真空静止的能量；IUPAC：φ^M = -(V_e + ε_e^F)
+EX49	43	81	VASP 计算流程	只需费米能级与静电势，求差即可；费米能级 grep E-fermi OUTCAR；静电势靠 INCAR 加 LVHAR=.TRUE. 生成 LOCPOT；流程：优化 → CONTCAR 复制成 POSCAR → 设单点（NSW=1 或 0 / IBRION=-1 / 删掉 NSW）→ 提交；有 WAVECAR 可 ISTART=2；电子步默认 40，难收敛设 NELM=500
+EX49	82	120	Cu(111) 功函数算例准备与 INCAR	新建 workfunction 目录复制 INCAR/KPOINTS/POTCAR/CONTCAR/任务脚本；INCAR 关键行 ISMEAR=1、ALGO=FAST、ENCUT=450、EDIFF=1E-5、IDIPOL=3、NWRITE=0、LWAVE/LCHARG=.FALSE.、IBRION=2、POTIM=0、EDIFFG=-0.01、NSW=1、LVHAR=.TRUE.（原文第 101 行写作 IDIPOL=.TRUE.、第 96 行写作 SIMGA，均系笔误）
+EX49	121	182	p4vasp 路线：导入、可视化、导出	File/Load System 导入 LOCPOT；Electronic → Local potential；点 Show 选方向（一般 z）；Graph → Export 存成 .dat（名字必须带 .dat/.data 尾缀）
+EX49	183	215	数据三段结构与取静电势；结果 4.81 eV	导出的数据分三部分、每两部分间空行；用红线（Average 那条，即第二部分）；10-18 区间三条线基本一致；取 14-15 Å 时红线数值 4.84；费米能级 0.03；功函数 4.84-0.03 = 4.81 eV；目测取值误差约 0.5 eV 太大所以必须导出数据；发表时引 CRC handbook 而不是 wiki
+EX49	216	238	扩展练习与总结	重复本节计算；重复 VASP 官网 Ni(111) 表面高精度算例
+EX50	1	20	元数据 + 本节定位	介绍另外两个方法，本质都是对 LOCPOT 中数据的处理
+EX50	21	54	vtotav-v5.2f：编译、选方向 3、取真空能级	gfortran -o vtotav.x vtotav-5.2f（或 ifort）；./vtotav.x 后输入方向 3（z）；产物 VLINE，第一行 224 表示点数、3 表示 z 方向；横坐标是点的序号 1-224（与 p4vasp 的 z 坐标不同）；真空能级从 150 前后取值，或在一段直线区间求平均
+EX50	55	103	wplot-f.py 全文与解释	读 VLINE，next(f) 跳过第一行，两列分别存 x/y，plt.plot 后存 workfunction.pdf（dpi 400）；可改 .eps/.png/.jpg、可调 dpi、可注释掉 plt.show() 或保存行
+EX50	104	157	vtotav.py 路线：LOCPOT_Z、wplot.py	命令 vtotav.py LOCPOT z → 产物 LOCPOT_Z；wplot.py 读 LOCPOT_Z，把第一行第 2/3 个字段作为 x/y 轴名（Distance/Potential）；横坐标是真实 z 值，与 p4vasp 一致
+EX50	158	230	vtotav.py 获取与依赖（需 ASE）+ 总结	脚本来自公开 github 仓库；做法：复制代码存成 vtotav.py → chmod u+x → 移到 ~/bin → 直接用；脚本需调用 ase 模块（ASE = Atomic Simulation Environment），作者不推荐用 Windows 做计算
+EX51	1	18	元数据 + 本节问题	功函数计算要注意哪些事项
+EX51	19	61	LVHAR vs LVTOT 对照实验	LVHAR=.TRUE. 只把静电势写入 LOCPOT；早期版本用 LVTOT；5.2.12 之后设 LVTOT 会把静电势与交换相关势都写入；对照 13-15 Å 的纵坐标与平均值：两参数对功函数的影响不可忽略，LVTOT 曲线不光滑且有偏差；老版官方教程用 LVTOT，属过时做法
+EX51	62	105	真空层厚度定义与改 c 的错误做法及修复	真空层厚度 = slab 在 z 方向的长度 - 表面原子 z 坐标；长度取 POSCAR/CONTCAR 第 5 行；想把 15 Å 改成 20 Å 就直接把 21.2994 改成 26.2994 是错的：Cu 原子间距从 2.547 Å 被拉到 2.956 Å；原因是分数坐标 Direct，改 c 会等比改变原子间距离；修复：必须先转成 Cartesian（p4vasp 或 dire2cart.py）
+EX51	106	250	dire2cart.py 全文与使用流程	流程：复制 CONTCAR → head -n 10 看结构 → dire2cart.py CONTCAR → 产物 CONTCAR_C → cat 查看；公式 x_cart = f1*a1+f2*a2+f3*a3（y/z 同理）；按第 8 行首字母是否 S 决定 start_num = 9 或 8，按坐标行首字母 D/C 决定是否转换；已是 Cartesian 则终止；脚本为 Python 2 语法；逆向（Cartesian → Direct）作者没写
+EX51	251	294	批量处理 Cartesian POSCAR 的 for+sed + 总结	for i in $(seq 12 2 36); do cp 10 $i ; sed -i "5s/16/$((6+$i))/g" $i/POSCAR; done；核对命令 for i in *; do head -n 5 $i/POSCAR | tail -n 1 ; done；head 取前 5 行、tail -n 1 取最后一行、| 是管道
+EX52	1	27	元数据 + 结论先行：真空层要足够	功函数计算真空层一定要足够；多厚算够要按体系测，一般 20 Å 左右足以；越厚结果差别不大但计算量增加
+EX52	28	50	14 个真空层任务的批量生成	准备真空层 10 Å 的文件夹（POSCAR 用 Cartesian）；复制 INCAR/KPOINTS/POTCAR/任务脚本；for i in $(seq 12 2 36); do cp 10 $i; sed -i "5s/16/$((6+$i))/g" $i/POSCAR; done；批量提交
+EX52	51	111	真空能级取值脚本的原理与注意事项	真空能级取直线部分中间一个点或小区间平均，约在真空层一半高度：表层原子 z=6、真空 16 时取 6+16/2=14，或取 [14-1,14+1] 区间平均；Note1 必须读 Cartesian 的 POSCAR；Note2 必须先跑出 LOCPOT_Z；Note3 给出 num_middle 与 ±1 Å 平均的思路；Note4 这只是粗略估计；Note5 必须先看图，若中点远离平台就得手工算
+EX52	112	173	脚本正文：画图 + 真空能级自动判定	读 LOCPOT_Z（第一行给轴名）画图并存 workfunction.pdf；num_lines 统计 POSCAR 行数；vaccum = float(line[4].split()[2])；z_list 取自 range(9, num_lines) 的第 3 列；l_vaccum = vaccum - max(z_list)；num_middle = (max(z_list)+vaccum)/2；取 num_middle±1 内所有势值求平均并打印
+EX52	174	268	脚本逐段解释 + 批量提取真空能级与费米能级	逐条解释 9 个片段；批量用法：把 plt.show() 与两行 print 注释掉以便批量取值；批量先生成 LOCPOT_Z 再批量读取；费米能级批量提取取第 4 列（冒号也算一列）
+EX52	269	323	数据分析（Φ vs 真空层、与实验对比）	20-30 Å 范围内功函数波动小，为 4.81 eV，其他波动值在 4.85-4.87 eV；Cu(111) 实验值 4.94 eV（CRC handbook）；偏差 -0.13/4.94 = 2.63%；一般误差 5% 以内可接受，发表时参数与模型尺寸要写全；10 Å 也给 4.80 eV，因为 4 层 p(1x1)-Cu(111) 在 10 Å 已可以，但 10-20 Å 波动较大、12 Å 也能用，必须注明模型尺寸；不能为了贴近实验去挑数（计算有误差、实验也有误差范围）；推荐阅读 Fermi level, work function and vacuum level
+EX53	1	39	元数据 + 吸附的维基/IUPAC 定义	吸附是原子/离子/分子附着于表面；吸附不同于吸收（吸收作用于表面和内部）；物理吸附吸附能小易脱附，化学吸附有化学键、吸附能大；IUPAC GoldBook 定义
+EX53	40	61	参考书与吸附在催化研究中的地位	参考 Atkins 物理化学、Concepts of Modern Catalysis and Kinetics、南大物理化学；研究催化反应第一步是搞懂反应物在表面的吸附；反应的初始态、过渡态、末态都是表面吸附物种，不要把过渡态与吸附隔离开
+EX53	62	100	吸附模型搭建的三个注意面 + 小结	本质是 slab 加吸附分子 xyz；1) 熟悉 POSCAR 格式（元素行/原子数/坐标关系、Selective 与 TTT/FFF、Cartesian 与 Direct、POSCAR 与 KPOINTS 的关系）；2) z 方向：slab 厚度与真空层厚度决定计算量与准确性，金属越开放的表面需要更多层，要权衡并做测试或参考他人参数；3) xy 方向：表面大小影响覆盖度与工作量，FCC 的 111 面有 top/bridge/fcc/hcp 位点，还要定分子构型、接触原子、初始键长

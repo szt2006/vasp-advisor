@@ -1,0 +1,19 @@
+{{TAGDEF|LDAUJ|[real array]|NTYP*0.0}}
+
+Description: Sets the effective on-site exchange interactions (eV).
+----
+{{TAG|LDAUJ}} specifies the strength of the effective on-site exchange interactions in eV. It must hold one value for each atomic species.
+{{NB|warning|The total energy will depend on the parameters U ({{TAG|LDAUU}}) and J ({{TAG|LDAUJ}}). It is, therefore, not meaningful to compare the total energies resulting from calculations with different U and/or J; or U-J in the case of Dudarev's approach ({{TAG|LDAUTYPE}}{{=}}2).}}
+{{NB|mind|For {{TAG|LDAUTYPE}}{{=}}3, the {{TAG|LDAUU}} and {{TAG|LDAUJ}} tags specify the strength (in eV) of the spherical potential acting on the spin-up and spin-down manifolds, respectively.}}
+## Related tags and articles
+{{TAG|LDAU}},
+{{TAG|LDAUTYPE}},
+{{TAG|LDAUL}},
+{{TAG|LDAUU}},
+{{TAG|LDAUPRINT}},
+{{TAG|LMAXMIX}}
+
+{{sc|LDAUJ|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:DFT+UCategory:Strongly correlated electrons

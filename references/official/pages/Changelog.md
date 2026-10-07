@@ -1,0 +1,323 @@
+## 6.6.1
+### BUGFIX
+*Forces with meta-GGA functionals were wrong in the spin-polarized case ({{TAG|ISPIN}}=2). This bug was introduced in VASP 6.6.0 and is now fixed, cf. known issue 94.
+*GRACE force fields generated from tensorpotential>=0.5.8 were incompatible with the VASPml interface, cf. known issue 95.
+*Born effective charges were wrong on GPU (OpenACC) with {{TAG|LCALCEPS}}, though the dielectric tensor is unaffected; cf. known issue 93.
+*2d Coulomb truncations produced noisy potentials for Coulomb kernel truncation in 6.6.0 , cf. known issue 72.
+*OpenMP GPU offloading on AMD required explicit GPU pinning (cf. known issue 70). This is now fixed. 
+*Fixed a race condition in the hybrid functional code path for OpenMP offloading to AMD and Intel GPUs.
+*Partial DOS were not computed correctly for {{TAG|ISPIN|2}} and {{TAG|KPOINTS_OPT}}, cf. known issue 69.
+## 6.6.0
+We introduce NMR, restarting phonons, XAS, and cRPA in the {{Video|release66:chris:2026|release video}}.
+### FEATURE
+* X-ray absorption spectra (XAS) using the Bethe-Salpeter equation (BSE).
+**Calculate  exciton wavefunction for core excitations.
+* Constrained random-phase approximation (cRPA).
+** spectral cRPA.
+** multi-centre Coulomb matrix elements.
+*Checkpointing of finite-difference calculations ({{TAG|CHECKPOINT_FD}} when {{TAG|IBRION|6}})
+** Restarting phonon calculations.
+** Splitting phonon calculations.
+**Restarting and splitting calculations of the  electron-phonon potential ({{TAG|ELPH_POT_GENERATE}}).
+* Electron-phonon
+**Computing electron-phonon matrix elements using meta-GGAs. 
+**Use reciprocal space for contraction when computing electron-phonon matrix elements.
+**Computing the transport properties in CRTA using Wannier interpolation.
+*Nuclear magnetic resonance (NMR)
+**Spin-orbit coupling for NMR chemical shieldings ({{TAG|LSOSHIFT|.TRUE.}}).
+**ZORA scalar-relativistic chemical shieldings ({{TAG|LZORA|.TRUE.}}).
+**Updated chemical shieldings output in {{FILE|OUTCAR}} (cf. {{TAG|LNMRLEG|.TRUE.}}). 
+**Print current response ({{TAG|WRT_NMRCUR}}) and the nucleus-independent chemical shielding ({{TAG|NUCIND}}).
+**Output to Magres format.
+*  Bethe-Salpeter equation (BSE)
+**Adds Gaussian smearing option for Lanczos algorithm ({{TAG|IBSE|3}}). 
+*GPU
+**OpenMP offloading for Intel and AMD GPUs: DFT and hybrid functionals (beta).
+* Exchange-correlation functionals
+** Short-range EXX within  dielectric-dependent range-separated hybrid functionals, enabling RS-DDH.
+**Link to  simple DFT-D3 package.
+**Support for {{TAG|LOPTICS|.TRUE.}} and kinetic-energy-density-dependent meta-GGAs.
+* Machine-learning force fields
+**Improved interface for  thermodynamic integration (TI).
+**Thermodynamic integration for particle insertion using MLFF and empirical potentials (ML_LEMPPOT, ML_EMPPOT_RCUT, ML_SRPOT_B0, ML_SRPOT_N0, ML_SRPOT_S0,ML_MOPOT_NM, ML_MOPOT_DM, ML_MOPOT_RM, ML_MOPOT_RKM, ML_MOPOT_IJM).
+**Add "delta" mode ({{TAG|ML_MODE|delta}}): always adding the prediction from a given {{FILE|ML_FF}} to the ab initio calculation results.  
+**Experimental support for GRACE force fields in prediction-only mode (requires VASPml, Tensorflow and cppflow).
+* HDF5
+**Write phonon frequencies and eigenvectors to {{FILE|vaspout.h5}}.
+** HDF5 output for cRPA calculations and GW electron self-energy.
+** Write exciton wavefunction to {{FILE|vaspout.h5}}.
+*Output
+**Write the metaGGA potential &mu; ({{TAG|WRT_POTENTIAL|xcmu}}).
+**Write the augmented total (core + valence) pseudo densities (WRT_DENSITY = density gradient laplacian).
+**Write the kinetic energy density ({{TAG|LTAU}} and {{FILE|TAUCAR}} file).
+### IMPROVEMENT
+* Electron-phonon
+**List of carrier density ranges in electron-phonon transport calculations ({{TAG|ELPH_SELFEN_CARRIER_DEN_RANGE}}).
+**Reduced memory consumption in electron-phonon calculations.
+* Machine-learning force fields
+**New output in {{FILE|ML_LOGFILE}}: type-dependent output for various reported errors,  species quantities for forces, and normalized errors for energies, forces and stress (NORME lines).  
+**Reduced memory footprint for {{TAG|ML_MODE|train}} with {{TAG|ML_CALGO|1}}.
+**Reduced memory footprint at the cost of fitting performance with ML_SAVECMAT = .FALSE. (experimental). 
+**Improve default settings: shared memory behavior ({{TAG|ML_NCSHMEM}}),  spilling factor switched always switched on, the calculation will end if the spilling factor becomes critically large (>0.9), and {{TAG|ML_OUTBLOCK|10}}.  
+* Many-body perturbation theory
+**Added support for {{TAG|NKRED}} in RPA and GW (quartic scaling).
+**Improved RPA forces and EXX-energies in low-scaling GW calculations ({{TAG|LFOCKSTD}}).
+**Increased number of frequency points for the low-scaling GW (i.e., {{TAG|NOMEGA|24|op=>}}).
+**Support for fast EXX mode in RPA and GW.
+**Double-counting corrections for  RPA forces when using DFT+U (issue 67).
+**Reduced memory usage in BSE calculations
+**Improved support for single precision BSE with Lanczos algorithm. 
+*Change parameters in semilocal functionals ({{TAG|XCm_Pn}}).
+*Greatly improved stability of noncollinear GGA and metaGGA calculations.
+*Allowed the Ewald-cutoff parameter to be changed.
+*Implement {{TAG|KSPACING}} for {{FILE|KPOINTS_OPT}} file using KSPACING_OPT.
+*New CMake build system as an alternative to the traditional makefile.include's. See Install VASP with CMake for instructions.
+### BUGFIX
+*MD driven by  VASPml (inside VASP or LAMMPS) crashed if the number of MPI tasks was larger than the number of atoms.
+*The use of the  SCPC method was broken for {{TAG|ALGO|A}}.
+*The {{TAG|PLUGINS/LOCAL_POTENTIAL}} energy contribution was not correctly added to the total energy for {{TAG|ALGO|Normal|op=≠}}. 
+*The eigenvalues of the dynamical matrix written to vaspout.h5 had the wrong sign. 
+*The use of symmetry was broken in {{TAG|ALGO|TIMEEV}}.
+*The "selfen_carrier_per_cell" and "selfen_carrier_den" variables were swapped in the {{FILE|vaspout.h5}} file in the "/results/electron_phonon/electrons/chemical_potential" group.
+*For these {{FILE|INCAR}} tags, {{TAG|ELPH_SELFEN_CARRIER_DEN}}, {{TAG|ELPH_SELFEN_CARRIER_PER_CELL}}, or {{TAG|ELPH_SELFEN_MU}} in the electron-phonon driver only the first element was written to vasprun.xml or {{FILE|vaspout.h5}} file. 
+* RPA forces for spin-polarized systems were wrong.
+*Tamm-Dancoff was not working correctly when VASP was built with ELPA. 
+*Closing {{FILE|vaspin.h5}} in INIT_MPI broke the restart from HDF5 capability. 
+*{{TAG|NBANDS}} was reduced if the net magnetic moment is negative. 
+*Setting the tag {{TAG|ELPH_SELFEN_ENERGY_WINDOW}} was not updating the values of {{TAG|ELPH_SELFEN_BAND_START}} and {{TAG|ELPH_SELFEN_BAND_STOP}} for the computation of the electron-phonon matrix elements. 
+*Correctly account for external electric field when determining symmetry operations using {{TAG|EFIELD}} and {{TAG|IDIPOL|1-3}}.
+*{{TAG|PROCAR_OPT}} was broken for VASP 6.5.0 and 6.5.1. 
+*For very dense k-meshes, a crash could occur in the subroutine TETIRR, cf. the forum post (https://www.vasp.at/forum/viewtopic.php?t=19800).
+*The ionic CG algorithm ({{TAG|IBRION|2}}) for the Brent algorithm determined the bracketing interval improperly. 
+*Fixed {{TAG|I_CONSTRAINED_M|.TRUE.}} calculations on GPU, which crashed or produced wrong results. 
+*Fixed computation of mobilities for linear grids ({{TAG|ELPH_TRANSPORT_DRIVER|1}}), the Onsager coefficients from the electron and hole resolved transport function were not computed.  
+*Fixed incorrect handling of spin channels in electron–phonon matrix element calculations for {{TAG|ISPIN|2}}, and optimized potential interpolation to process each spin channel separately.
+*The zero-field-splitting ({{TAG|LDMATRIX|.TRUE.}}) led to randomly wrong results, especially with the GNU compiler. 
+*Fix integer overflows resulting in errors or NaNs appearing in long MD runs (combinations of large {{TAG|NSW}}, {{TAG|ML_OUTBLOCK}}, {{TAG|NBLOCK}}, {{TAG|KBLOCK}} values).
+*With zero conductivity, NaN appeared for other transport coefficients, now instead they are set to zero.  
+*Fixed wrong formatting of partial DOS in {{FILE|DOSCAR}} when f-states are present in noncollinear runs. Previously, f-state contributions were written in a new line instead of using the columns after the d-states.
+*Running DFPT for electric fields {{TAG|LEPSILON|.TRUE.}} or ionic displacements {{TAG|IBRION|7-8}} was inadvertently blocked for deorbitalized metaGGAs.
+*Update ionic positions for {{FILE|CONTCAR}}, {{FILE|XDATCAR}}, and {{FILE|CHGCAR}} during interactive mode ({{TAG|IBRION|11}}). 
+*Order of electron eigenvalues if {{TAG|LDIAG|.FALSE.}} between ionic steps was not conserved ({{TAG|FERDO}}).
+*The exchange and correlation components of the BEEF functional ({{TAG|GGA|BF}}) were not multiplied by the parameters {{TAG|AGGAX}} and {{TAG|AGGAC}}. 
+*During a geometry relaxation, the new atomic positions and cell parameters were not passed to libMBD, cf. https://www.vasp.at/forum/viewtopic.php?t=20071. 
+*Fixed deadlock in {{TAG|VCAIMAGES}} runs caused by inconsistent {{FILE|STOPCAR}}-check MPI_allreduce calls between MLFF and pure-DFT images. 
+*If there was an empty {{FILE|PENALTYPOT}} file or none, the {{FILE|HILLSPOT}} was not written from scratch.
+*{{TAG|MDALGO|5}} was not interacting with the {{FILE|PENALTYPOT}} or {{FILE|HILLSPOT}} file. 
+*`spin = up` and `spin = down` in the corresponding `wannier90.X.win` input files were not specified for spin-polarized calculations. 
+*Fixed {{TAG|ML_MODE|select}} when atom types for training structures were switched around. 
+*The  spilling factor was calculated incorrectly in the fast prediction mode if the order of atom species in the current structure differed from that of the force field.
+*An issue in {{TAG|VCAIMAGES}} where MLFF calculations in any of the images failed unless a non-empty {{FILE|ML_FF}} file was also present in the top directory.
+*Sign error in the surface-normal component of the reciprocal-space Ewald force and NaN for large vacuum spacing for 2D truncation ({{TAG|KERNEL_TRUNCATION/IDIMENSIONALITY|2}}). 
+
+*Fix the output for the electron-phonon renormalization of the gaps for {{TAG|ISPIN|2}}.
+*Deprecate {{TAG|PLUGINS/MACHINE_LEARNING}} due to inconsistency between units for VASP and ASE stresses - use {{TAG|PLUGINS/FORCE_AND_STRESS}} instead. 
+*Neighbor list for DFT-D3 was determined for a fixed radius (50.2 Å, and 21.167 Å; two-body interaction cutoff, and coordination number cutoff), so {{TAG|VDW_RADIUS}} and {{TAG|VDW_CNRADIUS}} did not work correctly for values larger than these.
+*{{TAG|ELPH_DRIVER|mels}} with {{TAG|ISPIN|2}} produced incorrect output due to improper k-point counter handling in the spin-dependent accumulator.  
+
+*The {{FILE|POSCAR}} scaling parameters were not correctly read in from {{FILE|vaspin.h5}}.
+*Fix potential MPI deadlock when running with {{TAG|KPAR|1|op=>}} by synchronizing SCF break/abort decisions across all ranks to avoid divergent control flow due to small roundoff differences in energy terms (e.g., Hartree) between {{TAG|KPAR}} groups.
+## 6.5.1
+### FEATURE
+* Added output of the imaginary part of the dielectric function from XAS calculations to vaspout.h5 (HDF5), and of the dielectric function with respect to the Fermi level to OUTCAR.
+
+* For {{TAG|ELPH_POT_GENERATE|True}}:
+** The FFT grid for the primitive cell is now determined automatically if not set via {{TAG|ELPH_POT_FFT_MESH}}.
+** VASP generates a {{FILE|CONTCAR_ELPH}} file that can be used for the subsequent electron-phonon calculation.
+** The primitive-cell information is also written to {{FILE|vaspout.h5}}.
+### IMPROVEMENT
+* The line search algorithm of the conjugate gradient optimizer ({{TAG|ALGO|A}}) has been extensively improved:
+** previously, when performing the line search, it moved incremental along the line. The new version, always starts from the origin for each step during the line search this vastly increases the consistency of the energies.
+** The line search is now done in a more way and all considered steps are stored into slots to avoid unnecessary redundancy. For acceptance of the final minimum in the line search, it is required that the neighbouring slots have been considered (that first principles energies are known).
+** The minimum is determined by fitting up to a 4th order polynomial to the data closest to the minimum, and determining the minimum of the polynomial.
+** If more than 5 data are available, a spline fit is performed through all points (this turns out to be more robust than a 5th order fit).
+** Last not least: the line search is usually performed using energy evaluations only, as this is faster than gradient calculations. However, if the new gradient is not sufficiently orthogonal to the search direction, one more correction is performed using all yet available data points (again using 4th order polynomial or spline)
+** The new and improved line search algorithm can be switched on by setting {{TAG|ISEARCH|1}}. The legacy line search ({{TAG|ISEARCH|0}}) is still the default.
+
+* Improvements for BSE:
+** The dielectric function is written as a scalar (not tensor) for finite q in {{TAG|IBSE|1, 2, 3}}.
+** Hermiticity of the BSE matrix is now enforced for {{TAG|IBSE|3}} to improve stability.
+
+* Improved the performance of the Ewald summation used in the truncated Coulomb kernel method for 2D materials by restricting the number of g-vectors that are used in the reciprocal space summation. This truncation of g-vectors is in keeping with the 3D summation, where every value less than 10^{-10} is removed.
+### BUGFIX
+* Fixed the handling of “very long full paths of files” with the Intel compiler (these were truncated at 255 characters). Now we allow for 1023 characters and hope this will be enough …
+
+* For {{TAG|ISYM|3}}, symmetry operation involving spinflips were incorrect under some special fringe circumstances. This bug may have affected hybrid functional calculations for anti-ferromagnetic systems where the spin-up and spin-dn density of states differ from each other at some k-points.
+
+* Fixed a bug that prevented building without scaLAPACK support.
+
+* Fixed inconsistent ML_FF input/output for non-scaLAPACK build.
+
+* The code crashed for {{TAG|LKPROJ|True}}. This  issue 29 is fixed.
+
+* SERTA is now correctly listed as "self-energy relaxation-time approximation" in {{FILE|OUTCAR}}.
+
+* The wannier90.UNK files were not correctly written for non-collinear magnetic calculations. This  issue 31 is fixed. 
+
+* If both {{TAG|ISPIN|2}} and {{TAG|LNONCOLLINEAR|True}} (or {{TAG|LSORBIT|True}}) were set in the INCAR, the code would stop with an error message (something about the number of entries for {{TAG|MAGMOM}} being wrong). This  issue 26 is fixed: {{TAG|LNONCOLLINEAR|True}} will now take precedence over {{TAG|ISPIN|2}} (and the latter will default back to {{TAG|ISPIN|1}} internally).
+
+* Fixed a problem with the final diagonalization in the occupied subspace before the computation of the forces: this bug sometimes caused errors in the forces when the wave functions were not tightly converged, for {{TAG|ALGO|A or D}}.
+
+* BSE crashed on GPUs with -DCUSOLVERMP and -DCUBLASMP when {{TAG|OMEGAMAX}} was set. This  issue 27 is fixed.
+
+* The computation of the dielectric function was not correctly implemented for finite-q in {{TAG|IBSE|1,3}}.
+
+* BSE crashed for {{TAG|IBSE|3}} with the gamma-only version. This has been fixed.
+
+* {{TAG|BSEPREC}} was overwritten for {{TAG|IBSE|3}}. This has been fixed.
+
+* The feature to compute the transport function using {{TAG|ELPH_TRANSPORT_NEDOS_PLOT}} was broken. This has been fixed.
+
+* Electron-phonon code crashed for {{TAG|ELPH_MODE|renorm}}. This  issue 35 is fixed.
+
+* VASP no longer crashes when running {{TAG|ELPH_POT_GENERATE|True}} without specifying the FFT grid via {{TAG|ELPH_POT_FFT_MESH}}.
+
+* The {{TAG|LATTICE_CONSTRAINTS}} were not applied correctly for {{TAG|ISIF|4, 5}}. This  issue 34 has been fixed.
+
+*  For {{TAG|ISIF|4, 5, 6}}, the header of the {{FILE|XDATCAR}} file was written twice. This has been fixed.
+
+* The truncated Coulomb kernel method for 2D systems only worked correctly if the cell was twice as large as the thickness of the slab. This requirement was imposed by the 2D Ewald summation, where minimum image convention was used in the aperiodic dimension. This requirement has now been removed by setting the distance between two atoms to not follow if the minimum image convention if it is 2D boundary conditions. This  issue 37 is fixed.
+
+* There was a (small) memory leak in the use of HDF5. This  issue 37 has been fixed.
+
+* In case the HF exchange was activated via the {{TAG|LTHOMAS}} tag, VASP wrongly kept {{TAG|IMIX|4}}. Now {{TAG|IMIX|1}} is used.
+
+* The OpenACC version crashed when compiled with python plugin support (-DPLUGINS,). This  issue 30 is fixed and the python plugins are now fully supported in the OpenACC version as well.
+
+* For {{TAG|IBRION|12}} or {{TAG|PLUGINS/STRUCTURE|True}} (i.e. using the python structure plugin) the updated structures were not written to {{FILE|XDATCAR}}. This  issue 38 has been fixed.
+
+* The combination of {{TAG|PLUGINS/STRUCTURE|True}} and {{TAG|ML_MODE|run}} caused the code to crash. This  issue 36 is fixed.
+
+* {{TAG|ML_MODE|train}} was broken when running on multiple nodes *and* using shared memory (-Duse_shmem). This  issue 28 is fixed.
+
+* Fixed broken ML_FF version check in VASPml; was unable to read ML_FFs from VASP 6.5.0 (earlier versions work).
+
+* {{TAG|ML_IERR}} was deprecated in favor of new tag name {{TAG|ML_ESTBLOCK}}. This fixes "grepping" for ERR in {{FILE|ML_LOGFILE}} (old tag still works).
+
+* The output of the total energy to the {{FILE|OUTCAR}} was wrong when running {{TAG|ML_MODE|train}} with {{TAG|ALGO|A}}. This  issue 39 issue has been fixed.
+
+* Fixed an incorrectly sized spline grid that sometimes led to wrong force predictions by VASPml.
+## 6.5.0
+### FEATURE
+* Electron-phonon coupling:
+** Zero-point renormalisation of band gaps.
+** Transport coefficients within the framework of the linearized Boltzmann transport equation.
+* Python plugins: Introduces a Python package that links VASP to Python through a C++ interface. A selected number of interfaces allow users to modify interior working of VASP through Python scripting.
+* Solving the Bethe-Salpeter equation: 
+** Lanczos diagonalization of the BSE matrix ({{TAG|IBSE}}=3).
+** GPU support for time-evolution BSE ({{TAG|IBSE}}=1).
+* Additional exchange-correlation functionals:
+** (r)MS-B86bl, (r)MS-PBEl and (r)MS-RPBEl MGGA functionals (provided by Nick Gerrits).
+** TASK and LAK MGGA functionals (provided by Timo Lebeda).
+** Sources-free exchange-correlation B field ({{TAG|LSFBXC}}).
+* Coulomb kernel truncation: open boundary conditions to compute the properties of dipolar and charged molecules, 2D materials, and surfaces.
+* Machine-learned force fields:
+** Introducing the spilling factor as an error estimate of the force field with {{TAG|ML_IERR}}, which can be easily combined with the fast execution mode.
+* External forces with {{TAG|EFOR}}.
+* Spline interpolation of the electronic structure factor ({{TAG|ESF_SPLINES}}) for k-point convergence acceleration of RPA correlation energies.
+* Müller-Plathe method for thermal conductivity calculations.
+### IMPROVEMENT
+* HDF5:
+** Write partial charges to the hdf5 output instead of {{FILE|PARCHG}} files. This in turn enables the simulation of STM pictures with py4vasp.
+** Output that goes into {{FILE|OSZICAR}} is written into the {{FILE|vaspout.h5}} as well.
+** Dielectric function from time-evolution BSE is written to {{FILE|vaspout.h5}}.
+** Possibility to force synchronization of the {{FILE|vaspout.h5}} file, and access {{FILE|vaspout.h5}} during the VASP runtime ({{TAG|LSYNCH5}}).
+* Improvements of the VASP-TRIQS interface: uses an HDF5 file now (vaspgamma.h5).
+* {{TAG|ML_DESC_TYPE}}=1 is now also available for {{TAG|ML_MODE}}=*train*. This can significantly speed up training for systems with many elements.
+* {{TAG|ML_OUTBLOCK}} will be ignored when we are not running an MD with a machine-learned force field in production mode.
+### BUGFIX
+* The code failed to compile with gfortran with -DELPA.
+* {{TAG|KPOINTS_OPT}} did not work correctly anymore for {{TAG|NCORE}}/=1.
+* Fixed an out-of-bounds access that broke the linear response NMR when using the NV compilers (confirmed for 24.1 and 24.3).
+* The code on GPU was broken for some calculations that combine {{TAG|LCALCEPS}} = .TRUE. with hybrid functionals.
+* NKREDLF for GW+Gamma was not read correctly from {{FILE|INCAR}}.
+* G0W0R calculation crashed for certain combinations of ranks, {{TAG|NBANDS}} and {{TAG|NTAUPAR}}.
+* CRPAR with many MPI ranks for small systems failed.
+* fixed a memory leak in the deallocation of the reciprocal space projectors.
+* The code did not detect when WFULLXXXX.tmp files were produced with a different {{TAG|ENCUTGW}}.
+* Fix for possible integer overflows in PEAD routines.
+* Wrong projections in vasprun.xml with {{TAG|KPOINTS_OPT}}.
+* {{TAG|ML_MODE}}=refit was broken when not using scaLAPACK.
+* Incorrect handling of noncollinear spin calculation in KDER_WAVE, in particular the spinor rotation part was not applied. This leads to incorrect results when using {{TAG|LEPSILON}}=.TRUE. for {{TAG|LNONCOLLINEAR}}=.TRUE. and {{TAG|ISYM}}>0.
+* Setting the {{TAG|VDW_S6}} tag had no effect in the case of the dDsC method ({{TAG|IVDW}}=4), while it should.
+* Some of the ELPA calls were not using the correct communicators and matrix sizes.
+* Fixed NaN Fock energy in hybrid band structure calculations.
+* NaN lines in the {{FILE|ML_LOGFILE}} for {{TAG|ML_WTSIF}}=0.00 are repaired.
+* Fixed memory estimation for {{TAG|ML_MODE}}=train or select.
+* Fixed a problem with the output of the positions to {{FILE|CONTCAR}} and {{FILE|XDATCAR}}. During long MD runs the ions may move by multiple lattice vectors and at some point the write format of the positions would become unsuitable.
+* For some systems, interpolation of phonon frequencies using {{TAG|LPHON_DISPERSION}}=True would sometimes produce anisotropic results with respect to the q-vector. This is now fixed for most cases.
+* {{TAG|ALGO}}=RPA with ESF splines was broken when large numbers of MPI ranks were used.
+* SCDM method now works correctly for {{TAG|ISPIN}}=2.
+* The gamma-only version of the calculation of zero-field-splitting (D-matrix) was broken for {{TAG|NCORE}} > 1. This has been fixed.
+* Fixed estimation of the cutoff criteria for the erfc function during one-shot Wannierization for {{TAG|ISPIN}}=2. The behavior is now identical to the {{TAG|ISPIN}}=1 case.
+* Fixed {{TAG|ISPIN}}=2 for Wannier electron-phonon calculations
+* Prevent {{TAG|LOPTICS}} after GW if {{TAG|LPEAD}} not set and notify user.
+* The {{TAG|LATTICE_CONSTRAINTS}} where not applied before checking the break criterion.
+* Calculations with {{TAG|KPOINTS_OPT}} crashed when {{TAG|LORBIT}}=10, 11 or 12.
+* Calculations with {{TAG|LMODELHF}} crashed if no {{FILE|WAVECAR}} is present.
+* Fixed a crash of noncollinear calculations when using {{TAG|KPOINTS_OPT}}.
+## 6.4.3
+### FEATURE
+* Increased flexibility in the choice of exchange-correlation functionals: added the tags {{TAG|XC}} and {{TAG|XC_C}} to specify linear combinations of exchange-correlation functionals.
+* Additional MGGA functionals (v1-sregTM, v2-sregTM, v3-sregTM, and v2-sregTM-L) from Francisco, Cancio, and Trickey (https://doi.org/10.1063/5.0167868, https://doi.org/10.1063/5.0167873).
+* Interface to the external code libMBD (https://libmbd.github.io): many-body dispersion methods for van der Waals interactions. See {{TAG|LIBMBD_METHOD}}.
+* Analyze the bandgap and write the results to {{FILE|OUTCAR}} and {{FILE|vaspout.h5}}. The details of the output are controlled with the {{TAG|BANDGAP}} tag.
+* Compute and write out exciton wavefunctions in BSE (written to {{FILE|CHG}}).
+* Non-blocked Davidson minimizer ({{TAG|ALGO}} = Dav, or {{TAG|IALGO}} = 119).
+* Select the minimum number of local reference configurations required to build an MLFF via the {{TAG|ML_MB_MIN}} tag. A new log line "MSG" with a text message is written to {{FILE|ML_LOGFILE}} if this threshold inhibits training.
+* CSVR thermostat of Bussi et al.
+* {{TAG|WRT_POTENTIAL}} writes the potential (total, xc, hartree, and ion contributions) to {{FILE|vaspout.h5}}. In case the dipole correction is switched on and {{TAG|LVACPOTAV}}=.TRUE., the workfunction (rather, the vacuum potentials on either side of the slab) will be automatically determined and written to both the {{FILE|OUTCAR}} as well as to the {{FILE|vaspout.h5}} file.
+* {{TAG|LWRITE_SPN}}=T writes the spin-matrix element to the .spn file for wannier90.
+### IMPROVEMENT
+* Update makefile.include.nec_aurora template to work with the recent NEC compiler version (5.0.0+).
+* Add workarounds for Intel oneAPI LLVM compilers (ifx), and makefile.include files for these compilers.
+* Print proper error message when using the gamma-only version in combination with {{TAG|KPOINTS_OPT}}.
+* {{TAG|LSINGLES}}: “singles” contribution printed to {{FILE|OUTCAR}} for GWR algorithms, *i.e.*, Eq. 34 of Klimes *et al.*, JCP 143, 102816 (2015) (https://doi.org/10.1063/1.4929346).
+* {{TAG|SAXIS}} = 0 0 0 behaves like {{TAG|SAXIS}} = 0 0 1. This behavior is unchanged but we now print a warning.
+* Speedup of tetrahedron method by parallelization over tetrahedra and excluding tetrahedra that do not contribute; this improvement will be most noticeable for dense energy grids or k-point meshes.
+* Consistent treatment of {{TAG|CSHIFT}}, {{TAG|CSHIFT}} set to 0.02, consistent break criteria for linear response to increase robustness.
+* Improved structure output to HDF5 file.
+* Support for cusolverMP (the distributed GPU eigensolver of NVIDIA).
+* Change magnetization output for the noncollinear case so that the (x,y,z) magnetization densities are integrated at the atomic sites and printed to the {{FILE|OUTCAR}} file (if {{TAG|LORBIT}}=11 is set) every 5 steps for all electronic minimization algorithms.
+* In some cases, the "blow-up" step in the k-point generation leads to trouble in combination with {{TAG|IBRION}}=6 and {{TAG|ISIF}}=3. This is not solved per se, but the resulting error message has been improved to suggest adding the appropriate tag to skip this step ({{TAG|KBLOWUP}}=.FALSE.).
+* Copy the atomic type designation from {{FILE|POSCAR}} to {{FILE|CONTCAR}}. In all other instances where the structure is written to file (e.g. {{FILE|CHGCAR}}) the atomic type information is replaced by the acronym from the periodic table.
+* The SCDM method now consumes much less memory when executed on many cores.
+* Write more information about DFT+D4 calculations ({{TAG|IVDW}}=13).
+* For MD runs with a large number of atoms and few ionic steps, the current default chunking size might lead to an unnecessarily large {{FILE|vaspout.h5}} file. Here, we make sure the chunking size is never larger than the number of MD steps.
+* The default value for the minimum number of local reference configurations ({{TAG|ML_MB_MIN}}) is increased from 2 to 3. This should improve the robustness of initial MLFF guesses.
+* Check maximum size of sysv shmem segments used in machine-learning-code paths.
+* BSE algorithm has been optimized and ported to GPU by means of OpenACC.
+* Spectral function is recalculated after GW calculations for {{TAG|LOPTICS}}=.TRUE.
+* Demote LATTCHK exception from error to warning.
+* Increase the default {{TAG|ML_CDOUB}} value to 100 for re-selection runs ({{TAG|ML_MODE}}=select). Because this makes critical steps very unlikely the number of force-field generations is decreased. Hence, the total runtime until re-selection is finished will also be reduced.
+### BUGFIX
+* Descriptor sparsification was not working in combination with the {{TAG|ML_MODE}} tag: the tag {{TAG|ML_LSPARSDES}} was automatically set to False.
+* Reference energies in {{FILE|INCAR}} were ignored when continuing MLFF training runs and in re-selection runs ({{TAG|ML_MODE}}=select).
+* MLFF: Verlet nearest-neighbor algorithm was not updating properly in some cases. This violated energy conservation in MD runs.
+* {{TAG|ML_OUTBLOCK}} now also controls the output frequency of {{TAG|ML_EATOM}} and {{TAG|ML_HEAT}}. Unwanted output in {{FILE|OUTCAR}}, {{FILE|vasprun.xml}} and {{FILE|vaspout.h5}} has been removed.
+* Fixed problem with incorrect counting of atoms in slabs in FML + fixed NVE setting of CVS thermostat.
+* When using {{TAG|VCAIMAGES}} in combination with the NPT ensemble ({{TAG|ISIF}}=3) the stress tensor was not averaged as the forces and energy when using this approach.
+* Fix incorrect formatting in {{FILE|REPORT}} file (values of last column shifted to next line).
+
+* Restarting a calculation from {{FILE|vaspwave.h5}} when the number of k-points changed, *e.g.* because symmetry was switched off ({{TAG|ISYM}}=-1), now behaves the same as restarting from {{FILE|WAVECAR}}. Before it stopped with a bug message.
+* Write {{FILE|LOCPOT}} to subfolders for calculations with {{TAG|IMAGES}}/=0.
+* In the non-collinear case, {{TAG|LVTOT}}=.TRUE. now writes the potential in the "density, magnetization" representation, i.e., the scalar potential (v0), and magnetic field (Bx, By, Bz), to the {{FILE|LOCPOT}} file. Before the potential was written in the (upup, updown, downup, downdown) representation to real numbers, which is incomplete.
+* Fixed a problem in the generation of partial charge densities ({{FILE|PARCHG}}) with reading a single value from {{TAG|EINT}} and setting the second one to the Fermi energy automatically. {{TAG|IBAND}} and {{TAG|KPUSE}} can no longer contain bands or points that are larger than the total number of bands or k points.
+
+* Due to a bug the wavefunction prediction was not as effective as it could be.
+* Use a tighter threshold for Laplace-transformed MP2 to avoid incorrect treatment of Coulomb potential.
+
+* NMR linear response did not work for {{TAG|LREAL}}=Auto or .TRUE. (with the GNU compiler).
+* Calculations of NMR shielding tensors was broken for {{TAG|ISPIN}}=2 and {{TAG|LNONCOLLINEAR}}=.TRUE.: setting {{TAG|ISPIN}}=2 for a non-spinpolarized system did not yield the same result as with {{TAG|ISPIN}}=1.
+
+* {{TAG|SAXIS}}: For sx=0 and sy<0, alpha=-pi/2. It used to falsely assume alpha=pi/2.
+* Rotation of the wavefunctions in PEAD calculations was incorrect for {{TAG|LNONCOLLINEAR}}=.TRUE.
+* {{TAG|LATTICE_CONSTRAINTS}} was not read when using {{TAG|IBRION}}=1 or 2: default values (T T T = no constraints) were used.
+
+* The SCDM method now works correctly for k-point meshes that do not include the Gamma point.
+* CRPA calculations using wannier90 were broken when using legacy mode (i.e. wannier90.win file instead of {{TAG|WANNIER90_WIN}} tag).
+
+* The LDA and GGA components of the AM05 GGA functional were not multiplied by the parameters {{TAG|ALDAX}}, {{TAG|ALDAC}}, {{TAG|AGGAX}} and {{TAG|AGGAC}}.
+* If a new vdW kernel was generated because the existing one was incompatible with the selected functional, then the header of the new kernel was the one of the old incompatible kernel. Furthermore, writing the new vdW kernels was not restricted to a single MPI rank.
+
+Category:Version

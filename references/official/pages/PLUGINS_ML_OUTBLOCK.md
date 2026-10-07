@@ -1,0 +1,14 @@
+{{TAGDEF|PLUGINS/ML_OUTBLOCK| [integer] | 1}}
+
+Description: Equivalent to {{TAG|ML_OUTBLOCK}} for calculations run via plugins instead of using VASP internal force fields. 
+----
+## Related tags and articles
+Plugins,
+{{TAG|ML_OUTBLOCK}},
+{{TAG|PLUGINS/FORCE_AND_STRESS}},
+{{TAG|PLUGINS/ML_MODE}},
+{{TAG|PLUGINS/ML_OUTPUT_MODE}}
+
+{{sc|PLUGINS/ML_OUTBLOCK|Examples|Examples that use this tag}}
+
+Category:INCAR tag

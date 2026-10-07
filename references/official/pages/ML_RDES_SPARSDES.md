@@ -1,0 +1,14 @@
+{{DISPLAYTITLE:ML_RDES_SPARSDES}}
+{{TAGDEF|ML_RDES_SPARSDES|[real]|0.5}}
+
+Description: Sets the ratio of descriptors kept during angular-descriptor sparsification.
+{{NB|mind|This tag is only available as of VASP 6.4.3.}}
+----
+
+During angular-descriptor sparsification ({{TAG|ML_LSPARSDES}}=T), insignificant angular descriptors are removed based on a leverage scoring. The percentage of angular descriptors that are kept is determined by the value of {{TAG|ML_RDES_SPARSDES}}, which must be chosen between 0 < r \leq 1. In practice, we recommend scanning a range between 0.1 to 0.9. Removing angular descriptors increases the performance of a force field, but it decreases accuracy at the same time. One method of finding the optimal tradeoff between accuracy and performance is to do a Pareto front with run time on the x-axis and accuracy on the y-axis.
+## Related tags and articles
+{{TAG|ML_LMLFF}}, {{TAG|ML_LSPARSDES}}, {{TAG|ML_NRANK_SPARSDES}}, {{TAG|ML_DESC_TYPE}}
+
+{{sc|ML_EPS_LOW|Examples|Examples that use this tag}}
+
+Category:INCAR tagCategory:Machine-learned force fields

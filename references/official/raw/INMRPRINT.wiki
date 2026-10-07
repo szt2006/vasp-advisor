@@ -1,0 +1,14 @@
+{{TAGDEF| INMRPRINT |-1 {{!}} 0 {{!}} 1 |0}}
+
+Description: Determines the verbosity of the [[:Category:NMR|NMR]] output.
+{{NB|mind|Available as of VASP.6.6.0.}}
+----
+
+The NMR output is written to the {{FILE|OUTCAR}}. Setting {{TAG| INMRPRINT }} 0 is the default, while 1 prints more, and -1 prints less.
+
+== Related tags and articles ==
+{{TAG|LCHIMAG}}, {{TAG|LNMRLEG}}
+
+{{sc| INMRPRINT |HowTo|Examples that use this tag}}
+
+[[Category:INCAR tag]][[Category:NMR]]

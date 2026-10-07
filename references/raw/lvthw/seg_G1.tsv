@@ -1,0 +1,92 @@
+post_id	起行	止行	主题	要点
+PREFACE	1	13	文件头与致谢	YAML front-matter（title/categories/tags/date）；向支持者与家人致谢
+PREFACE	14	28	为什么写本书：使用人群与不适宜人群	面向 0–6 个月 VASP 初学者及转方向者；不讨论过多量子力学原理；点出「算了一个多月才发现参数设错、只能重算」的典型损失；不适宜「导师不做计算、让学生独自挑大梁」的课题组
+PREFACE	29	44	三个出发点	出发点一：QQ 群里低级问题充斥，本书用实例引导主动思考；出发点二：把经验留给后来的学生；出发点三：结合最基本的化学常识与软件细节写一本快速入门书
+PREFACE	45	58	如何学习本书（一）（二）	受 learn_python_the_hard_way 启发：先照着练再琢磨；每章对应一个例子，务必手动搭建模型与输入文件（切忌复制粘贴），结果与作者一致；为引导读者上官网，很多例子取自 VASP 官网并复算对照
+PREFACE	59	65	推荐参考书	Sholl 的 Density Functional Theory: A Practical Introduction + VASP 手册；「不要贪多」
+PREFACE	66	77	对读者的话与联系方式集中区	联系方式只在序言出现（不进消费层）；论坛/群里错误回复很多，处在迷糊期的新手容易一股脑相信，这是最可怕的；有疑问先酝酿一两天、多查资料再提
+PREFACE	78	125	序言 2：如何学习 VASP（老板 + 1 本参考书 + 2 个网址）	学习方法三件套；引 Sholl 书两个例子：开车 vs 造车（会用不等于会造）、Numerical Convergence 与 Physical reality 的联系（DFT 收敛 ≠ 薛定谔方程被求解，结果的物理化学意义才最重要）
+PREFACE	126	204	VASP 官网各入口的用法	在线手册 / PDF 手册 / wiki 入口 / Hands-on 教程；**注意：不再建议学老旧的 Hands-on Session PPT**，改推最新 workshop 材料；wiki 五处导航（查参数、新手起点、算例、INCAR 参数列表、理论背景）
+PREFACE	205	215	第二个网址：官方论坛 + 总结	官方论坛「99% 的报错能在那里找到答案」；本书初衷是引导主动学习而非教会 VASP
+EX00	1	30	前置要求与心态（主动）	默认读者已掌握基本电脑操作与结构化学/物理化学常识；六条「主动」（查解法、找教科书、搜资源、重复别人的计算、逛官网、出错先自己搜）；三条注意：主动是对自己、要会科学上网、求助前先准备好问题
+EX00	31	48	操作系统与 Windows 用户第一提醒	三个系统可选（强烈推荐 Linux）；**Windows 用户只要计算出错，第一反应就想 dos2unix**
+EX00	49	80	文本编辑工具	vim 必须学会（Linux 自带）；Notepad++ 对 Windows 用户必须学会（记事本保存的文件格式与 Linux 不匹配，提交任务常出问题）；用 Notepad++ 也建议先 dos2unix；Atom 三平台通用。原文此处另有一处把命令误写成 dos2linux
+EX00	81	137	建模相关软件	Materials Studio（默认已装，不要求会用）；VESTA（日本免费软件，三平台，含 Linux 下 ~/.bashrc 加 PATH 的方法）；p4vasp（Win 版久未更新，Linux 版功能更强）；ASE（p4vasp 装不上则必装）；Avogadro
+EX00	138	178	服务器相关：连接、Linux 命令、必须有可运行的 VASP	会连自己组或租的服务器；Linux 基础命令（cd/mv/cp/cp -r/mkdir/rm/rm -r/rm -fr/ls）；本书**不讨论**去哪下载 VASP、怎么安装、去哪下载赝势；赝势要走正版渠道；免费的可用 QE/CP2K/GPAW；会提交任务（找师兄师姐 / 找老师与服务器商 / 自行解决）
+EX00	179	190	程序语言学习	bash（日常命令 + 逻辑语法写小脚本）；python（语法简单、库丰富，不要纠结比 C++ 慢）；也可学 C++/R
+EX00	191	231	吐槽：速成思想与「实验组硬上计算」	从软件选择、购买、服务器、安装、熟悉 Linux、软件学习到投稿被拒的十几步翻车链；四条建议（找计算组合作 / 派去交流 / 认真学本书与手册 / 心里要有时间成本）；对合作挂名的两条吐槽；认真声明：本书是给专门做计算的菜鸟准备的，科研没有速成
+EX00	232	277	计算=转行? / 总结 / The Hard Way	不要被负能量影响、要有主见；必备技能清单（熟练一个操作系统、会编辑文本、**Windows 用户必须掌握 Notepad++**、装好一款建模软件、会连服务器并提交任务）；应有的心态（主动、自信、不盲信他人）；大师兄的要求（读参考书、多逛官网、遇到不会的立刻记下或解决、学会分享）；The Hard Way = 苦尽甘来；作者自述入门花了一个多月、本书 76 节、每节约 4 小时、新手 2 个月可入门
+EX00	278	286	致谢与打狗棒法比喻	教程难免有错、欢迎指正；「收获最大的是本人」；本书传授的只是招式，心法口诀是读者自己多年积累的科研基本功
+EX00_V3	1	8	文件头	YAML front-matter（title/date/categories），与 EX00 同题
+EX00_V3	9	55	为什么 Hard + 计算=转行	内容与 EX00 第 191–237 行高度重合（速成文化、实验组硬上计算的翻车链、四条建议、合作挂名吐槽、计算=转行三段）；为 EX00 的 V3 重排版本，**不含新信息**
+EX00_V3	56	63	计算 = 转行?	与 EX00:233-237 同文：避开负能量、要有主见、学理论计算能开阔视野
+EX00_V3	64	106	心态与总结、大师兄的要求	心态六条「主动」+ 三条注意（与 EX00:11-30 同文）；总结：主动面对困难、对自己有信心、不要盲目相信他人（原文「实际熵」当作「实际上」）；大师兄的要求四条
+EX00_V3	107	111	致谢	与 EX00:282-286 同文（含打狗棒法比喻）
+EX01	1	13	文件头与四件套名字	先记住四个必不可少的输入文件名字：INCAR、KPOINTS、POSCAR、POTCAR
+EX01	14	39	基本概念：Rubbish in, Rubbish out	错误分三类（模型错误→POSCAR；计算参数→INCAR/KPOINTS/POTCAR；提交脚本或命令出错）；遇到不懂的参数就「思考 + 看官网」，尽量别看不靠谱的网络教程；所有输入文件都是纯文本；**无尾缀**，INCAR.txt 是错的；Windows 禁用记事本/写字板，出错先自查有没有跑 dos2unix（原文此处又误写成 dos2linux）
+EX01	40	81	VASP 输入/输出文件清单	官网列出的 in/out 文件清单（INCAR/STOPCAR/POTCAR/KPOINTS/POSCAR 为 in；IBZKPT/CONTCAR/CHG/EIGENVAL/DOSCAR/PROCAR/OSZICAR/PCDAT/XDATCAR/LOCPOT/ELFCAR/PROOUT 为 out；CHGCAR/WAVECAR/TMPCAR 是 in/out）；四件套各自管什么；提交脚本要自己准备；**新版可在 INCAR 里设 KPOINTS，但涉及能带特殊 K 点时不行**，故本书认为 KPOINTS 必须有
+EX01	82	127	INCAR 的定位、第一份 INCAR 与 5 条语法注意	INCAR 原则「越简单越好、不知道的不往里面放」；不要抄两页参数（含默认值）；输入 O 原子的三行 INCAR（SYSTEM/ISMEAR=0/SIGMA=0.01）；注意：注释用 #、不要把中文写进去、等号前后空格随意、**不要用 Tab**、`!` 可能会出错
+EX01	128	181	SYSTEM / ISMEAR / SIGMA 三个参数详解	SYSTEM 可随便写、甚至可以删；ISMEAR 取值规则表（半导体绝缘体绝不 >0、-5 更精确但 K 点少会罢工、金属 >=0、保守用 0）；SIGMA 取值（-5 时可忽略、常态 0.10、默认 0.20、分子原子 0.01）；**SIGMA 收敛判据：grep 'entropy T' OUTCAR，T*S 除以原子数应 < 1 meV**；此 entropy 不是物化书里的熵
+EX01	182	207	INCAR 的保存与关键三点	INCAR 无尾缀、INCAR.txt 是错误；Notepad++ 保存时选 All types；`mv INCAR.txt INCAR -f`；关键三点：纯文本无尾缀 / 原子分子用 ISMEAR=0 + SIGMA=0.01 / Windows 用 Notepad++ 并先 dos2unix
+EX01	208	267	KPOINTS：作用、五行写法、G 与 M 的取舍	KPOINTS 同时决定精度与机时；五行结构逐行详解（第一行随便写但不能没有；第二行数字 0 表示自动生成、避免 Tab；第三行只认首字母，G/g=Gamma 居中，M/m=MP，M 相当于在 G 基础上平移 1/(2N)；第四行三个方向的 K 点数；第五行一般 0 0 0）；建议始终用 Gamma 居中，**六角晶系必须用**；已用 M 算起来的非六角体系不必改成 G 重算；原子分子用 Γ 点即可，但用 ISMEAR=-5 时要改成 2 2 2 或 3 3 3
+EX01	268	324	POSCAR：作用与 9 行示例逐行详解	O 原子放在 8×8×8 盒子里的 POSCAR 九行示例；第一行随便写但不能不写；第二行 scale factor；第三到五行晶格矢量；第六行元素符号（VASP 4.x 无此行、**必须顶格写**、删掉也能跑但 CONTCAR 会补回）；第七行原子数；第八行坐标系只认首字母（C/c 笛卡尔、D/d 分数、CONTCAR 用分数）；第九行坐标可任意放；两点说明：scale 写 2.0 则后面的数值「都除以 2」（**方向待核对**）；笛卡尔与分数坐标的差异从坐标行开始，前半部分保持不变
+EX01	325	437	POTCAR：头部字段、后缀家族、怎么选、怎么拼	只看 5 个字段（VRHFIN 价电子排布 / LEXCH 泛函且 INCAR 不设泛函时默认走它 / TITEL 元素与发布时间 / ZVAL 价电子数、做 Bader 时极其重要 / ENMAX 默认截断能、与 ENCUT 相关）；用 grep ZVAL、grep ENMAX 读自己的 POTCAR；后缀家族 _GW/_pv/_sv/_d/_h/_s 的含义；没有特别需求就用官网推荐的那套；O 默认截断能 400、价层 6 个电子；用 cat 按元素顺序拼 POTCAR；**OUTCAR 的元素顺序必须与 POSCAR 一致，否则计算会出错**（实际是不报错的静默错）
+EX01	438	460	POTCAR 检查的常用 grep 命令	grep TIT POTCAR 看元素 / grep ENMAX POTCAR 看截断能 / grep ZVAL POTCAR 看价电子数；举一反三
+EX01	461	476	本节总结与学习态度	能说清 5 个字段含义、认识后缀、查官网推荐赝势、会用 grep；务必去官网核对、反复思考、远离网络错误信息；切勿复制粘贴
+EX01	477	492	参考资料链接清单	Vim 练习 + VASP 文件 / INCAR / KPOINTS / POSCAR / POTCAR / ISMEAR 的官网链接共 11 条（原文链接为旧域名，已被后来的 wiki 取代）
+EX01_V3	1	13	文件头与前置要求	YAML front-matter；与 EX00:9 同文的前置要求声明
+EX01_V3	14	28	操作系统与 Windows 用户第一提醒	三个系统可选（强烈推荐 Linux）；Windows 用户计算出错第一反应 dos2unix（与 EX00:31-48 同文）
+EX01_V3	29	61	文本编辑工具	vim 必须学会；Notepad++ 对 Windows 必须学会（记事本格式不匹配）；用 Notepad++ 也建议先 dos2unix；Atom
+EX01_V3	62	121	建模相关软件	Materials Studio（**新增：很贵、国内多用盗版、没版权不建议使用**）；VESTA（**新增：无版权困扰，发文章要注明用 VESTA 并引用其文章**）；p4vasp；ASE；Avogadro
+EX01_V3	122	135	总结：必备技能清单	熟练一个操作系统、会编辑文本、Windows 用户必须掌握 Notepad++、装好一款建模软件（p4vasp/ASE/VESTA/MS（没版权就别装））、会连服务器并提交任务
+EX02	1	27	文件头与上节回顾	回顾四件套名字、编辑器、文本格式注意、已学的 INCAR 参数与 KPOINTS/POSCAR/POTCAR 各行含义
+EX02	28	70	批量处理的意义与官网参数扫描脚本	「稳中求快、欲速则不达」；批量处理对新手最重要，因为**很多参数不知道怎么选，测试一下就行**；照录官网 Cd_Si 脚本（heredoc 在循环里重建 POSCAR + awk 取 OSZICAR 的 F= 行 + 追加到汇总文件）；作者方法与官网方法本质相同、思路略有区别，必须学会一种
+EX02	71	124	Linux 基本命令第一组：ls/cd/pwd/cat/grep	在四件套上逐一演示；cat 可以直接在终端看小文件内容；grep TIT POTCAR 看元素、grep ENMAX POTCAR 看截断能
+EX02	125	180	grep 的三个例子与 more / less	grep 后面的关键词要唯一或出现次数少（演示 grep EMAX、grep PBE、grep 0 都得不到期望结果）；more 分页查看；less 退出敲 q、按 v 直接进 vim 编辑界面
+EX02	181	197	第一组小结	已学命令：ls/cd/pwd/cat/grep/more/less 与 vim 编辑器；要求熟练操作、多搜教程、养成主动搜索的习惯
+EX02	198	259	文件（夹）操作：mkdir / cp / Tab / 通配符	mkdir 建目录；cp 复制文件夹必须加 -r（否则报 cp: omitting directory），-r 放前放后都行；复制文件不需要 -r；用 Tab 补全提高输入速度；用 * 查看目录下所有内容
+EX02	260	315	mv 的移动与重命名，以及本节的批量任务	mv 既移动也重命名；用 . 表示当前目录；提出小目标：建 0.02–0.10 共 9 个目录，每个目录有相同的 KPOINTS/POSCAR/POTCAR，且 INCAR 的 SIGMA 等于目录名；朴素做法是逐个 cp 再逐个 vi；窍门是用上箭头复用上一条命令
+EX02	316	419	for 循环详解	先用 for 循环复制 0.01 得到 0.02–0.09，发现没加 -r 连报 8 次错，加上 -r 后成功；逐条拆解语法：{2..9} 花括号展开、等价写法、两点间无空格、不要用中文输入法；分号不可少；do/done；$i 引用变量；echo {1..100}/{A..Z}/{a..z} 的练习；变量名可以换（用 bigbro 演示）；$ 与变量名之间不能有空格
+EX02	420	425	本节小结与练习要求	熟悉 mkdir/mv/cp 与 for 循环；本节的 for 只完成一半任务（INCAR 还没改），下一节讲另一个批量处理方法；多搜集 Linux 小技巧
+EX02_V3	1	8	文件头	YAML front-matter（title/date/categories）
+EX02_V3	9	55	服务器相关	连接服务器的方法与终端客户端软件举例；Linux 基础命令 cd/mv/cp/cp -r/mkdir/rm/rm -r/rm -fr/ls；手上有可运行的 VASP；本书不讨论下载与安装、赝势走正版渠道、免费的可用 QE/CP2K/GPAW；会提交任务
+EX02_V3	56	72	程序语言学习与总结	建议学 bash 与 python（附「别人一天或 N 天的活你可能几秒就完事」的说法）；总结两条：先保证能连服务器并运行 VASP，新手应系统性学习 bash/python
+EX03	1	23	文件头与本练习的两小节	承接 ex02 的 0.01 目录，要把各目录 INCAR 的 SIGMA 改成与目录一致；本节分两小节：sed 的学习、for + sed 组合
+EX03	24	59	复习：cat 与 cat -n、man / --help	cat -n 会给每行标出行号，方便查看；Linux 命令都有很多选项，用 man cat 查看（退出敲 q），cat --help 效果一样
+EX03	60	89	sed 单文件替换与逐字符精解	sed '3s/0.01/0.02/g' INCAR；3s 表示选第三行、s 是 substitute；斜杠分隔行号动作/被替换/替换内容；末尾 g 代表 global 全部替换；命令末尾是要操作的文件
+EX03	90	110	不加 -i 只打印（文件未变）+ 重定向与 mv	原文用 cat 证明文件没被改；要落盘可以 sed '...' INCAR > INCAR_new 再用 mv 覆盖；> 表示把输出存到新文件
+EX03	111	159	sed -i 原地改写与两条防错规矩	sed -i 直接编辑源文件、源文件被新文件替换，所以**要小心小心再小心**；规矩一：运行前先 cp INCAR INCAR_back 备份；规矩二：先不加 -i 跑一遍确认输出正确，再加 -i
+EX03	160	208	sed -i 一次改全部目录	sed -i '3s/0.01/0.05/g' */INCAR 把 9 个目录的 SIGMA 一次改成 0.05；改前改后都用 grep SIGMA */INCAR 回读检查（* 在 grep 里检查输入输出很方便）
+EX03	209	262	for + sed 批量差异化改写，单引号 vs 双引号	for i in *; do sed -i "3s/0.05/$i/g" $i/INCAR ; done 把每个目录的 SIGMA 改成目录名；**关键：必须用双引号**，用单引号时 $i 会被当成纯字符写进文件；用 abc=bigbro 四行对照演示 echo abc / '$abc' / $abc / "$abc"；for i in * 等价于列出全部目录
+EX03	263	285	总结五条	学会 man / --help；大量练习 sed；知道 * 在 for 循环中的含义；熟知单引号与双引号的区别；学会从单一操作经 for 循环转成批量操作的思路（for i in XXX; do YYY; done，XXX 是范围/对象，YYY 是单一操作）
+EX04	1	17	文件头与本节目标	借对 KPOINTS 的批量操作，复习 KPOINTS 并学几个小窍门
+EX04	18	44	复习 KPOINTS 的四件事	要能闭着眼写出那五行；第三行的 gamma 指 gamma centered；第四行的 1 1 1 俗称 gamma 点，群里说「用 gamma 点算一下」指的就是它；也可以写 2 2 2 / 3 3 3 / 1 2 3，数值越大计算量越大，具体取多少要看体系与计算能力；气体分子或原子用 Γ 点就够
+EX04	45	110	第一次翻车：mkdir && cd、${i} 花括号、单引号把 $i 写进文件	mkdir ex04 && cd ex04（&& 表示前一条成功才执行后一条，失败也想执行用 ||）；用 ${i}${i}${i} 拼目录名，演示 echo $iA 全空 vs echo ${i}A 输出 1A…6A；目标写成 $i/KPOINTS 时报 sed: can't read 1/KPOINTS: No such file or directory；改用 ${i}${i}${i} 后仍失败——因为作者**故意用单引号**，KPOINTS 第四行被字面写成 $i $i $i
+EX04	111	134	补救方法 1：全删重来	rm * -fr 清空 ex04，重新复制目录；这次用双引号 sed -i "4s/1 1 1/$i $i $i/g" ${i}${i}${i}/KPOINTS，333 目录的第 4 行正确变成 3 3 3
+EX04	135	173	补救方法 2：将错就错 + 转义符 + 管道符	用 sed -i "s/\$i \$i \$i/$i $i $i/g" 把字面量 $i 替换回真数字；解释反斜杠把 $ 转义成纯文字；被替换内容含 / 时要写 \/（演示 echo big/bro | sed 's/\//\\/g' → big\bro）；用 | 管道符把前一条命令的输出传给后一条
+EX04	174	200	本小节总结与转入 POSCAR	要掌握 &&、||、| 的用法，${i} 何时用花括号，sed 中单双引号的区别，转义符的作用；以及「如何避免命令出错、出错后怎么改正」；**提前备份是最有效的补救手段，一定要时刻牢记备份自己的文件**
+EX04	201	275	POSCAR 批量处理：改晶格边长	for i in $(seq 8 2 16); do cp -r ... ${i}${i}${i} ; done 建 888/101010/…/161616；sed -i "3,5s/8/$i/g" 一次改第 3–5 行；seq 8 2 16 生成间隔 2 的序列（间隔为 1 时 {1..9} 与 seq 1 1 9 等价）；$(...) 把命令输出转成 for 的集合，反引号效果相同；提醒分号不是冒号、$ 与括号间无空格；3,5s 比连写三条 sed 更简洁
+EX04	276	383	for 循环的精髓、tree 与目录规范化	for 循环两部分：选对象（for i in XXX）+ 做动作（do YYY）；集合可以简单列举，也可以用命令/函数生成；**目录要规范整齐，按计算等级或类型创建，否则 for 循环效率大打折扣**；tree 查看目录层级、tree -d 只看目录（无 root 权限装不了就跳过，报 tree: command not found）；总结 seq / $() / sed 多行选择 / 目录规范化；工欲善其事必先利其器
+EX05	1	18	文件头与本节目的	借一个超算平台展示任务提交与查看（**站点参数一律不进本报告**）；先准备好的四件套已经就绪
+EX05	19	65	任务提交：脚本与命令	把算例目录复制一份；作业脚本三行结构（shebang、导出库路径、mpirun 类启动命令）；提交命令要改的四件事：队列/分区（购买机时后管理员会告知）、节点数与核数、任务名（以一眼能辨别任务为佳）、脚本名要与命令行一致；脚本名与存放位置随意，只要用的时候找得到
+EX05	66	120	任务查看与「算完了没有」	ls 发现多了一堆输出文件说明任务已运行；排队命令查状态（小体系太快查不到）；**判断任务算完只需 tail OUTCAR，看到 General timing and accounting informations 那一段即算完**；head -n 6 OUTCAR 能读到 VASP 版本、executed on 日期、总核数、k 点与能带的并行划分；tail -n 5 | head -n 2 组合取中间几行
+EX05	121	128	总结四条	会提交任务、会查看任务、会用 tail 判断结束、学会 tail 与 head
+EX06	1	19	文件头与 CONTCAR 介绍	从最简单的 CONTCAR 讲起；并排给出同一体系（O 原子）的 POSCAR 与 CONTCAR；不优化时两者结构一模一样
+EX06	20	61	CONTCAR 与 POSCAR 的四点差异	小数位数不同；CONTCAR 每行开头是空格**且绝不是 Tab**——POSCAR/CONTCAR 中只允许用空格分隔或缩进，用 Tab 会导致任务出错且极难查到；坐标系由 Cartesian 变为 Direct（想把 Cartesian 转 Direct 可以算一个单点；作者本人喜欢用 Cartesian）；多出的第 10–11 行在普通优化中全是 0（MD 中是速度、dimer 算过渡态时是过渡态相关振动方式），不用时可删
+EX06	62	99	CONTCAR 的作用与续算情形 A/B	用途一：计算完成后 CONTCAR 是最后一步优化的结果，可用可视化软件打开检查；用途二：任务半路死掉时的**续算**；情形 A：第一个离子步没算完就挂了，CONTCAR 不会更新，用原输入重提即可；情形 B：已完成 ≥1 个离子步但小于 NSW，把 CONTCAR 复制成 POSCAR 再提交，**但必须先 mv POSCAR/OUTCAR 做归档**——只做 cp 会损失前面的优化过程、破坏可重复性（像实验记录本不能半路跳着写）；附归档脚本 save_calculations.sh（把 POSCAR/OUTCAR/OSZICAR/vasprun.xml/CONTCAR 按轮次改名再 cp CONTCAR POSCAR）
+EX06	100	140	续算情形 C：跑到 NSW 仍未收敛	I）先查 CONTCAR 结构是否正确——结构跑乱、原子乱飞很可能导致不收敛，查三个方向：初始结构是否合理 / POSCAR 元素顺序与 POTCAR 是否一致 / 是不是用了 gamma 点却把体系放开了；II）结构没问题就是 NSW 太小或体系太难（如过渡态），续算前必须存档；脚本用法 save_calculations.sh N，得到 POSCAR-4、OSZICAR-4、OUTCAR-4 等；作者实测连续 4 次跑到 800 步都没收敛
+EX06	141	151	本节总结	只要记住一句话：CONTCAR 的作用跟 POSCAR 一样，存储的是模型被优化过的结构信息
+EX06	152	178	OSZICAR 的名字、什么是优化	作者坦承不知道 OSZICAR 是什么缩写；两个优化概念：电子结构的优化（固定几何、迭代求解薛定谔方程，俗称电子步）与几何结构的优化（由受力调整原子位置再重新做电子步，直至势能面极小，俗称离子步）；O 原子只可能有电子步
+EX06	179	236	OSZICAR 的逐列含义与 DAV/ALGO	DAV 行：N 电子步数、E 当前能量、dE 与上一步之差、d eps 能带结构能量变化、ncg 哈密顿量作用于波函数的求值次数、rms 试探波函数残差范数、rms(c) 输入与输出电荷密度之差；DAV 是 Blocked Davidson 算法，还会见到 RMM 与 CG；用 INCAR 的 ALGO 选择，**一般 ALGO = Fast 可满足大部分需求**；没设 ALGO 也出现 DAV，是因为默认 ALGO = N；划重点：不认识的参数千万不要写上去，用默认的就可以
+EX06	237	266	OSZICAR 的作用与总能量取 E0	官网说 Always keep a copy of the OSZICAR file；能更直观地看优化过程中能量的变化；**体系能量取 E0 后面那一项**（不管别人怎么争论，先记住取 E0）；grep E0 OSZICAR 即可；总结五条（两个优化概念、各项含义、DAV 对应 ALGO、保持 INCAR 干净、会从 OSZICAR 取能量）
+EX07	1	23	文件头与 OUTCAR 总览	OUTCAR 是当前计算最全面、多方位的汇总（参数设置与默认值、K 点、赝势、VASP 版本、几何与电子性质、计算时间）；官网没有专门页，因为不同任务输出不同且条目太多；**各部分之间用很长的横杠分隔**，看到横杠就知道进入下一部分
+EX07	24	96	开头：版本 / WARNING 块 / POTCAR 段	开头给出 VASP 版本与构建时间、运行日期、总核数、k 点与能带的并行划分；不知道用的哪个版本就在 OUTCAR 开头找；WARNING 块（建议 NCORE=4≈√核数、默认 NCORE=1 可能很低效、GW/RPA 必须用默认）即使输入正确也会打印，作者建议**直接无视**；WARNING 下面是 POTCAR 基本信息，可用 grep POTCAR / TIT / ENMAX / ZVAL 在 OUTCAR 上取证（O 的 ZVAL=6）
+EX07	97	160	POSCAR 与对称性段、K 点段	给出坐标格式、原子位置、晶胞形状大小；LATTYP / ALAT / 三个晶格矢量；PRICEL 判断是否已是原胞、SETGRP/GETGRP 给出空间群操作数（本例立方 O_h 点群 48 个操作）；K 点段由 IBZKPT 子程序给出不可约 k 点数与权重，同时列倒数坐标与笛卡尔坐标两套；**查 K 点个数用 grep irreducible OUTCAR 或 grep irre OUTCAR**
+EX07	161	202	INCAR 参数回显段与「不懂就不要写」	Startparameter for this run（NWRITE/PREC/ISTART/ICHARG/ISPIN/LNONCOLLINEAR/LSORBIT/INIWAV/LASPH/METAGGA）与 Electronic Relaxation 1（ENCUT/ENINI/ENAUG/NELM/NELMIN/NELMDL/EDIFF/LREAL/NLSPLINE/LCOMPAT/GGA_COMPAT/LMAXPAW/LMAXMIX/VOSKOWN/ROPT）；这两段把默认值与含义一并列出，可用来查「没写的参数实际用了什么」；**不懂就不要写，默认就可，很多默认参数没必要在 INCAR 里再写一遍**
+EX07	203	270	计算开始段、晶格与 K 点回显、内存用量	Static calculation / non-spin polarized / Variant of blocked Davidson / modified Broyden-mixing（AMIX、BMIX）/ Gauss-broadening SIGMA 等描述本次计算在做什么；energy-cutoff 400、volume 512、正倒格子矢量与长度、两套 k 点列表、分数坐标下的离子位置；内存用量分 base/nonl-proj/fftplans/grid/one-center/wavefun
+EX07	271	317	电子步 Iteration 段与能量分解表	Iteration 标题行给出第几个离子步的第几个电子步；POTLOK/SETDIJ/EDDAV/DOS/LOOP 各自的 cpu 与 real time；eigenvalue-minimisations、total energy-change、电子数与磁化强度；**Free energy of the ion-electron system** 段逐项列出 PSCENC/TEWEN/DENC/EXHF/XCENC/PAW double counting/EENTRO/EBANDS/EATOM/Ediel_sol 再求和得 TOTEN，并给出 energy without entropy 与 energy(sigma->0)；附官方论坛对各项的解释原文；每一电子步完成后 OSZICAR 同步更新一行
+EX07	318	374	E-fermi 与能带占据表	E-fermi 与 XC(G=0)、alpha+bet 同行；k 点 1 的 band No./band energies/occupation 表；O 原子 Band 1 对应 2 个 2s 电子、Band 2-4 对应 4 个 2p 电子（三条简并能带占据数都是 1.33333）；费米能级对应最高占据轨道即 HOMO；**grep E-fermi OUTCAR 取费米能级**
+EX07	375	424	SCF 收敛标记、应力段、晶胞回显、FREE ENERGIE 段	aborting loop because EDIFF is reached 表示达到收敛标准迭代停止；FORCE on cell =-STRESS 段按 Alpha Z/Ewald/Hartree/E(xc)/Local/n-local/augment/Kinetic/Fock 分解应力并给出 Total、in kB 与 external pressure、Pullay stress；VOLUME and BASIS-vectors 段原样重印截断能、体积与晶格矢量；FREE ENERGIE OF THE ION-ELECTRON SYSTEM 段给出 free energy TOTEN、energy without entropy 与 energy(sigma->0)
+EX07	425	437	总能量到底取哪一个	OUTCAR 里能量有好几个，很多人不知道该用哪一个；**与 OSZICAR 的 E0 对应（相同）的是 energy(sigma->0)**；三条取数命令（grep without / grep '  without' / grep sigma，都配 tail -n 1）；用 tail -n 1 是为了取**最后一步**的能量，多离子步时必须如此；此处的 entropy 来自 ISMEAR 展宽，与物化书里的熵不是一回事
+EX07	438	474	收尾段：怎么判断正常结束	writing wavefunctions、LOOP+/4ORBIT 计时、总内存用量分解；General timing and accounting informations for this job 段给出 Total CPU time / User time / System time / Elapsed time、最大与平均内存、page faults、context switches；**看到这一段说明计算正常结束了**
+EX07	475	491	本节总结与学习态度	带着四个问题读 OUTCAR：这部分讲什么、有什么物理化学意义、怎么用 grep 取有用信息、怎么取能量、怎么与输入输出文件关联；上手之后 OUTCAR 里很多内容可能一辈子用不到，可以不用全懂，但这不是偷懒的理由

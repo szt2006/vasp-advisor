@@ -1,0 +1,36 @@
+{{TAGDEF|NPAR|[integer]|available ranks}}
+
+Description: {{TAG|NPAR}} determines the number of bands that are treated in parallel. This is a legacy tag; use {{TAG|NCORE}} instead.
+----
+{{NB|warning|{{TAG|NCORE}} is the recommended tag for controlling band-level parallelization and has been available since VASP.5.2.13. It is more intuitive and directly expresses the size of each band group. Only use {{TAG|NPAR}} if you have a specific reason to prefer it. If both {{TAG|NPAR}} and {{TAG|NCORE}} are specified in the {{FILE|INCAR}} file, {{TAG|NPAR}} takes precedence.}}
+## Relationship to NCORE
+VASP distributes the available MPI ranks into band groups that each work on one band, parallelizing the FFTs for that band. For the common case that {{TAG|IMAGES|1}} and no other algorithm-dependent parallelization (e.g., {{TAG|NOMEGAPAR}}) is active::
+
+:\text{available ranks} = \frac{\text{total MPI ranks}}{\text{KPAR}}
+
+{{TAG|NPAR}} sets the number of band groups; {{TAG|NCORE}} sets the size of each band group. They are strict inverses:
+
+:\text{NPAR} \times \text{NCORE} = \text{available ranks}
+
+The default ({{TAG|NPAR}} = available ranks) is equivalent to {{TAG|NCORE|1}}: each band is handled by a single rank.
+{{NB|warning|Setting {{TAG|NPAR|1}} means all available ranks collaborate on a single band (plane-wave coefficient distribution only). No band parallelization occurs. This is almost always very slow and should be avoided.}}
+{{NB|tip|See the optimizing the parallelization page for a step-by-step guide to finding the best parallelization setup for your system, and {{TAG|NCORE}} for information on how to parallelize over FFTs in particular.}}
+## Related tags and articles
+{{TAG|NCORE}},
+{{TAG|KPAR}},
+{{TAG|LPLANE}},
+{{TAG|LSCALU}},
+{{TAG|NSIM}},
+{{TAG|LSCALAPACK}},
+{{TAG|LSCAAWARE}}
+
+GPU ports of VASP,
+Combining MPI and OpenMP,
+
+Optimizing the parallelization,
+Parallelization,
+Energy cutoff and FFT meshes
+
+{{sc|NPAR|HowTo|Workflows that use this tag}}
+
+Category:INCAR tagCategory:PerformanceCategory:Parallelization

@@ -1,0 +1,19 @@
+{{TAGDEF|LCHARGH5|[logical]|{{TAG|LH5}}}}
+
+Description: Determines whether the charge densities are written to {{FILE|vaspwave.h5}}.
+----
+
+In most case it is enough to set {{TAG|LH5}} and/or {{TAG|LCHARG}} with the following exception: Explicitly set 
+
+  {{TAGBL|LCHARGH5}}=True
+  {{TAGBL|LH5}}=False
+
+in order to get the charge density to the {{FILE|vaspwave.h5}} for plotting with {{py4vasp}} while running a calculation where restart information (wave functions, etc) is written to legacy files ({{FILE|WAVECAR}}).
+{{NB|mind|{{TAG|LCHARGH5}} is available as of VASP version 6.0}}
+
+== Related tags and articles ==
+[[Restart and output files cheat sheet]]
+
+{{TAG|LWAVE}}, {{TAG|LWAVEH5}}, {{TAG|LCHARG}}, {{TAG|LH5}}
+
+[[Category:INCAR tag]][[Category:Charge density]]

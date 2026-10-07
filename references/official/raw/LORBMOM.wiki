@@ -1,0 +1,19 @@
+{{TAGDEF|LORBMOM|.TRUE. {{!}} .FALSE. |.FALSE.}}
+
+Description: Specifies whether the orbital moments are written out. Only applicable in a calculation using {{TAGDEF|LSORBIT|True}}.
+----
+If {{TAG|LORBMOM}}=.TRUE. is set, VASP will use the projectors of the PAW potentials to calculate the
+orbital angular moment within the PAW spheres, and write them to the {{FILE|OUTCAR}} file. Look for 
+
+  orbital moment (x)
+
+to find the orbital- and site-resolved table.
+
+== Related tags and articles ==
+{{TAG|LSORBIT}},
+{{TAG|LORBIT}}
+
+{{sc|LORBMOM|Examples|Examples that use this tag}}
+----
+
+[[Category:INCAR tag]][[Category:Magnetism]][[Category:Spin-orbit coupling]]

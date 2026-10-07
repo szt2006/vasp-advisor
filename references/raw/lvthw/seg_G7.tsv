@@ -1,0 +1,105 @@
+post_id	起行	止行	主题	要点
+A17	1	11	front-matter 与标题	YAML 头：title/categories/tags/date；tags = ASE、格式转换
+A17	12	19	引言：本文要做什么	ASE = Atomic Simulation Environment；本篇只讲"格式转换"这一个操作；作者设的三道"滤纸"（装没装 ASE / 会不会下 mol / 有没有打开文件看数据结构）
+A17	20	27	例子1 mol→xyz 的输入	从 Chemspider 下乙烷 3D mol 文件；滤纸-2
+A17	28	75	实操 ase gui 转 mol→xyz	ase gui <in> -o <out> 一条命令完成转换；会打印 UserWarning 建议改用 ase convert -i mol -o xyz
+A17	76	96	滤纸与例子2 CIF→XYZ/POSCAR	从 Materials Project 下干冰 cif；滤纸-3/4
+A17	97	155	实操 CIF→xyz 与 CIF→POSCAR 逐行输出	cif 的分数坐标被 ASE 转成笛卡尔；xyz 带 Lattice 与 pbc 属性；写出的 POSCAR 只有注释行、没有元素行
+A17	156	190	ASE 写 POSCAR 的 VASP4 格式问题	默认写出 VASP4 形态（无元素行）；两条补救：改写入参数 vasp5=True，或直接改 ASE 源码里全部 vasp5 = False；打完补丁后第 6 行才出现元素行
+A17	191	202	结语	作者的口水结尾，无技术内容
+A18	1	33	front-matter；Pymatgen 是什么	Pymatgen = python materials genomics；能前后处理 VASP/ABINIT/LAMMPS/Gaussian 等；能出相图、Pourbaix 图、DOS/能带；提供 MP/Crystallography Open Database 接口
+A18	34	48	离子电导率的理论框架与 AIMD 降本配方	流程 AIMD→MSD→Ds→sigma；降本四条：氧化物 400 eV、硫化物 280 eV、硒化物 270 eV 截断；Gamma 点 + gam 版；单胞；POTIM = 2（=2 fs）
+A18	49	74	后处理三个公式	平均 MSD 的定义式；Ds = averageMSD/(2dt)（d 为扩散维度）；sigma = n e^2 Z^2 Ds/(kBT)
+A18	75	110	算例 INCAR 与 XDATCAR 合并	AIMD INCAR：IBRION=0、ISIF=2、NSW=30000、TEBEG=900、POTIM=2、SMASS=0.0、NELMIN=4、LWAVE=F、LCHARG=F、IALGO=48、LREAL=A、PREC=N；多次续算的 XDATCAR 用 cat 合并，但要手工删掉重复的晶格行
+A18	111	133	安装 pymatgen	推荐 anaconda；conda install --channel conda-forge pymatgen；import pymatgen 不报错即成功
+A18	134	167	DiffusionAnalyzer 类与 from_structures	类签名（structure, displacements, specie, temperature, time_step, step_skip, smoothed, min_obs, avg_nsteps, lattices）；推荐用 from_structures 从结构列表初始化
+A18	168	226	li_conductivity.py 与运行结果	Trajectory.from_file('XDATCAR') → DiffusionAnalyzer.from_structures(traj,'Li',900,2,1) → diff.plot_msd() → diff.conductivity（单位 mS/cm）→ 写 result.dat；算例给出 900 K 时 884.05 mS/cm
+A18	227	251	下载、思考题与打赏	三个思考题：怎么得 300 K 电导率、怎么算迁移势垒、怎么可视化扩散路径
+A19	1	16	front-matter 与引言	为什么扩胞：先优化小胞再扩成大胞"相对快一些"；作者也承认服务器够力时直接从切好的大胞优化也行
+A19	17	45	例子：1x1 Ru(0001) → 4x4	expand.py CONTCAR 4 4 1；用 ase gui 前后对比；CONTCAR 4 个 Ru，扩完 POSCAR 64 个 Ru，z 方向不变
+A19	46	77	expand.py 脚本与参数	read_vasp("CONTCAR") → cell*(x,y,z) → write_vasp("POSCAR", direct=True, sort=True)；三个整数是 x/y/z 方向的倍数
+A19	78	84	打赏与联系方式	无技术内容
+A20	1	20	front-matter；引子与装环境	SMILES→3D 主要靠 Openbabel；给出 conda 建环境的四条命令（openbabel / rdkit / ase / pymatgen）
+A20	21	47	SMILES 是什么	simplified molecular-input line-entry system；四个练习分子：乙醇 CCO、甲烷 C、甲基 [CH3]、苯 c1ccccc1
+A20	48	101	smiles_to_xyz.py 全文	pybel.readstring("smi", smiles) + mol.make3D(forcefield='mmff94', steps=100)；再用 ASE 建 16x17x18 的周期盒子、居中、FixAtoms 用不存在的 'XX' 元素使全部原子放开；输出 <前缀>_ase.xyz 与 <前缀>_POSCAR
+A20	102	127	运行命令与产物	四条命令行示例；产物命名规则
+A20	128	179	脚本逐段详解	Openbabel 只三行；ASE 部分：建空 Atoms、设 cell、set_pbc、逐原子 append、center、约束、写文件
+A20	180	195	小结：结构合理性必须自查	不管怎么搭结构，提交前都要认真检查一遍；打赏
+A21	1	12	front-matter；p4vasp 的前景判断	p4vasp 基于 Python2，官网无 Python3 更新，作者判断"这软件估计要凉"
+A21	13	34	下载解压与基础编译依赖	官网下 tgz；apt 装 gcc/make/python2-dev
+A21	35	57	旧运行库依赖与 install.sh	pygtk 的 deb 要从 Ubuntu archive pool 取（现代仓库已移除）；必须先装 gtk2 再装 glade2；再补 libxft-dev、libglfw3-dev 等，最后 bash install.sh
+A21	58	73	注意与反馈	install-ubuntu-dependencies.sh 末尾的 python-epydoc 报错可以忽略；作者只测过 Ubuntu20
+A21	74	79	打赏	无技术内容
+A22	1	16	front-matter；虚拟机的选型	VMWARE 收费、VirtualBox 免费，故选后者；并提醒配置普通的机器跑虚拟机不流畅
+A22	17	30	准备工作	下 Ubuntu 桌面版 iso、下 VirtualBox、下扩展包（Extension Pack）
+A22	31	88	创建虚拟机	内存/CPU 各给 host 一半；vdi 存放位置与容量；iso 挂载
+A22	89	140	安装 Ubuntu 系统	逐屏点击；装完提示移除 iso 再回车
+A22	141	169	增强扩展包（Guest Additions）	host 与 guest 两边都要装；装上后分辨率才能自适应（重启后生效）
+A22	170	199	网络、剪贴板共享、共享文件夹	Setting-Network；剪贴板双向共享；共享文件夹要填 Folder Path 与 Mount Point
+A22	200	231	共享文件夹权限的解决办法与打赏	挂载点没权限时 sudo adduser $USER vboxsf 然后重启；若重启失败且报 USB 相关错误就取消 USB 选项
+A23	1	26	front-matter；建 ~/bin	~/bin 用来放自写脚本与可执行小程序，勤备份且不占空间
+A23	27	84	apt 软件清单与用途	python3-pip/curl/vim/sshfs/rename/xclip/git/gnuplot/xcrysden/tree/inkscape/fish/tmux/texlive-full/kile 各自的用途
+A23	85	111	安装 Anaconda	下载 sh 后 bash 安装，一路回车/yes；Anaconda 能省掉很多装软件的麻烦
+A23	112	140	Anaconda 后 p4vasp 失效的诊断与修复	症状：p4v 报 SyntaxError，出错点是 print """...""" 这种 Python2 语句；诊断：PATH 里的 python 已变成 Python3；处方：把 p4v 里的 python 全改成 python2，p4v.py 首行解释器也改成 python2；判据：grep python 应看到 exec python2 与 #!/usr/bin/env python2
+A23	141	169	VESTA 免安装与 PATH 设置	解压即用；在 ~/.bashrc 里 export VESTA=<你的目录> 与 export PATH=$PATH:$VESTA，source 后直接敲 VESTA 启动；作者特意提醒路径要换成自己的
+A23	170	184	备份策略与打赏	虚拟机路线备份 vdi；裸机路线备份 ~/bin 与 ~/.bashrc，坏了重装后还原设置
+A24	1	12	front-matter	YAML 头；mathjax 打开
+A24	13	33	引言：这篇要画的图	引 Nature Materials 2015 (Wang et al., 14, 1026-1031) 的 Li 迁移概率密度图；四条读图结论：连通通道→势垒低（0.22~0.25 eV）、三维网格且更均匀→更低（0.18~0.19 eV）、只在特定位点成团→不能迁移、局域化→不行的材料；原文总结：扩散网络里各位点能量应彼此接近且有大通道相连
+A24	34	60	安装 pymatgen-diffusion	下 zip 解压后把 pymatgen_diffusion 目录手工放进 Anaconda 的 site-packages；import 不报错即成功
+A24	61	91	官方 notebook 用法	从 DiffusionAnalyzer 的 json 反序列化，再 ProbabilityDensityAnalysis.from_diffusion_analyzer(diff, interval=0.5, species=(...)) 并 to_chgcar 写出概率密度
+A24	92	112	从 XDATCAR 起飞：test.py	Trajectory.from_file('XDATCAR') → DiffusionAnalyzer.from_structures(traj,'Li',900,2,1) → pda → to_chgcar("pda.vasp") → VESTA 里看等值面；这一步后处理耗时约 8 分钟
+A25	1	15	front-matter 与引言	推荐 matminer 的理由：由 Pymatgen 开发者开发、易用；本篇依据其官网 installing 页
+A25	16	26	matminer 能做什么	从 Citrine/MP/MDF 等库取数据；把成分/结构/能带表征成物理特征量；训练 ML 模型；基于 pandas；进阶自动化版 Automatminer
+A25	27	62	安装与自测	conda create -n py36 python=3.6；conda install -c conda-forge pymatgen；pip install matminer；import 两个包不报错即成功
+A25	63	64	结尾	后续教程预告
+A26	1	18	front-matter；入口	给出官方 notebook 链接；从 MP 取数用 matminer.data_retrieval.retrieve_MP.MPDataRetrieval，实例化要 api_key
+A26	19	38	示例1：单元素材料的密度	get_dataframe(criteria={...}, properties=[...])；properties 是想要的性质列表，criteria 是搜索条件字典
+A26	39	59	criteria/properties 语义与 DataFrame	matminer 的数据是 pandas DataFrame；df.head() 看前几行；单元素材料共 716 条；可用性质清单见 pymatgen 的 matproj.py
+A26	60	91	示例2：带隙大于 4.0 eV	操作符写成 $gt / $lt（greater than / less than）；criteria= 与 properties= 可省略；df.to_csv 存成 csv
+A26	92	121	示例3：VRH 弹性模量与数据质量过滤	$exists 判存在；elasticity.warnings: [] 用来剔掉带警告的数据；取 elasticity.K_VRH / G_VRH；df.describe() 做统计
+A26	122	162	复杂示例：成分 + 热力学稳定性 + 出图	$all 判同时含 Pb 与 Te；e_above_hull < 1e-6 限条数（也为了省时间，因为 bandstructure/dos 很重）；结果 3 条；用 pymatgen 的 BSDOSPlotter 画能带+DOS
+A26	163	183	结尾	pandas 要自学；pymatgen 出的能带/DOS 图不够美观；建议用 jupyter notebook；附 notebook 网盘链接
+A27	1	21	front-matter；Citrine 与依赖	Citrine 是带机器学习工具的材料数据库；取数用 matminer 的 CitrineDataRetrieval，需要 api_key；必须先 pip install citrination_client 否则报错
+A27	22	60	示例1：Si 的实验带隙	criteria={'formula':'Si','data_type':'EXPERIMENTAL'}，properties=['Band gap']，secondary_fields=True；命中 7 条；返回字段里带 references/chemicalFormula/units/conditions/methods/dataType
+A27	61	111	示例2：*OH 与 *O 的吸附能	criteria={} 只给 properties 即可返回全部；*OH 命中 9 条、*O 命中 21 条；作者承认数据不够丰富，鼓励自己上传数据
+A27	112	118	结尾	预告与 MP 计算数据的对比；推荐 jupyter；附网盘链接
+A28	1	16	front-matter 与引言	周期性体系里两个原子的距离要考虑周期性边界；可视化软件点两下给的可能是"假"的长距离
+A28	17	40	例子：Pt/TiO2(101) 的两种距离	p4vasp 里序号从 1 开始（Pt 是 109 号、Ti 是 23 号）；直接量 7.461 A，沿 y 重复后还有 3.818 A 的短距离；理想做法是建模时把分子放在 slab 中间
+A28	41	79	get_dis_AB.py 与 mic 参数	ASE 下标从 0 开始（109→108、23→22）；model.get_distance(a,b,mic=True) 考虑最小镜像、mic=False 直接量；mic=False 等价于自己用 numpy 算坐标差的模
+A28	80	114	输出、格式改进与放进 ~/bin	输出 3.8175 与 7.4611 两列；改成带表头的 TSV 输出；chmod u+x 后 mv 到 ~/bin 即可当命令用
+A28	115	122	结尾与联系方式	邀请读者自己解决周期性边界问题；联系方式（不进消费层）
+A29	1	16	front-matter；虚频的烦恼与方法概述	结构优化出虚频、过渡态反而不出虚频、还常伴生"姐弟虚频"；本篇给的是结构优化时消虚频的小脚本，思路是按虚频振动方向微调坐标再重新优化
+A29	17	28	原理四步与校正因子举例	OUTCAR 里带 f/i 的行说明有虚频；X,Y,Z 是原子坐标、dx,dy,dz 是虚频对应的位移方向；新坐标 = 旧坐标 + 位移 x 校正因子（0~1）；举例：z 方向用校正因子 0.1
+A29	29	62	OUTCAR 虚频段原文	f/i 行给出 THz/2PiTHz/cm-1/meV 四个等价数值；下一行是 X Y Z dx dy dz 表头；再往下每行一个原子；本例只有最后一个原子的 dx,dy,dz 非零
+A29	63	111	vib_correct.py（ASE 版）	扫 OUTCAR 收集所有 f/i 行、取 cm-1 列（split()[6]）最大者、块起点 = 该行号+2；读 POSCAR 坐标与后三列位移；new = old + vib*0.4；write('POSCAR_new', vasp5=True)
+A29	112	121	使用说明 5 条	脚本与算例同目录运行；也可放 ~/bin 直接调用；重新算时新建目录、把 POSCAR_new 改名 POSCAR；只适用于普通结构优化的虚频，过渡态出现多个虚频时不要用（脚本只取最大虚频）；不用 ASE 也能实现
+A29	122	174	纯 python 版（不用 ASE）	只用 numpy；原子数靠 POSCAR 第 7 行求和；输出的每一行坐标后面硬编码拼上 F F F
+A29	175	178	二维码	无技术内容
+A30	1	15	front-matter 与频道截图	VASP 官方在 Youtube 开了频道，下载下来约 1G（作者说 1G 只是噱头）
+A30	16	40	9 个视频清单与作者评价	7 个 1 小时以上的讲座（MD 进阶、ML 力场、电子收敛、杂化泛函、从头模拟入门、MD 入门、倒空间对称性与采样），另 2 个是 py4vasp 与 VASP 6.3 的发布介绍
+A30	41	50	关注建议与下载方式	建议关注官方频道；下载方式依赖公众号（不进消费层）
+A31	1	26	front-matter；编译的两个前提	前提一：VASP 本身能编过（否则分不清是 VASP 还是 VTST 的错）；前提二：严格按官网一步步来；VTST 编译命令与 VASP 一样是 make
+A31	27	42	下载解压与版本对应	vtstcode5 对应 VASP5；vtstcode6.1 对应 VASP6.1/6.2；两个文件夹之外的文件对应 VASP6.3；VASP5 升 VASP6 要花钱，用 VASP5 就用 vtstcode5 并尽量用最新的 5.4.4；6.1/2 升 6.3 不花钱且 6.3 支持机器学习，所以 vtstcode6.1 可以不用
+A31	43	58	编译前准备	先把已编好的 VASP 目录整份复制一份做备份（原生与 VTST 版并存）；把 vtstcode 文件复制进 src；改 src/main.F
+A31	59	79	main.F 的替换内容与版次差异	VTST v2.04 起要改 main.F：CHAIN_FORCE 调用多传一个 TSIF 参数；VASP6.2 还要把 IF (LCHAIN) CALL chain_init(...) 改成 CALL chain_init(...)；vasp.6.2.1 需要 vtstcode 4.1 (revision 182)；作者实测 6.3 若不替换那一行编译会失败（他建议编两版做对比）
+A31	80	112	src/.objects 的修改与顺序要求	官网说的 variable SOURCE 就是 src 下的隐藏文件 .objects；dynmat.o/neb.o/dimer.o/lanczos.o/instanton.o 必须排在 chain.o 之前；sd.o/cg.o/qm.o/lbfgs.o/bfgs.o/fire.o 必须排在 opt.o 之前；给了一段可直接粘贴的行号示例；不要随便改顺序
+A31	113	124	完整编译命令	复制 VASP 目录、进目录、把 vtstcode 复制到 src、vi src/main.F、vi src/.objects、make
+A31	125	148	验证：grep VTST 看版本横幅	grep VTST -A 10 <某个算例的 OUTCAR>；正常会打印 VTST: version x.y 以及 CHAIN/OPT 的初始化行（含 CG 优化器、FDSTEP、MAXMOVE、Read ICHAIN、Running the NEB）
+A31	149	163	四条总结与结尾	①先编过 VASP；②复制对应版本文件到 src；③改 main.F；④改 .objects；结尾拒答下载/案例/提交命令类问题
+A32	1	13	front-matter；IDM/Dimer/NEB 的关系	IDM、传统 Dimer、NEB 都用于找过渡态；VTST 已带很多 Dimer 脚本不必重造；NEB 结合 IDM 找过渡态很高效、成功率高
+A32	14	18	IDM 已内置，只需 IBRION=44	IDM 已编译在 VASP 里，不需要额外编译；用法与平时优化差不多，主要改 IBRION = 44
+A32	19	51	IDM 五步流程	3.1 造初始 TS 结构三条路（手搭 / 用 nebmake.pl 插点挑一个 / NEB 跑约 30 步取能量最高像的 CONTCAR）；3.2 做粗频率（NWRITE=3 必须；slab 全固定、只放开断成键原子、Gamma 点；有几个小虚频不用消，但必须有 TS 对应的那个虚频）；3.3 脚本生成 IDM 的 POSCAR；3.4 准备四件套提交；3.5 用高精度频率复验
+A32	52	58	脚本下载地址	作者的 q-robot 仓库（不进消费层）
+A32	59	130	get_dimer.py 全文	docstring 内嵌 INCAR 模板（频率步 IBRION=5/POTIM=0.015/NFREE=2/NWRITE=3；IDM 步 NSW=100/IBRION=44/EDIFFG=-0.05/POTIM=0.05）；读 POSCAR_relax 另存为 POSCAR_dimer；以 'Eigenvectors after division by SQRT(mass)' 行定位频率块（找不到就退出并提示 NWRITE 必须为 3）；取最大虚频后在块内截取 len(model) 行、把后三列追加到 POSCAR_dimer，并写一行 '! Dimer Axis Block'
+A32	131	145	五条注意事项	POSCAR_relax 是没固定原子的干净结构；脚本把最大虚频的振动方向贴到 POSCAR_relax 后面；输出要改名 POSCAR；INCAR 里改 IBRION=44；在频率计算目录里直接运行
+A32	146	150	结尾	IDM+NEB 成功率高、极少出现多个虚频，所以也能用来消虚频；联系方式（不进消费层）
+A33	1	12	front-matter	YAML；tags = matminer/cif/pymatgen
+A33	13	23	matminer 从 MP 取 Cu	MPDataRetrieval(api_key=...)（正文里直接写死了一个真实 key，属反面教材）；criteria 用 nelements 与 elements.$in 联用；properties 包含 pretty_formula 与 cif；print 文案与 criteria 不一致
+A33	24	37	pymatgen 取结构并导出 CIF	MPRester(api_key="XXX") 占位；get_structure_by_material_id('mp-1009018')；pymatgen.io.cif.CifWriter 写 Cu.cif
+A33	38	39	二维码	无技术内容
+A34	1	12	front-matter	YAML；tags = ASE/气体/Entropy
+A34	13	27	IdealGasThermo 的四个必填输入	①对称数 ②线性/非线性 ③未成对电子数或多重度 ④温度与压强；对称数不会算可查 Cramer "Essentials of Computational Chemistry" 2nd Ed. 的 Table 10.1 与 Appendix B
+A34	28	81	get_gas_entropy.py 全文	从 freq/OUTCAR 逐行找含 cm-1 的行、取倒数第二列（meV）除以 1000 换成 eV、丢掉最后 6 个（平动转动投影）；能量从 ./OUTCAR 用 ase.io.read(format='vasp-out').get_potential_energy()；结构从 freq/POSCAR；IdealGasThermo(vib_energies, potentialenergy, atoms, geometry='nonlinear', symmetrynumber, spin)；get_ZPE_correction() 与 get_entropy(T,P=101325)（eV/K）；G = E + ZPE - T*S
+A34	82	105	运行输出：熵分解、G 与 S	给出 S_trans / S_rot / S_elec / S_vib / S(1bar->P) 与总量（NH3、298.15 K、1 atm）：S = 0.0019964 eV/K、T*S = 0.595 eV；G = -19.220631915628093 eV；S = 192.6230 J/K/mol（由 N Avogadro * eV 换算）
+A34	106	116	四点说明	目录里的 NIST-JANAF 表用来对比；脚本从当前 OUTCAR 取能量、从 freq/ 取结构与频率；分子频率的后 6 个是平动转动、不能当振动算熵，平动转动熵由模块按分子结构算；表面吸附物种改用 Harmonic limit 模块
+A34	117	123	下载与二维码	公众号关键词与二维码（不进消费层）

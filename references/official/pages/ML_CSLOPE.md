@@ -1,0 +1,15 @@
+{{DISPLAYTITLE:ML_CSLOPE}}
+{{TAGDEF|ML_CSLOPE|[real]|0.2}}
+
+Description: Parameter used in the automatic determination of threshold for error estimation in the machine learning force field method.
+----
+The usage of this tag in combination with the learning algorithms is described here: here.
+
+The standard error of the history of maximum estimated errors of the forces ({{TAG|ML_MHIS}}) and it's slope must be below {{TAG|ML_CSIG}} and {{TAG|ML_CSLOPE}} so that an update of the threshold for the maximum estimated error of forces {{TAG|ML_CTIFOR}} can take place. 
+## Related tags and articles
+{{TAG|ML_LMLFF}}, {{TAG|ML_ICRITERIA}}, {{TAG|ML_CSIG}}, {{TAG|ML_MHIS}}, {{TAG|ML_CX}}
+
+{{sc|ML_CSLOPE|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Machine-learned force fields

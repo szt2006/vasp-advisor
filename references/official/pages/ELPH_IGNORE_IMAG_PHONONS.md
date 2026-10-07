@@ -1,0 +1,22 @@
+{{DISPLAYTITLE:ELPH_IGNORE_IMAG_PHONONS}}
+{{TAGDEF|ELPH_IGNORE_IMAG_PHONONS|[logical]|.FALSE.}}
+
+Description: If enabled, VASP ignores imaginary phonon frequencies during electron-phonon calculations.
+{{Available|6.5.0}}
+
+----
+
+Imaginary phonon frequencies are often a sign that the system in question is not well-converged or not well-described by the simulation.
+In this case, the system should first be properly converged until stable (real) phonons are obtained.
+{{NB|mind|Imaginary phonon frequencies can also appear at phase transitions or other lattice instabilities. However, for perturbative electron-phonon calculations, you should always choose a stable equilibrium structure.}}
+
+If imaginary phonon frequencies are encountered during an electron-phonon calculation, VASP simply stops.
+If {{TAG|ELPH_IGNORE_IMAG_PHONONS|True}}, VASP instead skips the q-points at which the phonon frequencies are imaginary.
+This can be useful since even a stable system can sometimes exhibit small imaginary phonon frequencies around the \Gamma-point due to numerical inaccuracies.
+## Related tags and articles
+* {{TAG|ELPH_RUN}}
+* {{TAG|IFC_ASR}}
+* {{TAG|ELPH_SELFEN_FAN}}
+* {{TAG|ELPH_SELFEN_DW}}
+
+Category:INCAR tagCategory:Electron-phonon_interactions

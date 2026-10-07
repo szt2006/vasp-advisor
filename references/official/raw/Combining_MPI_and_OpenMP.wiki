@@ -1,0 +1,148 @@
+VASP can be built to use a combination of OpenMP threading and parallelization over MPI ranks. This is beneficial on some hardware. 
+
+== When to use MPI + OpenMP ==
+
+When is it beneficial to run with multiple OpenMP threads per MPI rank? There are not so many cases, but we can discern at least two:
+
+#On nodes with many cores, e.g., 64 or more. On such nodes, the memory bandwidth and cache size per core may limit the parallel efficiency of VASP. These problems can be (partly) alleviated by the use of OpenMP.
+#When running the [[GPU ports of VASP]]. Execution of VASP on GPUs is most efficient when using only a single MPI rank per GPU. Therefore, only a few MPI ranks are running on the CPU in most cases. It is helpful to run with multiple OpenMP threads per MPI rank to leverage the CPU's remaining computational power for those parts of VASP that still run on the CPU side.
+{{NB|important|When running with a single OpenMP thread per MPI rank, there is no appreciable difference between a VASP run with an MPI+OpenMP executable and an MPI-only one. The inactive OpenMP constructs incur very little overhead. In that sense, no strong argument speaks against building VASP with OpenMP support per default.}}
+
+== Compilation ==
+
+To compile VASP with OpenMP support, add the following to the list of [[Installing_VASP.6.X.X#Precompiler_variables|precompiler flags]] in your <code>makefile.include</code> file:
+
+ CPP_OPTIONS += -D_OPENMP
+
+In addition, you need to add some compiler-specific options to [[Installing_VASP.6.X.X#Compiler_variables|the command that invokes your Fortran compiler (and sometimes to the linker as well)]]. For instance, when using an Intel toolchain (ifort + Intel MPI), it is
+
+ FC = mpiifort -qopenmp
+{{NB|important| Base your {{FILE|makefile.include}} file on one of the archetypical <tt>/arch/makefile.include.*_omp</tt> files that are provided with your VASP.6.X.X release.}}
+To adapt these to the particulars of your system (if necessary) please read the [[Installing_VASP.6.X.X|instructions on the installation of VASP.6.X.X]].
+{{NB|mind|When you compile VASP with OpenMP support and you are '''not''' using the FFTs from the Intel-MKL library, you should [[Makefile.include#fftlib_.28recommended_when_using_OpenMP.29|compile VASP with <tt>fftlib</tt>]]. Otherwise, the costs of (planning) the OpenMP-threaded FFTs will become prohibitively large at higher thread counts.}}
+<!--
+{{NB|tip|When compiling for Intel CPUs we strongly recommend using an all Intel toolchain (Intel compiler + Intel MPI + MKL libraries) since this will yield the best performance by far (and especially so for the hybrid MPI/OpenMP version of VASP). The aforementioned compilers and libraries are freely available in the form of [https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html the Intel oneAPI base + HPC toolkits].}}
+-->
+
+== Running multiple OpenMP threads per MPI rank ==
+
+In principle, running VASP on ''n'' MPI ranks with ''m'' OpenMP threads per rank is as simple as: 
+
+ export OMP_NUM_THREADS=<m> ; mpirun -np <n> <your-vasp-executable>
+
+Here, the <tt>mpirun</tt> part of the command depends on the flavor of MPI one uses and has to be replaced appropriately. Below, we will only discuss the use of OpenMPI and IntelMPI.
+
+For proper performance, it is crucial to ensure that the MPI ranks, and the associated OpenMP threads they spawn, are placed optimally onto the ''physical'' cores of the node(s), and are pinned to these cores.
+As an example (for a typical Intel Xeon-like architecture): Let us assume we plan to run on 2 nodes, each with 16 physical cores. These 16 cores per node are further divided into 2 ''packages'' (aka ''sockets'') of 8 cores each. The cores on a socket share access to a block of memory and in addition, they may access the memory associated with the other package on their node via a so-called ''crossbar switch''. The latter, however, comes at a (slight) performance penalty.
+
+In the aforementioned situation, a possible placement of MPI ranks and OpenMP threads would for instance be the following: place 2 MPI ranks on each package (''i.e.'', 8 MPI ranks in total) and have each MPI rank spawn 4 OpenMP threads on the same package. These OpenMP threads will all have fast access to the memory associated with their package, and will not have to access memory through the crossbar switch.
+
+To achieve this we have to tell both the OpenMP runtime library as well as the MPI library what to do.
+{{NB|warning|In the above we purposely mention ''physical'' cores. When your CPU supports ''hyperthreading'' (and if this is enabled in the BIOS) there are more ''logical'' cores than ''physical'' cores (typically a factor 2). As a rule of thumb: makes sure that the total number of MPI ranks &times; <tt>OMP_NUM_THREADS</tt> (in the above: ''m''&times;''n'') does not exceed the total number of '''physical cores''' (''i.e.'', do not ''oversubscribe'' the nodes). In general VASP runs do not benefit from oversubscription.}}
+=== For the OpenMP runtime ===
+
+Tell the OpenMP runtime it may spawn 4 threads per MPI rank:
+
+<pre>export OMP_NUM_THREADS=4</pre>
+
+and that it should bind the threads to the physical cores, and put them onto cores that are as close as possible to the core that is running the corresponding MPI rank (and OpenMP master thread):
+
+<pre>export OMP_PLACES=cores
+export OMP_PROC_BIND=close</pre>
+
+In addition to taking care of thread placement, it is often necessary to increase the size of the private stack of the OpenMP threads (to 256 or even 512 Mbytes), since the default is in many cases too small for VASP to run, and will cause segmentation faults:
+
+<pre>export OMP_STACKSIZE=512m</pre>
+{{NB|mind|[https://software.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/optimization-and-programming-guide/openmp-support/openmp-library-support/thread-affinity-interface-linux-and-windows.html The Intel OpenMP-runtime library (<tt>libiomp5.so</tt>) offers an alternative set of environment variables to control OpenMP-thread placement, stacksize ''etc''].|:}}
+<!--
+When your CPU supports ''hyperthreading'' (and if this is enabled in the BIOS) there are more ''logical'' cores than ''physical'' cores (typically a factor 2). In this case, one should make sure the threads are placed on consecutive physical cores instead of consecutive logical cores. When using Intel's OpenMP runtime library (<tt>libiomp5.so</tt>) this can be achieved by:
+
+ export KMP_AFFINITY=verbose,granularity=fine,compact,1,0
+
+{{NB|tip|As far as we are aware, this level of fine-grained control over the thread placement is only available from Intel's OpenMP runtime. In light of this fact, and since ''oversubscribing'', i.e., starting more OpenMP-threads than there are physical cores on a node seldomly brings a (significant) performance gain, we recommend disabling hyperthreading altogether.}}
+
+All of the above may be combined into a single command, as follows:
+
+ mpirun -np 8 --map-by socket:PE=4 --bind-to core \
+              -x OMP_NUM_THREADS=4 -x OMP_STACKSIZE=512m \
+              -x KMP_AFFINITY=verbose,granularity=fine,compact,1,0 \
+              <your-vasp-executable>
+-->
+
+=== Using OpenMPI ===
+Now start 8 MPI ranks (<code>-np 8</code>), with the following placement specification: 2 ranks/socket, assigning 4 subsequent cores to each rank (<code>--map-by ppr:2:socket:PE=4</code>), and bind them to their physical cores (<code>--bind-to core</code>): 
+
+<pre>mpirun -np 8 --map-by ppr:2:socket:PE=4 --bind-to core <your-vasp-executable></pre>
+
+Or all of the above wrapped into a single command:
+
+<pre>mpirun -np 8 --map-by ppr:2:socket:PE=4 --bind-to core \
+              -x OMP_NUM_THREADS=4 -x OMP_STACKSIZE=512m \
+              -x OMP_PLACES=cores -x OMP_PROC_BIND=close \
+              --report-bindings <your-vasp-executable>
+</pre>
+
+where the <code>--report-bindings</code> is optional but a good idea to use at least once to check whether the rank and thread placement is as intended.
+
+In our example, the above will assure that the OpenMP threads each MPI rank spawns reside on the same package/socket, and pins both the MPI ranks as well as the OpenMP threads to specific cores. This is crucial for performance.
+
+=== Using IntelMPI ===
+
+Tell MPI to reserve a domain of <tt>OMP_NUM_THREADS</tt> cores for each rank
+
+<pre>export I_MPI_PIN_DOMAIN=omp</pre>
+
+and pin the MPI ranks to the cores
+
+<pre>export I_MPI_PIN=yes</pre>
+
+Then start VASP on 8 MPI ranks
+
+<pre>mpirun -np 8 <your-vasp-executable></pre>
+
+In case one uses Intel MPI, things are fortunately a bit less involved. Distributing 8 MPI-ranks over 2 nodes with 16 physical cores each (2 sockets per node) allowing for 4 OpenMP threads per MPI-rank is as simple as:
+
+<pre>mpirun -np 8 -genv I_MPI_PIN=yes -genv I_MPI_PIN_DOMAIN=omp -genv I_MPI_DEBUG=4</pre>
+
+Or all of the above wrapped up into a single command:
+
+<pre> mpirun -np 8 -genv I_MPI_PIN_DOMAIN=omp -genv I_MPI_PIN=yes -genv OMP_NUM_THREADS=4 -genv OMP_STACKSIZE=512m \
+              -genv OMP_PLACES=cores -genv OMP_PROC_BIND=close -genv I_MPI_DEBUG=4 <your-vasp-executable></pre>
+
+where the <code>-genv I_MPI_DEBUG=4</code> is optional but a good idea to use at least once to check whether the rank and thread placement is as intended.
+
+In our example, the above will assure that the OpenMP threads each MPI rank spawns reside on the same package/socket, and pins both the MPI ranks as well as the OpenMP threads to specific cores. This is crucial for performance.
+
+== MPI versus MPI/OpenMP: the main difference ==
+
+By default VASP distributes work and data over the MPI ranks on a per-orbital basis (in a round-robin fashion): Bloch orbital 1 resides on rank 1, orbital 2 on rank 2. and so on.
+Concurrently, however, the work and data may be further distributed in the sense that not a single, but a group of MPI ranks, is responsible for the optimization (and related FFTs) of a particular orbital.
+In the pure MPI version of VASP, this is specified by means of the {{TAG|NCORE}} tag.
+
+For instance, to distribute each individual Bloch orbital over 4 MPI ranks, one specifies:
+
+ {{TAG|NCORE}} = 4
+
+The main difference between the pure MPI and the hybrid MPI/OpenMP version of VASP is that the latter will not distribute a single Bloch orbital over ''multiple MPI ranks'' but will distribute the work on a single Bloch orbital over ''multiple OpenMP threads''.
+
+As such one does not set {{TAG|NCORE}}=4 in the {{FILE|INCAR}} file but starts VASP with 4 OpenMP-threads/MPI-rank.
+{{NB|warning|The hybrid MPI/OpenMP version of VASP will internally set {{TAG|NCORE}}{{=}}1, regardless of what was specified in the {{FILE|INCAR}}  file, when it detects it has been started on more than one OpenMP thread.}}
+
+== Further reading ==
+
+* ''OpenMP in VASP: Threading and SIMD'', F. Wende, M. Marsman, J. Kim, F. Vasilev, Z. Zhao, and T. Steinke, [http://dx.doi.org/10.1002/qua.25851 Int. J. Quantum Chem. 2018;e25851]
+
+== Credits ==
+
+Many thanks to Jeongnim Kim and Fedor Vasilev at Intel, and Florian Wende and Thomas Steinke of the Zuse Institute Berlin (ZIB)!
+
+== Related tags and articles ==
+
+[[:Category:Parallelization|Parallelization]],
+[[Installing_VASP.6.X.X|Installing VASP.6.X.X]],
+[[GPU ports of VASP]]
+
+
+----
+
+[[Category:VASP]][[Category:Installation]][[Category:Parallelization]]

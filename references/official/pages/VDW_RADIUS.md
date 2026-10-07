@@ -1,0 +1,25 @@
+{{DISPLAYTITLE:VDW_RADIUS}}
+{{TAGDEF|VDW_RADIUS|[real]}}
+{{DEF|VDW_RADIUS|50| if {{TAG|IVDW}}{{=}}1, 2, 3, 4, or 21|50.20|if {{TAG|IVDW}}{{=}}11, 12, or 15|31.75|if {{TAG|IVDW}}{{=}}13}}
+
+Description: {{TAG|VDW_RADIUS}} (in Å) sets the two-body interaction cutoff in van der Waals methods.
+----
+
+{{TAG|VDW_RADIUS}} (in Å) allows to set the two-body interaction cutoff for the DFT-D2, DFT-D3 (DFT-D3 and simple-DFT-D3 implementations), DFT-D4, DFT-ulg, DDsC, and Tkatchenko-Scheffler methods.
+{{NB|mind|Available for the DFT-D4 and simple-DFT-D3 packages since VASP.6.6.0.}}
+## Related tags and articles
+{{TAG|IVDW}},
+{{TAG|VDW_CNRADIUS}},
+DFT-D2,
+DFT-D3,
+simple-DFT-D3,
+DFT-D4,
+DFT-ulg,
+DDsC,
+Tkatchenko-Scheffler method,
+Tkatchenko-Scheffler method with iterative Hirshfeld partitioning
+
+{{sc|VDW_RADIUS|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Exchange-correlation functionalsCategory:van der Waals functionals

@@ -1,0 +1,425 @@
+# 官方层的版本门控（**逐行提取，每条可回原文核对**）
+# 由 references/official/_extract_versions.py 生成。
+# ⚠️ **没有条目 ≠ 所有版本都支持** —— 官方只对'新加的'标版本；
+#    「没有标注」只能理解为「官方没写」，不能理解为「都支持」。
+# page	tag	kind	version	version_upto	line	verbatim	note
+AEXX	AEXX	cond_default			2	{{DEF|AEXX|0.25|if {{TAG|LHFCALC}}{{=}}.TRUE. .AND. {{TAG|LRHFCALC}}{{=}}.FALSE.|1|if {{TAG|LRHFCALC}}{{=}}.TRUE.|0|if {{TAG|LHFCALC}}{{=}}.FALSE.}}	条件：0.25 ⇒ if {{TAG
+AEXX	AEXX	min_version_text	6.4.0		7	*For versions of VASP prior to 6.4.0, {{TAG|ALDAX}} was constrained to be equal to 1.0-{{TAG|AEXX}}. This constraint is lifted since VASP.6.4.0.	正文写明的版本（措辞：since VASP.6.4.0）
+AGGAC	AGGAC	cond_default			2	{{DEF|AGGAC|1.0 | if {{TAG|LHFCALC}}=.FALSE. or {{TAG|AEXX}}\neq1.0 | 0.0 | if {{TAG|LHFCALC}}=.TRUE. and {{TAG|AEXX}}=1.0}}	条件：1.0 ⇒ if {{TAG
+AGGAX	AGGAX	cond_default			2	{{DEF|AGGAX|1.0-{{TAG|AEXX}} | if {{TAG|LHFCALC}}{{=}}.TRUE. | 1.0 | if {{TAG|LHFCALC}}{{=}}.FALSE.}}	条件：1.0-{{TAG ⇒ AEXX
+ALDAC	ALDAC	cond_default			2	{{DEF|ALDAC|1.0 | if {{TAG|LHFCALC}}=.FALSE. or {{TAG|AEXX}}\neq1.0 | 0.0 | if {{TAG|LHFCALC}}=.TRUE. and {{TAG|AEXX}}=1.0}}	条件：1.0 ⇒ if {{TAG
+ALDAX	ALDAX	cond_default			2	{{DEF|ALDAX|1.0-{{TAG|AEXX}} | if {{TAG|LHFCALC}}{{=}}.TRUE. | 1.0 | if {{TAG|LHFCALC}}{{=}}.FALSE.}}	条件：1.0-{{TAG ⇒ AEXX
+ALDAX	ALDAX	min_version_text	6.4.0		9	*For versions of VASP prior to 6.4.0, {{TAG|ALDAX}} was constrained to be equal to 1.0-{{TAG|AEXX}}. This constraint is lifted since VASP.6.4.0.	正文写明的版本（措辞：since VASP.6.4.0）
+ALGO	ALGO	available	4.5		12	{{Available|4.5}}	
+ALGO	ALGO	min_version_text	6.0.0		19	Fast || blocked Davidson + RMM-DIIS || 68 || self-consistency cycle || Davidson for the initial phase, then RMM-DIIS; one Davidson sweep per ionic step (except the first). This setting is faster and c	正文写明的版本（措辞：in vasp.6.0.0）
+ALGO	ALGO	min_version_text	5.2.9		30	Conjugate, Subrot, Eigenval, None, and Nothing are supported as of vasp.5.2.9. The Old Fast/Old VeryFast variants (also of/fo and ov/vo) are available in vasp.6 and select the corresponding vasp.5 alg	正文写明的版本（措辞：as of vasp.5.2.9）
+ALGO	ALGO	min_version_text	5.2.12		99	*{{TAG|ALGO|TDHF}} selects TDHF (or  TDDFT) calculations using the VASP internal Cassida code see BSE calculations, (available as of VASP.5.2.12)	正文写明的版本（措辞：as of VASP.5.2.12）
+ALGO	ALGO	min_version_text	5.4.1		101	*{{TAG|ALGO|BSE}} selects BSE calculations using the VASP internal Cassida code see BSE calculations, (available as of VASP.5.4.1)	正文写明的版本（措辞：as of VASP.5.4.1）
+ALGO	ALGO	min_version_text	5.3.1		107	*{{TAG|ALGO|RPA}} synonymous to ACFDT see ACFDT/RPA calculations (available as of VASP.5.3.1)	正文写明的版本（措辞：as of VASP.5.3.1）
+ALGO	ALGO	min_version_text	6.3		153	{{NB|important|Changes as of VASP.6.3:}}	正文写明的版本（措辞：as of VASP.6.3）
+ALGO	ALGO	min_version_text	6.4		157	{{NB|important|available as of VASP.6.4:}}	正文写明的版本（措辞：as of VASP.6.4）
+ALPHA_VDW	ALPHA_VDW	cond_default			3	{{DEF|ALPHA_VDW|0.94950|for {{TAG|IVDW_NL}}{{=}}3 or |0.28248|for {{TAG|IVDW_NL}}{{=}}4}}	条件：0.94950 ⇒ for {{TAG
+AMGGAC	AMGGAC	cond_default			2	{{DEF|AMGGAC|1.0 | if {{TAG|LHFCALC}}=.FALSE. or {{TAG|AEXX}}\neq1.0 | 0.0 | if {{TAG|LHFCALC}}=.TRUE. and {{TAG|AEXX}}=1.0}}	条件：1.0 ⇒ if {{TAG
+AMGGAC	AMGGAC	min_version_text	6.4.0		4	Description: {{TAG|AMGGAC}} is a parameter that multiplies the meta-GGA correlation functional (available as of VASP.6.4.0).	正文写明的版本（措辞：as of VASP.6.4.0）
+AMGGAX	AMGGAX	cond_default			2	{{DEF|AMGGAX|1.0-{{TAG|AEXX}} | if {{TAG|LHFCALC}}{{=}}.TRUE. | 1.0 | if {{TAG|LHFCALC}}{{=}}.FALSE.}}	条件：1.0-{{TAG ⇒ AEXX
+AMGGAX	AMGGAX	min_version_text	6.4.0		4	Description: {{TAG|AMGGAX}} is a parameter that multiplies the meta-GGA exchange functional (available as of VASP.6.4.0).	正文写明的版本（措辞：as of VASP.6.4.0）
+AMGGAX	AMGGAX	min_version_text	6.4.0		6	{{TAG|AMGGAX}} can be used as the fraction of meta-GGA exchange in a Hartree-Fock/DFT hybrid functional (possible since VASP.6.4.0).	正文写明的版本（措辞：since VASP.6.4.0）
+AMIX	AMIX	cond_default			2	{{DEF|AMIX|0.8|if {{TAG|ISPIN}}{{=}}1 and one uses US-PPs|0.4|if {{TAG|ISPIN}}{{=}}2 and one uses US-PPs|0.4|if one uses PAW datasets}}	条件：0.8 ⇒ if {{TAG
+BEXT	BEXT	cond_default			3	{{DEF|BEXT|0.0|if {{TAG|ISPIN}}{{=}}2|3*0.0|if {{TAG|LNONCOLLINEAR}}{{=}}.TRUE.| N/A | else}}	条件：0.0 ⇒ if {{TAG
+BEXX	BEXX	cond_default			2	{{DEF|BEXX|1|if {{TAG|LHFCALC}}{{=}}.TRUE.}}	条件：1 ⇒ if {{TAG
+BEXX	BEXX	available	6.6.0		5	{{Available|6.6.0}}	
+CHECKPOINT_FD	CHECKPOINT_FD	available	6.6.0		9	{{Available|6.6.0}}	
+CLL	CLL	cond_default			2	{{DEF|CLL| 0 | }}	条件：0 ⇒ 
+CLN	CLN	cond_default			2	{{DEF|CLN| 1 | }}	条件：1 ⇒ 
+CLNT	CLNT	cond_default			2	{{DEF|CLNT| 1 | }}	条件：1 ⇒ 
+CLZ	CLZ	cond_default			2	{{DEF|CLZ| 0 | }}	条件：0 ⇒ 
+CMBJA	CMBJA	cond_default			2	{{DEF|CMBJA|&minus;0.012 | if {{TAG|METAGGA}}{{=}}MBJ | 0.488 | if {{TAG|METAGGA}}{{=}}LMBJ}}	条件：&minus;0.012 ⇒ if {{TAG
+CMBJB	CMBJB	cond_default			2	{{DEF|CMBJB|1.023 | if {{TAG|METAGGA}}{{=}}MBJ | 0.5 | if {{TAG|METAGGA}}{{=}}LMBJ}}	条件：1.023 ⇒ if {{TAG
+CSHIFT	CSHIFT	cond_default			2	{{DEF|CSHIFT|0.1| for {{TAG|LOPTICS}} |{{TAG|OMEGAMAX}}*1.3 / max({{TAG|NOMEGA}},40)| for GW calculations|0.1| for BSE calculations/Casida TDDFT calculations|0.1| for Time Evolution TDDFT calculations}}	条件：0.1 ⇒ for {{TAG
+CUTOFF_MU	CUTOFF_MU	cond_default			3	{{DEF|CUTOFF_MU| 0.8 * Fermi level of a system with {{TAG|NUM_WANN}} orbitals occupied|}}	条件：0.8 * Fermi level of a system with {{TAG ⇒ NUM_WANN
+CUTOFF_SIGMA	CUTOFF_SIGMA	cond_default			3	{{DEF|CUTOFF_SIGMA|0.1|}}	条件：0.1 ⇒ 
+CUTOFF_TYPE	CUTOFF_TYPE	cond_default			3	{{DEF|CUTOFF_TYPE|erfc|}}	条件：erfc ⇒ 
+Changelog	Changelog	min_version_text	6.6.0		3	*Forces with meta-GGA functionals were wrong in the spin-polarized case ({{TAG|ISPIN}}=2). This bug was introduced in VASP 6.6.0 and is now fixed, cf. known issue 94.	正文写明的版本（措辞：in VASP 6.6.0）
+Changelog	Changelog	min_version_text	6.5.0		193	* Fixed broken ML_FF version check in VASPml; was unable to read ML_FFs from VASP 6.5.0 (earlier versions work).	正文写明的版本（措辞：from VASP 6.5.0）
+DFTD4_MODEL	DFTD4_MODEL	available	6.6.0		5	{{Available|6.6.0}}	
+DFTD4_XC	DFTD4_XC	min_version_text	6.6.0		9	{{NB|mind|The {{TAG|DFTD4_XC}} tag is available from VASP.6.6.0 onwards}}	正文写明的版本（措辞：from VASP.6.6.0）
+DOSCAR	DOSCAR	min_version_text	4.6		52	In vasp.4.6 the site projected DOS can be evaluated for {{TAG|LORBIT}}=10-12, even if {{TAG|NPAR}} is not equal 1 (contrary to previous releases).	正文写明的版本（措辞：In vasp.4.6）
+EAUG	EAUG	deprecated			8	{{NB|deprecated|The value of {{TAG|EAUG}} can be overwritten by setting {{TAG|ENAUG}} in the {{FILE|INCAR}} file, but this functionality is deprecated and should not be used anymore.}}	官方标 deprecated
+EFERMI	EFERMI	min_version_text	6.4		15	This algorithm to determine the Fermi energy was introduced in VASP.6.4.	正文写明的版本（措辞：in VASP.6.4）
+EFERMI_NEDOS	EFERMI_NEDOS	available	6.5.0		5	{{Available|6.5.0}}	
+EFIELD_PEAD	EFIELD_PEAD	cond_default			3	{{DEF|EFIELD_PEAD|3*0.01|if {{TAG|LCALCEPS}}{{=}}.TRUE.|3*0.0|else}}	条件：3*0.01 ⇒ if {{TAG
+EFOR	EFOR	cond_default			2	{{DEF|EFOR|3 * NIONS * 0.0 |}}	条件：3 * NIONS * 0.0 ⇒ 
+EFOR	EFOR	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_DECOMPOSE	ELPH_DECOMPOSE	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_DRIVER	ELPH_DRIVER	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_DRIVER	ELPH_DRIVER	min_version_text	6.6.0		6	{{NB|warning|There was a  known issue 54 for electron-phonon calculations using {{TAG|ISPIN|2}} for VASP 6.5.0 and 6.5.1 that was fixed in VASP 6.6.0.}}	正文写明的版本（措辞：in VASP 6.6.0）
+ELPH_FERMI_NEDOS	ELPH_FERMI_NEDOS	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_IGNORE_IMAG_PHONONS	ELPH_IGNORE_IMAG_PHONONS	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_ISMEAR	ELPH_ISMEAR	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_KSPACING	ELPH_KSPACING	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_LR	ELPH_LR	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_MODE	ELPH_MODE	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_NBANDS	ELPH_NBANDS	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_NBANDS_SUM	ELPH_NBANDS_SUM	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_POT_FFT_MESH	ELPH_POT_FFT_MESH	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_POT_GENERATE	ELPH_POT_GENERATE	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_POT_LATTICE	ELPH_POT_LATTICE	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_PREPARE	ELPH_PREPARE	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_RUN	ELPH_RUN	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SCATTERING_APPROX	ELPH_SCATTERING_APPROX	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SCATTERING_APPROX	ELPH_SCATTERING_APPROX	min_version_text	6.5.0		33	{{NB|warning|The formula above is correct and used from the next release of VASP onwards. In VASP 6.5.0 and 6.5.1, the following formula is used:	正文写明的版本（措辞：In VASP 6.5.0）
+ELPH_SCATTERING_APPROX	ELPH_SCATTERING_APPROX	min_version_text	6.5.0		42	{{NB|warning|The formula above is correct and used from the next release of VASP onwards. In VASP 6.5.0 and 6.5.1, the following formula is used:	正文写明的版本（措辞：In VASP 6.5.0）
+ELPH_SELFEN_BAND_START	ELPH_SELFEN_BAND_START	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_BAND_START_KP	ELPH_SELFEN_BAND_START_KP	available	6.6.0		5	{{Available|6.6.0}}	
+ELPH_SELFEN_BAND_STOP	ELPH_SELFEN_BAND_STOP	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_BAND_STOP_KP	ELPH_SELFEN_BAND_STOP_KP	available	6.6.0		5	{{Available|6.6.0}}	
+ELPH_SELFEN_BROAD_TOL	ELPH_SELFEN_BROAD_TOL	available	6.5.0		6	{{Available|6.5.0}}	
+ELPH_SELFEN_CARRIER_DEN	ELPH_SELFEN_CARRIER_DEN	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_CARRIER_DEN_RANGE	ELPH_SELFEN_CARRIER_DEN_RANGE	available	6.6.0		5	{{Available|6.6.0}}	
+ELPH_SELFEN_CARRIER_PER_CELL	ELPH_SELFEN_CARRIER_PER_CELL	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_DELTA	ELPH_SELFEN_DELTA	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_DW	ELPH_SELFEN_DW	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_ENERGY_WINDOW	ELPH_SELFEN_ENERGY_WINDOW	available	6.5.0		6	{{Available|6.5.0}}	
+ELPH_SELFEN_FAN	ELPH_SELFEN_FAN	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_GAPS	ELPH_SELFEN_GAPS	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_G_SKIP	ELPH_SELFEN_G_SKIP	available	6.5.0		6	{{Available|6.5.0}}	
+ELPH_SELFEN_IKPT	ELPH_SELFEN_IKPT	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_IMAG_SKIP	ELPH_SELFEN_IMAG_SKIP	available	6.5.0		6	{{Available|6.5.0}}	
+ELPH_SELFEN_KPTS	ELPH_SELFEN_KPTS	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_MU	ELPH_SELFEN_MU	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_MU_RANGE	ELPH_SELFEN_MU_RANGE	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_NW	ELPH_SELFEN_NW	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_STATIC	ELPH_SELFEN_STATIC	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_TEMPS	ELPH_SELFEN_TEMPS	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_TEMPS_RANGE	ELPH_SELFEN_TEMPS_RANGE	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_SELFEN_WRANGE	ELPH_SELFEN_WRANGE	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_TRANSPORT	ELPH_TRANSPORT	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_TRANSPORT_DFERMI_TOL	ELPH_TRANSPORT_DFERMI_TOL	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_TRANSPORT_DRIVER	ELPH_TRANSPORT_DRIVER	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_TRANSPORT_EMAX	ELPH_TRANSPORT_EMAX	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_TRANSPORT_EMAX_PLOT	ELPH_TRANSPORT_EMAX_PLOT	available	6.5.0		6	{{Available|6.5.0}}	
+ELPH_TRANSPORT_EMIN	ELPH_TRANSPORT_EMIN	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_TRANSPORT_EMIN_PLOT	ELPH_TRANSPORT_EMIN_PLOT	available	6.5.0		6	{{Available|6.5.0}}	
+ELPH_TRANSPORT_NEDOS_PLOT	ELPH_TRANSPORT_NEDOS_PLOT	available	6.5.0		6	{{Available|6.5.0}}	
+ELPH_USEBLAS	ELPH_USEBLAS	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_USERECIP	ELPH_USERECIP	available	6.6.0		5	{{Available|6.6.0}}	
+ELPH_WF_CACHE_MB	ELPH_WF_CACHE_MB	available	6.5.1		5	{{Available|6.5.1}}	
+ELPH_WF_CACHE_PREFILL	ELPH_WF_CACHE_PREFILL	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_WF_COMM_OPT	ELPH_WF_COMM_OPT	available	6.5.0		6	{{Available|6.5.0}}	
+ELPH_WF_REDISTRIBUTE	ELPH_WF_REDISTRIBUTE	available	6.5.0		6	{{Available|6.5.0}}	
+ELPH_WRITE_HDF5VEL	ELPH_WRITE_HDF5VEL	available	6.5.0		5	{{Available|6.5.0}}	
+ELPH_WRITE_TEXTVEL	ELPH_WRITE_TEXTVEL	available	6.5.0		5	{{Available|6.5.0}}	
+EMAX	EMAX	cond_default			2	{{DEF|EMAX| highest KS eigenvalue  + \Delta | }}	条件：highest KS eigenvalue  + \Delta ⇒ 
+EMIN	EMIN	cond_default			2	{{DEF|EMIN| lowest KS eigenvalue  - \Delta | }}	条件：lowest KS eigenvalue  - \Delta ⇒ 
+ENAUG	ENAUG	deprecated			6	{{NB|deprecated|{{TAG|ENAUG}} is considered as deprecated and should not be used anymore.}}	官方标 deprecated
+ENCUT	ENCUT	cond_default			2	{{DEF|ENCUT| largest {{TAG|ENMAX}} in the {{FILE|POTCAR}} file | }}	条件：largest {{TAG ⇒ ENMAX
+ENCUTFOCK	ENCUTFOCK	min_version_text	5.2.4		8	The flag {{TAG|ENCUTFOCK}} is no longer supported in VASP.5.2.4 and newer versions.	正文写明的版本（措辞：in VASP.5.2.4）
+ENCUTFOCK	ENCUTFOCK	removed_text	5.2.4		8	The flag {{TAG|ENCUTFOCK}} is no longer supported in VASP.5.2.4 and newer versions.	正文提到移除/不再支持
+ENCUTGWSOFT	ENCUTGWSOFT	cond_default			2	{{DEF|ENCUTGWSOFT|{{TAG|ENCUTGW}}\times 0.8| for {{TAG|ALGO}}{{=}}*ACFDT*|{{TAG|ENCUTGW}}\times 0.8| as of VASP.6.3 | {{TAG|ENCUTGW}}|else}}	条件：{{TAG ⇒ ENCUTGW
+ENCUTGWSOFT	ENCUTGWSOFT	min_version_text	6.3		2	{{DEF|ENCUTGWSOFT|{{TAG|ENCUTGW}}\times 0.8| for {{TAG|ALGO}}{{=}}*ACFDT*|{{TAG|ENCUTGW}}\times 0.8| as of VASP.6.3 | {{TAG|ENCUTGW}}|else}}	正文写明的版本（措辞：as of VASP.6.3）
+ENCUTLR	ENCUTLR	available	6.5.0		5	{{Available|6.5.0}}	
+ESTOP	ESTOP	cond_default			2	{{DEF|ESTOP|0.05| }}	条件：0.05 ⇒ 
+EWALD_CUTOFF	EWALD_CUTOFF	cond_default			3	{{DEF|EWALD_CUTOFF|4.0|}}	条件：4.0 ⇒ 
+FMP_ACTIVE	FMP_ACTIVE	cond_default			3	{{DEF|FMP_ACTIVE|NIONS * False|}}	条件：NIONS * False ⇒ 
+FMP_ACTIVE	FMP_ACTIVE	min_version_text	6.4.4		10	{{NB|mind|This tag will only be available from VASP 6.4.4}}	正文写明的版本（措辞：from VASP 6.4.4）
+FMP_DIRECTION	FMP_DIRECTION	min_version_text	6.4.4		9	{{NB|mind|This tag will only be available from VASP 6.4.4}}	正文写明的版本（措辞：from VASP 6.4.4）
+FMP_PERIOD	FMP_PERIOD	min_version_text	6.4.4		8	{{NB|mind|This tag will only be available from VASP 6.4.4}}	正文写明的版本（措辞：from VASP 6.4.4）
+FMP_SNUMBER	FMP_SNUMBER	min_version_text	6.4.4		9	{{NB|mind|This tag will only be available from VASP 6.4.4}}	正文写明的版本（措辞：from VASP 6.4.4）
+FMP_SWAPNUM	FMP_SWAPNUM	min_version_text	6.4.4		9	{{NB|mind|This tag will only be available from VASP 6.4.4}}	正文写明的版本（措辞：from VASP 6.4.4）
+FOCKCORR	FOCKCORR	cond_default			2	{{DEF|FOCKCORR|2|if {{TAG|LMAXFOCKAE}}>0|1|else}}	条件：2 ⇒ if {{TAG
+FOCKCORR	FOCKCORR	min_version_text	6.3.1		53	{{NB|mind| Only available as of VASP 6.3.1.}}	正文写明的版本（措辞：as of VASP 6.3.1）
+GAMMA_VDW	GAMMA_VDW	cond_default			3	{{DEF|GAMMA_VDW|1.12|for {{TAG|IVDW_NL}}{{=}}3 or |1.29|for {{TAG|IVDW_NL}}{{=}}4}}	条件：1.12 ⇒ for {{TAG
+GGA	GGA	min_version_text	6.4.3		9	*The {{TAG|XC}} tag, available since VASP.6.4.3, can be used to specify any linear combination of LDA, {{TAG|GGA}} and {{TAG|METAGGA}} exchange-correlation functionals.}}	正文写明的版本（措辞：since VASP.6.4.3）
+GGA	GGA	min_version_text	6.5.0		15	style="text-align:center;"| PW92(1) || style="text-align:center;"| LDA || Slater exchange{{cite|dirac:mpcps:1930}} + Perdew-Wang parametrization of Ceperley-Alder Monte Carlo correlation data.{{cite|c	正文写明的版本（措辞：since VASP.6.5.0）
+GGA	GGA	min_version_text	6.4.3		16	style="text-align:center;"| SL(1) || style="text-align:center;"| LDA || Slater exchange only.{{cite|dirac:mpcps:1930}} Available since VASP.6.4.3.	正文写明的版本（措辞：since VASP.6.4.3）
+GGA	GGA	min_version_text	6.4.3		17	style="text-align:center;"| CA_C (or PZ_C) || style="text-align:center;"| LDA || Correlation-only Perdew-Zunger parametrization of Ceperley-Alder Monte Carlo correlation data.{{cite|ceperley1980}}{{ci	正文写明的版本（措辞：since VASP.6.4.3）
+GGA	GGA	min_version_text	6.5.0		18	style="text-align:center;"| PW92_C || style="text-align:center;"| LDA || Correlation-only Perdew-Wang parametrization of Ceperley-Alder Monte Carlo correlation data.{{cite|ceperley1980}}{{cite|perdew1	正文写明的版本（措辞：since VASP.6.5.0）
+GGA	GGA	min_version_text	6.4.3		23	style="text-align:center;"| PBE_X || style="text-align:center;"| GGA || Exchange-only Perdew-Burke-Ernzerhof.{{cite|perdew:prl:1996}} Available since VASP.6.4.3.	正文写明的版本（措辞：since VASP.6.4.3）
+GGA	GGA	min_version_text	6.4.3		24	style="text-align:center;"| PBE_C || style="text-align:center;"| GGA || Correlation-only Perdew-Burke-Ernzerhof.{{cite|perdew:prl:1996}} Available since VASP.6.4.3.	正文写明的版本（措辞：since VASP.6.4.3）
+HFALPHA	HFALPHA	cond_default			2	{{DEF|HFALPHA|6/sqrt({{TAG|ENMAX}})/(2π)|if {{TAG|HFRCUT}} is 0}}	条件：6/sqrt({{TAG ⇒ ENMAX
+IALGO	IALGO	cond_default			2	{{DEF|IALGO|8|for VASP.4.4 and older|38|else (if {{TAG|ALGO}} is not set)}}	条件：8 ⇒ for VASP.4.4 and older
+IALGO	IALGO	deprecated			10	*{{TAG|IALGO}}=5-8: Conjugate gradient algorithms {{NB|deprecated|Not supported since vasp.5.}}	官方标 deprecated
+IALGO	IALGO	min_version_text	4.5		17	:Please mind, that {{TAG|IALGO}}=8 is not supported as of VASP.4.5, since M. Teter, Corning and M. Payne hold a patent on this algorithm. The algorithms have been replaced by faster and more efficient	正文写明的版本（措辞：as of VASP.4.5）
+IALGO	IALGO	deprecated			19	*{{TAG|IALGO}}=15-18: Conjugate gradient algorithms {{NB|deprecated|Not supported since vasp.5.}}	官方标 deprecated
+IALGO	IALGO	deprecated			22	*{{TAG|IALGO}}=28: Conjugate gradient algorithm {{NB|deprecated|Not supported since vasp.5.}}	官方标 deprecated
+IALGO	IALGO	min_version_text	4.6		26	:Kosugi algorithm (special blocked-Davidson iteration scheme). This algorithm is the default in VASP.4.6 and VASP.5.X. It optimizes a subset of {{TAG|NSIM}} bands simultaneously. The optimized bands a	正文写明的版本（措辞：in VASP.4.6）
+IALL_IN_ONE	IALL_IN_ONE	cond_default			2	{{DEF|IALL_IN_ONE|1|for {{TAG|LALL_IN_ONE}}{{=}}.TRUE. or {{TAG|NBANDS}}<0|-1|for {{TAG|LALL_IN_ONE}}{{=}}.FALSE.}}	条件：1 ⇒ for {{TAG
+IALL_IN_ONE	IALL_IN_ONE	min_version_text	6.4.0		14	{{NB|mind|available as of VASP.6.4.0}}	正文写明的版本（措辞：as of VASP.6.4.0）
+IBRION	IBRION	cond_default			2	{{DEF|IBRION|-1|for {{TAG|NSW}}{{=}}&minus;1 or 0|0|else}}	条件：-1 ⇒ for {{TAG
+ICHARG	ICHARG	cond_default			2	{{DEF|ICHARG|2|if {{TAG|ISTART}}{{=}}0|0|else}}	条件：2 ⇒ if {{TAG
+ICHARG	ICHARG	min_version_text	5.1		20	:Read potential from file {{FILE|POT}}. The local potential on the file {{FILE|POT}} is written by the optimized-effective-potential methods (OEP), if the flag {{TAG|LVTOT}}=.TRUE. is supplied in the 	正文写明的版本（措辞：as of VASP.5.1）
+IFC_ASR	IFC_ASR	available	6.5.0		5	{{Available|6.5.0}}	
+IFC_LR	IFC_LR	available	6.5.0		5	{{Available|6.5.0}}	
+IMAGES	IMAGES	available	6.2.0		5	{{Available|6.2.0}}	
+INIWAV	INIWAV	cond_default			2	{{DEF|INIWAV|1|}}	条件：1 ⇒ 
+INMRPRINT	INMRPRINT	min_version_text	6.6.0		4	{{NB|mind|Available as of VASP.6.6.0.}}	正文写明的版本（措辞：as of VASP.6.6.0）
+ISIF	ISIF	cond_default			2	{{DEF|ISIF|0|for {{TAG|IBRION|0}} (molecular dynamics) or {{TAG|LHFCALC|.TRUE.}} (hybrid functionals)|2|else}}	条件：0 ⇒ for {{TAG
+ISIF	ISIF	min_version_text	6.4.1		40	* {{TAG|ISIF|8}} is only available as of VASP.6.4.1.	正文写明的版本（措辞：as of VASP.6.4.1）
+ISPIN	ISPIN	min_version_text	6.5.0		20	{{NB|mind|Since VASP 6.5.0, the calculation exits with an error if {{TAG|ISPIN}}{{=}}2 and {{TAG|MAGMOM}} are used together with {{TAG|LNONCOLLINEAR}}{{=}}.TRUE.|:}}	正文写明的版本（措辞：Since VASP 6.5.0）
+ISTART	ISTART	cond_default			2	{{DEF|ISTART|1|if a {{FILE|WAVECAR}} file exists|0|else}}	条件：1 ⇒ if a {{FILE
+ISYM	ISYM	cond_default			2	{{DEF|ISYM|1|if VASP runs with USPPs|3|if {{TAG|LHFCALC}}{{=}}.TRUE.|2| else}}	条件：1 ⇒ if VASP runs with USPPs
+IVDW	IVDW	cond_default			2	{{DEF|IVDW|0|(no correction)}}	条件：0 ⇒ (no correction)
+IVDW	IVDW	min_version_text	5.2.11		9	style="text-align:center;"| 1 or 10 || style="text-align:center;" | pairwise || DFT-D2 method of Grimme.{{cite|grimme:jcc:06}} Available as of VASP.5.2.11.	正文写明的版本（措辞：as of VASP.5.2.11）
+IVDW	IVDW	min_version_text	5.3.4		10	style="text-align:center;"| 11 || style="text-align:center;" | pairwise || DFT-D3 method of Grimme with zero-damping function.{{cite|grimme:jcp:10}} Available as of VASP.5.3.4.	正文写明的版本（措辞：as of VASP.5.3.4）
+IVDW	IVDW	min_version_text	5.3.4		11	style="text-align:center;"| 12 || style="text-align:center;" | pairwise || DFT-D3 method with Becke-Johnson damping function.{{cite|grimme:jcc:11}} Available as of VASP.5.3.4.	正文写明的版本（措辞：as of VASP.5.3.4）
+IVDW	IVDW	min_version_text	6.6.0		12	style="text-align:center;"| 15 || style="text-align:center;" | pairwise || DFT-D3 methods available in the simple-DFT-D3 library.{{cite|ehlert:joss:2024}}{{cite|sdftd3_1}}{{cite|sdftd3_2}} Available a	正文写明的版本（措辞：as of VASP.6.6.0）
+IVDW	IVDW	min_version_text	6.2		13	style="text-align:center;"| 13 || style="text-align:center;" | pairwise || DFT-D4 method.{{cite|caldeweyher:jcp:2019}}{{cite|dftd4_1}}{{cite|dftd4_2}} Available as of VASP.6.2 as external package.	正文写明的版本（措辞：as of VASP.6.2）
+IVDW	IVDW	min_version_text	5.3.5		14	style="text-align:center;"| 3 || style="text-align:center;" | pairwise || DFT-ulg{{cite|kim:jpcl:2012}} method. Available as of VASP.5.3.5.	正文写明的版本（措辞：as of VASP.5.3.5）
+IVDW	IVDW	min_version_text	5.4.1		15	style="text-align:center;"| 4 || style="text-align:center;" | pairwise || dDsC dispersion correction{{cite|steinmann:jcp:11}}{{cite|steinmann:jctc:11}} method. Available as of VASP.5.4.1.	正文写明的版本（措辞：as of VASP.5.4.1）
+IVDW	IVDW	min_version_text	5.3.3		16	style="text-align:center;"| 2 or 20 || style="text-align:center;" | pairwise || Tkatchenko-Scheffler method.{{cite|tkatchenko:prl:09}} Available as of VASP.5.3.3.	正文写明的版本（措辞：as of VASP.5.3.3）
+IVDW	IVDW	min_version_text	5.3.5		17	style="text-align:center;"| 21 || style="text-align:center;" | pairwise || Tkatchenko-Scheffler method with iterative Hirshfeld partitioning.{{cite|bucko:jctc:13}}{{cite|bucko:jcp:14}} Available as of	正文写明的版本（措辞：as of VASP.5.3.5）
+IVDW	IVDW	min_version_text	5.4.1		18	style="text-align:center;"| 202 || style="text-align:center;" | many-body || Many-body dispersion energy method (MBD@rsSCS).{{cite|tkatchenko:prl:12}}{{cite|ambrosetti:jcp:14}} Available as of VASP.5.	正文写明的版本（措辞：as of VASP.5.4.1）
+IVDW	IVDW	min_version_text	6.1.0		19	style="text-align:center;"| 263 || style="text-align:center;" | many-body || Many-body dispersion energy with fractionally ionic model for polarizability method (MBD@rSC/FI).{{cite|gould:jctc:2016_a}}	正文写明的版本（措辞：as of VASP.6.1.0）
+IVDW	IVDW	min_version_text	6.4.3		20	style="text-align:center;"| 14 || style="text-align:center;" | pairwise and many-body || One of the methods available in the library libMBD of many-body dispersion methods.{{cite|libmbd_1}}{{cite|libm	正文写明的版本（措辞：as of VASP.6.4.3）
+IVDW_NL	IVDW_NL	cond_default			3	{{DEF|IVDW_NL|1 | for a {{TAG|GGA}} | 2 | for a {{TAG|METAGGA}}}}	条件：1 ⇒ for a {{TAG
+IVDW_NL	IVDW_NL	min_version_text	6.4.0		5	Description: {{TAG|IVDW_NL}} allows to select the kernel of the nonlocal van der Waals part of a functional (available as of VASP.6.4.0).	正文写明的版本（措辞：as of VASP.6.4.0）
+IWAVPR	IWAVPR	cond_default			2	{{DEF|IWAVPR|12|if {{TAG|IBRION}}{{=}}0 (MD) and 11 (relaxation, on-the-fly machine learning MD)|0|else (static calculation)}}	条件：12 ⇒ if {{TAG
+I_CONSTRAINED_M	I_CONSTRAINED_M	min_version_text	6.4.0		36	*{{TAG|I_CONSTRAINED_M}}=4: Constrain the *direction and sign* of the magnetic moments{{cite|ma:prb:15}}, available since VASP.6.4.0.	正文写明的版本（措辞：since VASP.6.4.0）
+KERNEL_TRUNCATION_FACTOR	KERNEL_TRUNCATION_FACTOR	min_version_text	6.5.0		12	*Available as of VASP.6.5.0.}}	正文写明的版本（措辞：as of VASP.6.5.0）
+KERNEL_TRUNCATION_IDIMENSIONALITY	KERNEL_TRUNCATION_IDIMENSIONALITY	min_version_text	6.5.0		11	*Available as of VASP.6.5.0.}}	正文写明的版本（措辞：as of VASP.6.5.0）
+KERNEL_TRUNCATION_IPAD	KERNEL_TRUNCATION/IPAD	cond_default			3	{{DEF|KERNEL_TRUNCATION/IPAD|3|if {{TAG|KERNEL_TRUNCATION/IDIMENSIONALITY|0}}|2|if {{TAG|KERNEL_TRUNCATION/IDIMENSIONALITY|2}}}}	条件：3 ⇒ if {{TAG
+KERNEL_TRUNCATION_IPAD	KERNEL_TRUNCATION_IPAD	min_version_text	6.5.0		15	*This tag is only available as of VASP.6.5.0.}}	正文写明的版本（措辞：as of VASP.6.5.0）
+KERNEL_TRUNCATION_ISURFACE	KERNEL_TRUNCATION_ISURFACE	min_version_text	6.5.0		10	*Available as of VASP.6.5.0.}}	正文写明的版本（措辞：as of VASP.6.5.0）
+KERNEL_TRUNCATION_LTRUNCATE	KERNEL_TRUNCATION_LTRUNCATE	min_version_text	6.5.0		11	*This tag is only available as of VASP.6.5.0.}}	正文写明的版本（措辞：as of VASP.6.5.0）
+KPAR	KPAR	min_version_text	5.3.2		3	Description: {{TAG|KPAR}} determines the number of **k**-points that are to be treated in parallel (available as of VASP.5.3.2). Also, {{TAG|KPAR}} is used as parallelization tag for Laplace transform	正文写明的版本（措辞：as of VASP.5.3.2）
+KPAR	KPAR	min_version_text	5.3.2		6	VASP currently offers parallelization and data distribution over bands and/or over plane wave coefficients (see {{TAG|NCORE}} and {{TAG|NPAR}}), and as of VASP.5.3.2, parallelization over **k**-points	正文写明的版本（措辞：as of VASP.5.3.2）
+KPOINTS	KPOINTS	min_version_text	6.3		425	As of VASP.6.3, the {{FILE|KPOINTS_OPT}} file runs these two steps in a single calculation. It uses the same format and its presence triggers the postprocessing step. Use it for band-structure calcula	正文写明的版本（措辞：As of VASP.6.3）
+KPOINTS	KPOINTS	deprecated			427	{{NB|deprecated|The {{TAG|KSPACING}} tag provides almost the same functionality. Preferably use that method instead.}}	官方标 deprecated
+KPOINTS_OPT_MODE	KPOINTS_OPT_MODE	available	6.5.0		5	{{Available|6.5.0}}	
+KSPACING_OPT	KSPACING_OPT	available	6.6.0		14	{{Available|6.6.0}}	
+K_MULTIPLY	K_MULTIPLY	cond_default			3	{{DEF|K_MULTIPLY|-1 -1 -1|if not set in {{FILE|INCAR}}}}	条件：-1 -1 -1 ⇒ if not set in {{FILE
+K_MULTIPLY	K_MULTIPLY	available	6.6.1		14	{{Available|6.6.1}}	
+Known_issues	Known_issues	min_version_text	6.6		180	text                = **Noisy potential for 2D Coulomb kernel truncation** In VASP 6.6, the code produces a noisy potential for the 2D Coulomb kernel truncation. The electrostatic potential generated 	正文写明的版本（措辞：In VASP 6.6）
+Known_issues	Known_issues	min_version_text	6.5.1		453	text                = When using {{TAG|ELPH_MODE|renorm}} or {{TAG|ELPH_NBANDS|-2}}, the code may crash when trying to diagonalize the Hamiltonian in the electron-phonon code. This can be avoided by s	正文写明的版本（措辞：in VASP 6.5.1）
+Known_issues	Known_issues	min_version_text	6.5.0		498	A new possibility for shared memory distribution was introduced in VASP 6.5.0. Unfortunately a bug was introduced within the implementation. This bug only effects calculations where shared memory is u	正文写明的版本（措辞：in VASP 6.5.0）
+Known_issues	Known_issues	min_version_text	6.4.3		638	We no longer recommend compilation of VASP with this precompiler option since it negatively affects the results of SCAN and SCAN-like meta-GGA calculations. To make matters worse, this feature is brok	正文写明的版本（措辞：in VASP.6.4.3）
+Known_issues	Known_issues	min_version_text	6.4.3		654	Hash codes are printed out to CONTCAR files. This does not affect the calculation but confuses some users. This has been fixed as of VASP 6.4.3, cf. forum posts: https://www.vasp.at/forum/viewtopic.ph	正文写明的版本（措辞：as of VASP 6.4.3）
+LALL_IN_ONE	LALL_IN_ONE	min_version_text	6.4.0		9	{{NB|mind|available as of VASP.6.4.0}}	正文写明的版本（措辞：as of VASP.6.4.0）
+LANCZOSTHR	LANCZOSTHR	deprecated			1	{{NB|deprecated|This feature is deprecated and will be removed in a future release. Please use {{TAG|BSEPREC}} instead.}}	官方标 deprecated
+LATTICE_CONSTRAINTS	LATTICE_CONSTRAINTS	min_version_text	6.4.3		67	{{NB|mind| {{TAG|LATTICE_CONSTRAINTS}} in combination with {{TAG|IBRION}}{{=}}1,2 is available from VASP 6.4.3.}}	正文写明的版本（措辞：from VASP 6.4.3）
+LATTICE_CONSTRAINTS	LATTICE_CONSTRAINTS	min_version_text	6.5.1		68	{{NB|mind| {{TAG|LATTICE_CONSTRAINTS}} in combination with {{TAG|ISIF}}{{=}}4,5 is available from VASP 6.5.1.}}	正文写明的版本（措辞：from VASP 6.5.1）
+LBERRY	LBERRY	min_version_text	5.2		7	As of VASP.5.2, calculating the macroscopic polarization and Born effective charges along the lines of the following example (using {{TAG|LBERRY}}=*.TRUE.* etc) is unnecessary. The use of {{TAG|LCALCP	正文写明的版本（措辞：As of VASP.5.2）
+LCALCEPS	LCALCEPS	min_version_text	5.4.4		71	{{NB|warning|The piezoelectric tensor has the wrong sign in Vasp 5.4.4 and older. The bug is fixed with patch.5.4.4.16052018.gz (http://cms.mpi.univie.ac.at/patches/patch.5.4.4.16052018.gz).}}	正文写明的版本（措辞：in Vasp 5.4.4）
+LCHIMAG	LCHIMAG	min_version_text	6.4.0		44	*Qij* is approximated in two ways. The so-called *pGv*-approximation is used by default {{Cite|yates:prb:2007}}, where *p* is momentum, *v* is velocity, and *G* is a Green's function. An alternative a	正文写明的版本（措辞：since VASP 6.4.0）
+LCHIMAG	LCHIMAG	min_version_text	6.6.0		97	{{NB|mind|As of VASP 6.6.0, the following is legacy format (cf. {{TAG|LNMRLEG}}).}}	正文写明的版本（措辞：As of VASP 6.6.0）
+LCHIMAG	LCHIMAG	min_version_text	6.6.0		131	As of VASP.6.6.0, in {{FILE|OUTCAR}} a summary of the tensors per ion is also printed. This is done both excluding and including the **G**=0 contribution.	正文写明的版本（措辞：As of VASP.6.6.0）
+LEXCH	LEXCH	cond_default			3	{{DEF| LEXCH |CA|for LDA pseudopotentials|PE|for GGA pseudopotentials}}	条件：CA ⇒ for LDA pseudopotentials
+LFINITE_TEMPERATURE	LFINITE_TEMPERATURE	min_version_text	6.1.0		6	This feature is available as of VASP.6.1.0 for ACFDT/random-phase-approximation (RPA), i.e., {{TAG|ALGO}}=ACFDT, ACFDTR, ACFDTRK, and low-scaling GW calculations, i.e., {{TAG|ALGO}}=EVGW0R, GWR[K].	正文写明的版本（措辞：as of VASP.6.1.0）
+LFOCKACE	LFOCKACE	cond_default			2	{{DEF|LFOCKACE|.TRUE.|for VASP.6|N/A|for VASP.5.X and older}}	条件：.TRUE. ⇒ for VASP.6
+LFOCKAEDFT	LFOCKAEDFT	cond_default			3	{{DEF|LFOCKAEDFT|False|most calculations|True|optimized-potential methods with shape restoration active}}	条件：False ⇒ most calculations
+LFOCKSTD	LFOCKSTD	available	6.6.0		5	{{Available|6.6.0}}	
+LHYPERFINE	LHYPERFINE	min_version_text	5.3.2		3	Description: compute the hyperfine tensors at the atomic sites (available as of vasp.5.3.2).	正文写明的版本（措辞：as of vasp.5.3.2）
+LIBMBD_ALPHA	LIBMBD_ALPHA	min_version_text	6.4.3		7	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_C6AU	LIBMBD_C6AU	min_version_text	6.4.3		7	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_K_GRID	LIBMBD_K_GRID	min_version_text	6.4.3		7	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_K_GRID_SHIFT	LIBMBD_K_GRID_SHIFT	min_version_text	6.4.3		7	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_MBD_A	LIBMBD_MBD_A	min_version_text	6.4.3		8	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_MBD_BETA	LIBMBD_MBD_BETA	min_version_text	6.4.3		8	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_METHOD	LIBMBD_METHOD	min_version_text	6.4.3		8	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_METHOD	LIBMBD_METHOD	min_version_text	6.5.1		10	*There is a severe bug in VASP.6.5.1 and previous versions: during a geometry relaxation, the new atomic positions and cell parameters are not passed to libMBD. See known issue 55 for a patch.	正文写明的版本（措辞：in VASP.6.5.1）
+LIBMBD_N_OMEGA_GRID	LIBMBD_N_OMEGA_GRID	min_version_text	6.4.3		7	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_PARALLEL_MODE	LIBMBD_PARALLEL_MODE	min_version_text	6.4.3		11	*This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_R0AU	LIBMBD_R0AU	min_version_text	6.4.3		7	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_TS_D	LIBMBD_TS_D	min_version_text	6.4.3		8	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_TS_SR	LIBMBD_TS_SR	min_version_text	6.4.3		8	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_VDW_PARAMS_KIND	LIBMBD_VDW_PARAMS_KIND	min_version_text	6.4.3		9	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBMBD_XC	LIBMBD_XC	min_version_text	6.4.3		11	{{NB|important| This feature is available from VASP.6.4.3 onwards that needs to be compiled with -DLIBMBD.}}	正文写明的版本（措辞：from VASP.6.4.3）
+LIBXC1	LIBXC1	min_version_text	6.3.0		5	{{NB|important| This feature is available from VASP.6.3.0 onwards that needs to be compiled with -DUSELIBXC.}}	正文写明的版本（措辞：from VASP.6.3.0）
+LIBXC1	LIBXC1	min_version_text	6.4.0		10	Calculations with Laplacian-dependent meta-GGA functionals and meta-GGA-based hybrid functionals are possible since VASP.6.4.0.	正文写明的版本（措辞：since VASP.6.4.0）
+LKPOINTS_OPT	LKPOINTS_OPT	cond_default			3	{{DEF|LKPOINTS_OPT|.TRUE.|if {{FILE|KPOINTS_OPT}} file is present.}}	条件：.TRUE. ⇒ if {{FILE
+LKPOINTS_WAN	LKPOINTS_WAN	cond_default			2	{{DEF|LKPOINTS_WAN|.TRUE.|if {{FILE|KPOINTS_WAN}} file is present.}}	条件：.TRUE. ⇒ if {{FILE
+LMAXFOCKAE	LMAXFOCKAE	cond_default			3	{{DEF|LMAXFOCKAE|-1|DFT, Hartree-Fock|4|post-DFT methods}}	条件：-1 ⇒ DFT, Hartree-Fock
+LMAXTAU	LMAXTAU	cond_default			2	{{DEF|LMAXTAU|6|if {{TAG|LASPH}}{{=}}.TRUE.|0|else}}	条件：6 ⇒ if {{TAG
+LMODELHF	LMODELHF	min_version_text	5.2		17	The corresponding functional has been available in VASP since VASP.5.2 released in 2009 (before the two publications), although the gradient contribution had been erroneously implemented in all VASP.5	正文写明的版本（措辞：since VASP.5.2）
+LMODELHF	LMODELHF	min_version_text	6.6.0		24	{{TAGBL|BEXX}} = 1.0   #The default value. Available since VASP.6.6.0.	正文写明的版本（措辞：since VASP.6.6.0）
+LMODELHF	LMODELHF	min_version_text	6.6.0		34	*The {{TAG|BEXX}} tag is available only since VASP.6.6.0. {{TAG|BEXX}} was hard-coded to 1 in versions prior to VASP.6.6.0.	正文写明的版本（措辞：since VASP.6.6.0）
+LMP2LT	LMP2LT	cond_default			2	{{DEF|LMP2LT|.FALSE.|}}	条件：.FALSE. ⇒ 
+LNICSALL	LNICSALL	available	6.6.0		5	{{Available|6.6.0}}	
+LNMRLEG	LNMRLEG	cond_default			4	{{DEF|LNMRLEG|.FALSE.|}}	条件：.FALSE. ⇒ 
+LNMRLEG	LNMRLEG	available	6.6.0		5	{{Available|6.6.0}}	
+LNMRSHIELD	LNMRSHIELD	cond_default			3	{{DEF|LNMRSHIELD|.TRUE.|}}	条件：.TRUE. ⇒ 
+LNMRSHIELD	LNMRSHIELD	available	6.6.0		6	{{Available|6.6.0}}	
+LNOAUGXC	LNOAUGXC	deprecated			5	{{NB|deprecated|The {{TAG|LNOAUGXC}} tag is obsolete and should not be used.}}	官方标 deprecated
+LNOAUGXC	LNOAUGXC	min_version_text	6.5.0		6	{{NB|mind|This tag is available since VASP.6.5.0 and is a replacement of the compiler option -DnoAugXCmeta that was available until VASP.6.4.3.}}	正文写明的版本（措辞：since VASP.6.5.0）
+LNONCOLLINEAR	LNONCOLLINEAR	cond_default			2	{{DEF|LNONCOLLINEAR|.False.| |.True.|if spin-orbit coupling is included ({{TAG|LSORBIT}}{{=}}.True.)}}	条件：.False. ⇒ 
+LNONCOLLINEAR	LNONCOLLINEAR	min_version_text	4.5		27	Supported as of VASP.4.5.	正文写明的版本（措辞：as of VASP.4.5）
+LNONCOLLINEAR	LNONCOLLINEAR	min_version_text	6.5.0		28	{{NB|important| For noncollinear calculations {{TAG|ISPIN}} is ignored. In VASP 6.5.0, the calculation will exit with an error message if {{TAG|ISPIN}}{{=}}2 and {{TAG|MAGMOM}} is used in combination 	正文写明的版本（措辞：In VASP 6.5.0）
+LOCPROJ	LOCPROJ	deprecated			87	{{NB|deprecated|For VASP versions <{{=}} 6.1.x, multiple occurrences of the {{TAG|LOCPROJ}} tag are allowed and taken into account.}}	官方标 deprecated
+LOPTICS	LOPTICS	min_version_text	6.3		39	{{NB|mind|Furthermore the combination of {{TAG|LOPTICS}} {{=}} .TRUE. and {{TAG|ISMEAR}} selecting the tetrahedron method is only supported as of VASP 6.3.}}	正文写明的版本（措辞：as of VASP 6.3）
+LPARDH5	LPARDH5	available	6.5.0		4	{{Available|6.5.0}}	
+LPHON_DISPERSION	LPHON_DISPERSION	cond_default			3	{{DEF|LPHON_DISPERSION|.FALSE.|}}	条件：.FALSE. ⇒ 
+LPHON_DISPERSION	LPHON_DISPERSION	min_version_text	6.3.2		10	{{NB|mind| Only available as of VASP 6.3.2.}}	正文写明的版本（措辞：as of VASP 6.3.2）
+LPHON_POLAR	LPHON_POLAR	min_version_text	6.3.2		12	{{NB|mind| Only available as of VASP 6.3.2.}}	正文写明的版本（措辞：as of VASP 6.3.2）
+LPHON_READ_FORCE_CONSTANTS	LPHON_READ_FORCE_CONSTANTS	cond_default			3	{{DEF|LPHON_READ_FORCE_CONSTANTS|.FALSE.|}}	条件：.FALSE. ⇒ 
+LPHON_READ_FORCE_CONSTANTS	LPHON_READ_FORCE_CONSTANTS	min_version_text	6.4.0		13	{{NB|mind| Only available as of VASP 6.4.0.}}	正文写明的版本（措辞：as of VASP 6.4.0）
+LPOSNICS	LPOSNICS	cond_default			3	{{DEF|LPOSNICS|.TRUE.|if {{FILE|POSNICS}} file is present.}}	条件：.TRUE. ⇒ if {{FILE
+LPOSNICS	LPOSNICS	available	6.6.0		6	{{Available|6.6.0}}	
+LRPAFORCE	LRPAFORCE	min_version_text	6.1		5	Available as of VASP.6.1.	正文写明的版本（措辞：as of VASP.6.1）
+LSCAAWARE	LSCAAWARE	cond_default			2	{{DEF|LSCAAWARE|.TRUE.|if VASP is compiled with scaLAPACK support (precompiler flag -DscaLAPACK)|.FALSE.|otherwise}}	条件：.TRUE. ⇒ if VASP is compiled with scaLAPACK support (precompiler flag -DscaLAPACK)
+LSCALAPACK	LSCALAPACK	cond_default			2	{{DEF|LSCALAPACK|.TRUE.|if VASP is compiled with scaLAPACK support (precompiler flag -DscaLAPACK)|.FALSE.|otherwise}}	条件：.TRUE. ⇒ if VASP is compiled with scaLAPACK support (precompiler flag -DscaLAPACK)
+LSCDM	LSCDM	cond_default			2	{{DEF|LSCDM|.FALSE.|}}	条件：.FALSE. ⇒ 
+LSCRPA	LSCRPA	available	6.6.0		5	{{Available|6.6.0}}	
+LSEPB	LSEPB	deprecated			10	{{NB|deprecated|PARCHG|:|output files:}}	官方标 deprecated
+LSEPB	LSEPB	deprecated			12	{{NB|deprecated|PARCHG.0009.ALLK, PARCHG.0010.ALLK, PARCHG.0011.ALLK|:|output files:}}	官方标 deprecated
+LSEPB	LSEPB	deprecated			14	{{NB|deprecated|PARCHG.ALLB.0001, PARCHG.ALLB.0034|:|output files:}}	官方标 deprecated
+LSEPB	LSEPB	deprecated			16	{{NB|deprecated|PARCHG.0009.0001, PARCHG.0009.0034, PARCHG.0010.0001, PARCHG.0010.0034,  PARCHG.0011.0001, PARCHG.0011.0034|:|output files:}}	官方标 deprecated
+LSEPK	LSEPK	deprecated			12	{{NB|deprecated|PARCHG|:|output files:}}	官方标 deprecated
+LSEPK	LSEPK	deprecated			14	{{NB|deprecated|PARCHG.0009.ALLK, PARCHG.0010.ALLK, PARCHG.0011.ALLK|:|output files:}}	官方标 deprecated
+LSEPK	LSEPK	deprecated			16	{{NB|deprecated|PARCHG.ALLB.0001, PARCHG.ALLB.0034|:|output files:}}	官方标 deprecated
+LSEPK	LSEPK	deprecated			18	{{NB|deprecated|PARCHG.0009.0001, PARCHG.0009.0034, PARCHG.0010.0001, PARCHG.0010.0034,  PARCHG.0011.0001, PARCHG.0011.0034|:|output files:}}	官方标 deprecated
+LSMP2LT	LSMP2LT	cond_default			2	{{DEF|LSMP2LT|.FALSE.|}}	条件：.FALSE. ⇒ 
+LSORBIT	LSORBIT	min_version_text	4.5		8	{{TAG|LSORBIT}} only works for PAW potentials and is not supported by ultrasoft pseudopotentials. It is supported as of VASP.4.5.	正文写明的版本（措辞：as of VASP.4.5）
+LSOSHIFT	LSOSHIFT	min_version_text	6.6.0		9	{{NB|mind|This tag is only supported as of VASP.6.6.0.}}	正文写明的版本（措辞：as of VASP.6.6.0）
+LSPECTRAL	LSPECTRAL	cond_default			2	{{DEF|LSPECTRAL|.TRUE.|if {{TAG|NOMEGA}}>2}}	条件：.TRUE. ⇒ if {{TAG
+LSPIN_VDW	LSPIN_VDW	min_version_text	6.4.0		4	Description: {{TAG|LSPIN_VDW}}=.TRUE. switches on the use of the spin-polarized formulation{{cite|thonhauser:prl:2015}} for the nonlocal part of a van der Waals functional (available as of VASP.6.4.0)	正文写明的版本（措辞：as of VASP.6.4.0）
+LSUBROT	SUBROT	cond_default			3	{{DEF|SUBROT|.FALSE.|}}	条件：.FALSE. ⇒ 
+LTAU	LTAU	cond_default			2	{{DEF| LTAU |.False.| |.True.|if the XC functional depends on the kinetic energy density (see metaGGAs).}}	条件：.False. ⇒ 
+LTRIPLET	LTRIPLET	cond_default			2	{{DEF|LTRIPLET|.FALSE.|}}	条件：.FALSE. ⇒ 
+LTWO_CENTRE	LTWO_CENTRE	available	6.6.0		28	{{Available|6.6.0}}	
+LUSE_VDW	LUSE_VDW	min_version_text	6.4.0		6	{{NB|mind|In versions of VASP prior to 6.4.0, a meta-GGA functional (e.g., SCAN) could be combined only with the rVV10 nonlocal functional. Conversely, a GGA functional could be combined only with the	正文写明的版本（措辞：since VASP.6.4.0）
+LVDWSCS	LVDWSCS	cond_default			1	{{DEF|LVDWSCS|.TRUE.|if {{TAG|IVDW}}{{=}}202 (MBD@rsSCS method)|.FALSE.|otherwise}}	条件：.TRUE. ⇒ if {{TAG
+LVGVAPPL	LVGVAPPL	min_version_text	6.4.0		5	{{TAG|LVGVAPPL}} is available as of VASP.6.4.0.	正文写明的版本（措辞：as of VASP.6.4.0）
+LVGVCALC	LVGVCALC	min_version_text	6.4.0		5	{{TAG|LVGVCALC}} is available as of VASP.6.4.0.	正文写明的版本（措辞：as of VASP.6.4.0）
+LWAVEH5	LWAVEH5	deprecated			7	{{NB|deprecated|{{TAG|LWAVEH5}} is deprecated as of VASP 6.4.3 and is not read/used by the code. It was introduced in VASP 6.1.0.}}	官方标 deprecated
+LWAVEH5	LWAVEH5	min_version_text	6.4.3		7	{{NB|deprecated|{{TAG|LWAVEH5}} is deprecated as of VASP 6.4.3 and is not read/used by the code. It was introduced in VASP 6.1.0.}}	正文写明的版本（措辞：as of VASP 6.4.3）
+LWAVEH5	LWAVEH5	min_version_text	6.1.0		7	{{NB|deprecated|{{TAG|LWAVEH5}} is deprecated as of VASP 6.4.3 and is not read/used by the code. It was introduced in VASP 6.1.0.}}	正文写明的版本（措辞：in VASP 6.1.0）
+LWRITE_MMN_AMN	LWRITE_MMN_AMN	cond_default			3	{{DEF|LWRITE_MMN_AMN|.TRUE.|if {{TAG|LWANNIER90}}{{=}}.TRUE.|.FALSE.|otherwise}}	条件：.TRUE. ⇒ if {{TAG
+LZORA	LZORA	min_version_text	6.6.0		10	{{NB|mind|This tag is only supported as of VASP.6.6.0.}}	正文写明的版本（措辞：as of VASP.6.6.0）
+MAGMOM	MAGMOM	cond_default			2	{{DEF|MAGMOM|NIONS * 1.0|for {{TAG|ISPIN}}{{=}}2|3 * NIONS * 1.0 |for noncollinear magnetic systems ({{TAG|LNONCOLLINEAR}}{{=}}.TRUE.)}}	条件：NIONS * 1.0 ⇒ for {{TAG
+MAGMOM	MAGMOM	min_version_text	4.4.4		7	* For a **magnetic calculation from scratch** ({{TAG|ISTART}}=0), {{TAG|MAGMOM}} specifies (i) the initial on-site magnetic moment for each atom, and (ii) lowers the symmetry of the system (as of VASP	正文写明的版本（措辞：as of VASP.4.4.4）
+MAXDIS	MAXDIS	cond_default			2	{{DEF|MAXDIS| 0.0 (switched off)| }}	条件：0.0 (switched off) ⇒ 
+MAXMIX	MAXMIX	min_version_text	4.4		12	{{NB|mind|{{TAG|MAXMIX}} is only available in VASP.4.4 and newer versions, and it is strongly recommended to use this option for molecular dynamics and relaxations.}}	正文写明的版本（措辞：in VASP.4.4）
+MDALGO	MDALGO	min_version_text	6.4.3		25	{{NB|mind|This option is available as of VASP 6.4.3.|:}}	正文写明的版本（措辞：as of VASP 6.4.3）
+MDALGO	MDALGO	deprecated			30	:Selects a Nosé-Hoover thermostat which allows sampling the NVT ensemble at temperature {{TAG|TEBEG}}. The Nosé-Hoover thermostat requires an appropriate setting for {{TAG|SMASS}}. To sample an NVE en	官方标 deprecated
+METAGGA	METAGGA	min_version_text	6.4.0		9	*Since VASP.6.4.0 it is possible to use hybrid functionals that mix meta-GGA and Hartree-Fock exchange ({{TAG|AEXX}}). Furthermore, two new tags, {{TAG|AMGGAX}} and {{TAG|AMGGAC}}, were created.	正文写明的版本（措辞：Since VASP.6.4.0）
+METAGGA	METAGGA	min_version_text	6.4.3		10	*The {{TAG|XC}} tag, available since VASP.6.4.3, can be used to specify any linear combination of LDA, {{TAG|GGA}} and {{TAG|METAGGA}} exchange-correlation functionals.	正文写明的版本（措辞：since VASP.6.4.3）
+METAGGA	METAGGA	min_version_text	5.4.1		25	Note that the correlation component, called vPBEc or regTPSS in the literature, is a GGA. Available since VASP.5.4.1.	正文写明的版本（措辞：since VASP.5.4.1）
+METAGGA	METAGGA	min_version_text	5.4.1		28	Note that the correlation component, called vPBEc or regTPSS in the literature, is a GGA. Available since VASP.5.4.1.	正文写明的版本（措辞：since VASP.5.4.1）
+METAGGA	METAGGA	min_version_text	5.4.1		31	Note that the correlation component, called vPBEc or regTPSS in the literature, is a GGA. Available since VASP.5.4.1.	正文写明的版本（措辞：since VASP.5.4.1）
+METAGGA	METAGGA	min_version_text	5.4.4		33	SCAN.{{cite|sun:prl:15}} May possibly lead to numerical instabilities. rSCAN or r^{2}SCAN are more stable and should give similar results. Available since VASP.5.4.4.	正文写明的版本（措辞：since VASP.5.4.4）
+METAGGA	METAGGA	min_version_text	6.2.0		37	r^{2}SCAN is a regularized version of SCAN that is numerically more stable.{{cite|furness:jpcl:20}} Available since VASP.6.2.0, or in version 5.4.4 by patch 4 (https://gitlab.com/dhamil/r2scan-subrout	正文写明的版本（措辞：since VASP.6.2.0）
+METAGGA	METAGGA	min_version_text	6.4.3		39	sregTM{{cite|francisco_a:jcp:2023}} versions 1, 2 or 3 of a regularized Tao-Mo functional.{{cite|tao:prl:2016}} Available since VASP.6.4.3.	正文写明的版本（措辞：since VASP.6.4.3）
+METAGGA	METAGGA	min_version_text	6.5.0		40	style="text-align:center;"| TASK_X(2) || style="text-align:center;"| \tau || TASK exchange.{{cite|aschebrock:prr:2019}} Available since VASP.6.5.0.	正文写明的版本（措辞：since VASP.6.5.0）
+METAGGA	METAGGA	min_version_text	6.5.0		41	style="text-align:center;"| LAK, LAK_X or LAK_C || style="text-align:center;"| \tau || LAK.{{cite|lebeda:prl:2024}} Available since VASP.6.5.0.	正文写明的版本（措辞：since VASP.6.5.0）
+METAGGA	METAGGA	min_version_text	6.5.0		43	MS-PBEl, MS-RPBEl or MS-B86bl.{{cite|smeets:jpca:2019}} Available since VASP.6.5.0.	正文写明的版本（措辞：since VASP.6.5.0）
+METAGGA	METAGGA	min_version_text	6.5.0		45	rMS-PBEl, rMS-RPBEl or rMS-B86bl.{{cite|cai:jpcc:2024}} Available since VASP.6.5.0.	正文写明的版本（措辞：since VASP.6.5.0）
+METAGGA	METAGGA	min_version_text	6.4.0		47	SCAN-L{{cite|mejia-rodriguez:pra:2017}}{{cite|mejia-rodriguez:prb:2018}} is a deorbitalized version of SCAN. Available since VASP.6.4.0.	正文写明的版本（措辞：since VASP.6.4.0）
+METAGGA	METAGGA	min_version_text	6.4.0		49	rSCAN-L is a deorbitalized version of rSCAN. Available since VASP.6.4.0.	正文写明的版本（措辞：since VASP.6.4.0）
+METAGGA	METAGGA	min_version_text	6.4.0		51	r^2SCAN-L is a deorbitalized versions of r^2SCAN.{{cite|mejia-rodriguez:prb:2020}}{{cite|kaplan:prm:2022}} Available since VASP.6.4.0.	正文写明的版本（措辞：since VASP.6.4.0）
+METAGGA	METAGGA	min_version_text	6.4.0		53	Orbital-free regularized-restored SCAN (OFR2).{{cite|kaplan:prm:2022}} Available since VASP.6.4.0.	正文写明的版本（措辞：since VASP.6.4.0）
+METAGGA	METAGGA	min_version_text	6.4.0		55	v2-sregTM-L is a deorbitalized versions of v2-sregTM.{{cite|francisco_b:jcp:2023}} Available since VASP.6.4.0.	正文写明的版本（措辞：since VASP.6.4.0）
+METAGGA	METAGGA	min_version_text	6.4.3		61	(1) The exchange-only and correlation-only implementations are available since VASP.6.4.3.	正文写明的版本（措辞：since VASP.6.4.3）
+ML_CDOUB	ML_CDOUB	cond_default			3	{{DEF|ML_CDOUB|4.0|for {{TAG|ML_MODE|select}}|2.0|else}}	条件：4.0 ⇒ for {{TAG
+ML_CTIFOR	ML_CTIFOR	cond_default			2	{{DEF|ML_CTIFOR|0.002|if {{TAG|ML_CALGO}} {{=}} 0|0.02|if {{TAG|ML_CALGO}} {{=}} 1}}	条件：0.002 ⇒ if {{TAG
+ML_DESC_TYPE	ML_DESC_TYPE	min_version_text	6.4.3		9	{{NB|mind|This tag is only available as of VASP 6.4.3 or higher.}}	正文写明的版本（措辞：as of VASP 6.4.3）
+ML_EATOM_REF	ML_EATOM_REF	min_version_text	6.4.3		20	The unit of the energies is eV/atom. {{NB|mind|Reference energies are stored in the {{FILE|ML_AB}} file and are reused whenever the file is read in, i.e, in case of a continued training ({{TAG|ML_MODE	正文写明的版本（措辞：since VASP 6.4.3）
+ML_EPS_LOW	ML_EPS_LOW	cond_default			3	{{DEF|ML_EPS_LOW|1E-11|for {{TAG|ML_MODE}} {{=}} SELECT, REFIT|1E-9|else (vasp.6.3.0 default was 1E-10, see comments below)}}	条件：1E-11 ⇒ for {{TAG
+ML_ESTBLOCK	ML_ESTBLOCK	min_version_text	6.5.1		6	{{NB|warning|This tag was previously called ML_IERR in VASP versions 6.5.0 and earlier. Since VASP 6.5.1, {{TAG|ML_ESTBLOCK}} is the official variant (although ML_IERR is still supported for compatibi	正文写明的版本（措辞：Since VASP 6.5.1）
+ML_IALGO_LINREG	ML_IALGO_LINREG	cond_default			3	{{DEF|ML_IALGO_LINREG|4|if {{TAG|ML_MODE}}{{=}}refit|1|otherwise}}	条件：4 ⇒ if {{TAG
+ML_ICRITERIA	ML_ICRITERIA	cond_default			3	{{DEF|ML_ICRITERIA|3|if {{TAG|ML_MODE|SELECT}} and {{TAG|ML_CALGO|0}}|1| if {{TAG|ML_MODE|SELECT|op=!=}} and {{TAG|ML_CALGO|0}}|0|if {{TAG|ML_CALGO|1}}}}	条件：3 ⇒ if {{TAG
+ML_LCOUPLE	ML_LCOUPLE	cond_default			3	{{DEF|ML_LCOUPLE|.TRUE.|if {{TAG|ML_LEMPPOT}}{{=}}.TRUE.|.FALSE.|otherwise}}	条件：.TRUE. ⇒ if {{TAG
+ML_LFAST	ML_LFAST	cond_default			3	{{DEF|ML_LFAST|.TRUE.|for {{TAG|ML_MODE|refit}}|.FALSE.|else}}	条件：.TRUE. ⇒ for {{TAG
+ML_LFAST	ML_LFAST	min_version_text	6.4.0		6	{{NB|mind|This tag is only available as of VASP.6.4.0}}	正文写明的版本（措辞：as of VASP.6.4.0）
+ML_LFAST	ML_LFAST	deprecated			14	Since the calculation time of the fast version is of the same order of magnitude as the timing for the output of the molecular-dynamics results, we advise decreasing the output frequency for molecular	官方标 deprecated
+ML_LIB	ML_LIB	cond_default			3	{{DEF|ML_LIB|.TRUE.|if compiled with VASPml library (precompiler flag -Dlibvaspml) |.FALSE.|else}}	条件：.TRUE. ⇒ if compiled with VASPml library (precompiler flag -Dlibvaspml)
+ML_LIB	ML_LIB	available	6.5.0		6	{{Available|6.5.0}}	
+ML_LMAX2	ML_LMAX2	cond_default			3	{{DEF|ML_LMAX2|3|for {{TAG|ML_LAFILT2}} {{=}} .TRUE.|6|else}}	条件：3 ⇒ for {{TAG
+ML_LSPARSDES	ML_LSPARSDES	min_version_text	6.4.3		5	{{NB|mind|This tag is only available as of VASP 6.4.3.}}	正文写明的版本（措辞：as of VASP 6.4.3）
+ML_MODE	ML_MODE	min_version_text	6.4.0		5	{{NB|mind|This tag is only available as of VASP.6.4.0.}}	正文写明的版本（措辞：as of VASP.6.4.0）
+ML_NCSHMEM	ML_NCSHMEM	cond_default			3	{{DEF|ML_NCSHMEM|komplex see below|VASP.6.6.0 or higher|Number of available ranks per computational node|else}}	条件：komplex see below ⇒ VASP.6.6.0 or higher
+ML_NMDINT	ML_NMDINT	cond_default			3	{{DEF|ML_NMDINT|1|for {{TAG|ML_MODE}} {{=}} SELECT|10|else}}	条件：1 ⇒ for {{TAG
+ML_NRANK_SPARSDES	ML_NRANK_SPARSDES	min_version_text	6.4.3		5	{{NB|mind|This tag is only available as of VASP 6.4.3.}}	正文写明的版本（措辞：as of VASP 6.4.3）
+ML_OUTBLOCK	ML_OUTBLOCK	cond_default			3	{{DEF|ML_OUTBLOCK|1|if 0<{{=}}{{TAG|VCAIMAGES}}<{{=}}1 and {{TAG|ML_LMLFF}}{{=}}.FALSE. in one of the two images|10|else}}	条件：1 ⇒ if 0<{{=
+ML_OUTBLOCK	ML_OUTBLOCK	min_version_text	6.4.0		6	{{NB|important|This tag is only available as of VASP.6.4.0. Unfortunately, the implementation of this feature was incomplete before VASP.6.4.3. In {{VASP}} versions prior to 6.4.3 there was still subs	正文写明的版本（措辞：as of VASP.6.4.0）
+ML_OUTPUT_MODE	ML_OUTPUT_MODE	cond_default			2	{{DEF|ML_OUTPUT_MODE|0|if {{TAG|ML_MODE|run}}|1|else}}	条件：0 ⇒ if {{TAG
+ML_OUTPUT_MODE	ML_OUTPUT_MODE	min_version_text	6.4.0		5	{{NB|mind|This tag is only available as of VASP.6.4.0.}}	正文写明的版本（措辞：as of VASP.6.4.0）
+ML_RCOUPLE	ML_RCOUPLE	cond_default			3	{{DEF|ML_RCOUPLE|0.0|if {{TAG|ML_LEMPPOT}}{{=}}.TRUE.|1.0|otherwise}}	条件：0.0 ⇒ if {{TAG
+ML_RDES_SPARSDES	ML_RDES_SPARSDES	min_version_text	6.4.3		5	{{NB|mind|This tag is only available as of VASP 6.4.3.}}	正文写明的版本（措辞：as of VASP 6.4.3）
+ML_SIGW0	ML_SIGW0	cond_default			3	{{DEF|ML_SIGW0|1E-7|for {{TAG|ML_MODE}} {{=}} REFIT|1.0|else}}	条件：1E-7 ⇒ for {{TAG
+ML_WTIFOR	ML_WTIFOR	cond_default			3	{{DEF|ML_WTIFOR|0.05|if {{TAG|ML_IWEIGHT}}{{=}}1|1.0|otherwise}}	条件：0.05 ⇒ if {{TAG
+ML_WTOTEN	ML_WTOTEN	cond_default			3	{{DEF|ML_WTOTEN|0.005|if {{TAG|ML_IWEIGHT}}{{=}}1|1.0|otherwise}}	条件：0.005 ⇒ if {{TAG
+ML_WTSIF	ML_WTSIF	cond_default			3	{{DEF|ML_WTSIF|5.0|if {{TAG|ML_IWEIGHT}}{{=}}1|1.0|otherwise}}	条件：5.0 ⇒ if {{TAG
+MSDGW_F	MSDGW_F	min_version_text	6.6.0		8	{{NB| mind | Available as of VASP.6.6.0.|:}}	正文写明的版本（措辞：as of VASP.6.6.0）
+Makefile.include	Makefile.include	min_version_text	6.2		80	{{NB|mind| VASP version <{{=}} 6.1.x are compatible with Wannier90 <{{=}} 1.2. To interface VASP 6.1.x with Wannier90 2.x, set -DVASP2WANNIER90v2 instead. As of VASP 6.2.x only Wannier90 2.x and 3.x a	正文写明的版本（措辞：As of VASP 6.2）
+Makefile.include	Makefile.include	min_version_text	6.6.0		125	*The API of DFT-D4 has been modified starting with version 4.0.0. The adaptation has been made in VASP.6.6.0. Versions of DFT-D4 with the old API (v3.7.0 and older) can still be compiled with VASP.6.6	正文写明的版本（措辞：in VASP.6.6.0）
+Makefile.include	Makefile.include	min_version_text	6.6.0		125	*The API of DFT-D4 has been modified starting with version 4.0.0. The adaptation has been made in VASP.6.6.0. Versions of DFT-D4 with the old API (v3.7.0 and older) can still be compiled with VASP.6.6	正文写明的版本（措辞：with VASP.6.6.0）
+NATURALO	NATURALO	min_version_text	6.4		44	{{NB|mind|available as of VASP.6.4:}}	正文写明的版本（措辞：as of VASP.6.4）
+NBANDSEXACT	NBANDSEXACT	cond_default			2	{{DEF|NBANDSEXACT|-1|for {{TAG|LALL_IN_ONE}}{{=}}.FALSE.|maximum number of plane waves|for {{TAG|LALL_IN_ONE}}{{=}}.TRUE.}}	条件：-1 ⇒ for {{TAG
+NBANDSEXACT	NBANDSEXACT	min_version_text	6.4.0		5	{{NB|mind|available as of VASP.6.4.0}}	正文写明的版本（措辞：as of VASP.6.4.0）
+NBANDSO	NBANDSO	cond_default			2	{{DEF|NBANDSO|number of occupied orbitals|}}	条件：number of occupied orbitals ⇒ 
+NBANDS_WAVE	NBANDS_WAVE	min_version_text	6.4.0		12	{{NB|mind|available as of VASP.6.4.0}}	正文写明的版本（措辞：as of VASP.6.4.0）
+NBLK	NBLK	cond_default			2	{{DEF|NBLK|-1|VASP.4.6|256|in VASP.5.2, if dfast}}	条件：-1 ⇒ VASP.4.6
+NBLK	NBLK	min_version_text	5.2		2	{{DEF|NBLK|-1|VASP.4.6|256|in VASP.5.2, if dfast}}	正文写明的版本（措辞：in VASP.5.2）
+NBLOCK_FOCK	NBLOCK_FOCK	cond_default			2	{{DEF|NBLOCK_FOCK|64|**CPU build** |32|**GPU build** (OpenACC/OpenMP offload))|OMP_NUM_THREADS|**CPU build** that is compiled with OpenMP support and threading is active (OMP_NUM_THREADS&nbsp;>&nbsp;1)}}	条件：64 ⇒ **CPU build**
+NBMOD	NBMOD	cond_default			2	{{DEF|NBMOD|n| if {{TAG|IBAND}} is set and contains n values |-2| if {{TAG|EINT}} is set and {{TAG|IBAND}} is not set |-1| if neither {{TAG|EINT}} nor {{TAG|IBAND}} are set}}	条件：n ⇒ if {{TAG
+NBSEBLOCKO	NBSEBLOCKO	cond_default			2	{{DEF|NBSEBLOCKO|-1|}}	条件：-1 ⇒ 
+NBSEBLOCKO	NBSEBLOCKO	min_version_text	6.5.0		26	{{NB|mind|The {{TAG|NBSEBLOCKV}} and {{TAG|NBSEBLOCKO}} tags are available as of VASP.6.5.0}}	正文写明的版本（措辞：as of VASP.6.5.0）
+NBSEBLOCKV	NBSEBLOCKV	cond_default			2	{{DEF|NBSEBLOCKV|-1|}}	条件：-1 ⇒ 
+NBSEBLOCKV	NBSEBLOCKV	min_version_text	6.5.0		26	{{NB|mind|The {{TAG|NBSEBLOCKV}} and {{TAG|NBSEBLOCKO}} tags are available as of VASP.6.5.0}}	正文写明的版本（措辞：as of VASP.6.5.0）
+NELMDL	NELMDL	cond_default			2	{{DEF|NELMDL|-12|if {{TAG|ISTART}}{{=}}0, {{TAG|INIWAV}}{{=}}1, and {{TAG|IALGO}}{{=}}48 or {{TAG|IALGO}}{{=}}50|0|if {{TAG|WAVECAR}} is present|-5| else}}	条件：-12 ⇒ if {{TAG
+NFREE	NFREE	cond_default			3	{{DEF|NFREE|1|if {{TAG|IBRION}}{{=}}2|0|else|}}	条件：1 ⇒ if {{TAG
+NFREE	NFREE	min_version_text	4.5		15	*{{TAG|IBRION}}=5 (from VASP.4.5) or {{TAG|IBRION}}=6 (from VASP.5.1): frozen phonon approach to calculate the zone-center vibrational frequencies of a system.	正文写明的版本（措辞：from VASP.4.5）
+NFREE	NFREE	min_version_text	5.1		15	*{{TAG|IBRION}}=5 (from VASP.4.5) or {{TAG|IBRION}}=6 (from VASP.5.1): frozen phonon approach to calculate the zone-center vibrational frequencies of a system.	正文写明的版本（措辞：from VASP.5.1）
+NFREE	NFREE	min_version_text	5.1		16	:{{TAG|NFREE}} determines how many displacements are used for each direction and ion. The step size has to be given in {{TAG|INCAR}}, by the tag {{TAG|POTIM}}.  Displacements should be small enough to	正文写明的版本（措辞：from VASP.5.1）
+NMRCAR.magres	NMRCAR.magres	available	6.6.0		2	{{Available|6.6.0}}	
+NOMEGA	NOMEGA	cond_default			2	{{DEF|NOMEGA|100|for GW calculations |12|for ACFDT calculations}}	条件：100 ⇒ for GW calculations
+NOMEGAPAR	NOMEGAPAR	cond_default			2	{{DEF|NOMEGAPAR|NOMEGA|used in low scaling GW and RPA/ACFDT calculations.}}	条件：NOMEGA ⇒ used in low scaling GW and RPA/ACFDT calculations.
+NOMEGAR	NOMEGAR	cond_default			2	{{DEF|NOMEGAR|{{TAG|NOMEGA}}|for GW calculations|0|for ACFDT calculations}}	条件：{{TAG ⇒ NOMEGA
+NOMEGA_DUMP	NOMEGA_DUMP	cond_default			3	{{DEF|NOMEGA_DUMP|-1|}}	条件：-1 ⇒ 
+NPAR	NPAR	min_version_text	5.2.13		5	{{NB|warning|{{TAG|NCORE}} is the recommended tag for controlling band-level parallelization and has been available since VASP.5.2.13. It is more intuitive and directly expresses the size of each band	正文写明的版本（措辞：since VASP.5.2.13）
+NSTORB	NSTORB	cond_default			2	{{DEF|NSTORB|-1|}}	条件：-1 ⇒ 
+NTAUPAR	NTAUPAR	cond_default			2	{{DEF|NTAUPAR|depends on {{TAG|MAXMEM}} |used in low scaling GW and RPA/ACFDT calculations.}}	条件：depends on {{TAG ⇒ MAXMEM
+NUCIND	NUCIND	available	6.6.0		5	{{Available|6.6.0}}	
+NUM_WANN	NUM_WANN	min_version_text	6.2.0		10	Since VASP 6.2.0, {{TAG|NUM_WANN}} also determines the number of Wannier orbitals to be used with wannier90.	正文写明的版本（措辞：Since VASP 6.2.0）
+PHON_BORN_CHARGES	PHON_BORN_CHARGES	cond_default			3	{{DEF|PHON_BORN_CHARGES|None|}}	条件：None ⇒ 
+PHON_BORN_CHARGES	PHON_BORN_CHARGES	min_version_text	6.3.2		11	{{NB|mind| Only available as of VASP 6.3.2.}}	正文写明的版本（措辞：as of VASP 6.3.2）
+PHON_DIELECTRIC	PHON_DIELECTRIC	cond_default			3	{{DEF|PHON_DIELECTRIC|None|}}	条件：None ⇒ 
+PHON_DIELECTRIC	PHON_DIELECTRIC	min_version_text	6.3.2		11	{{NB|mind| Only available as of VASP 6.3.2.}}	正文写明的版本（措辞：as of VASP 6.3.2）
+PHON_DOS	PHON_DOS	cond_default			3	{{DEF|PHON_DOS|0|}}	条件：0 ⇒ 
+PHON_DOS	PHON_DOS	min_version_text	6.4.0		17	{{NB|mind| Only available as of VASP 6.4.0.}}	正文写明的版本（措辞：as of VASP 6.4.0）
+PHON_G_CUTOFF	PHON_G_CUTOFF	cond_default			3	{{DEF|PHON_G_CUTOFF|8.0|}}	条件：8.0 ⇒ 
+PHON_G_CUTOFF	PHON_G_CUTOFF	min_version_text	6.3.2		18	{{NB|mind| Only available as of VASP 6.3.2.}}	正文写明的版本（措辞：as of VASP 6.3.2）
+PHON_NEDOS	PHON_NEDOS	cond_default			3	{{DEF|PHON_NEDOS|2000|}}	条件：2000 ⇒ 
+PHON_NEDOS	PHON_NEDOS	min_version_text	6.4.0		14	{{NB|mind| Only available as of VASP 6.4.0.}}	正文写明的版本（措辞：as of VASP 6.4.0）
+PHON_NWRITE	PHON_NWRITE	cond_default			3	{{DEF|PHON_NWRITE|1|}}	条件：1 ⇒ 
+PHON_NWRITE	PHON_NWRITE	min_version_text	6.3.2		19	{{NB|mind| Only available as of VASP 6.3.2.}}	正文写明的版本（措辞：as of VASP 6.3.2）
+PHON_SIGMA	PHON_SIGMA	cond_default			3	{{DEF|PHON_SIGMA|0.0005 eV|}}	条件：0.0005 eV ⇒ 
+PHON_SIGMA	PHON_SIGMA	min_version_text	6.4.0		15	{{NB|mind| Only available as of VASP 6.4.0.}}	正文写明的版本（措辞：as of VASP 6.4.0）
+PLUGINS_MACHINE_LEARNING	PLUGINS_MACHINE_LEARNING	deprecated			4	{{NB|deprecated|We do not recommend using this interface anymore. There is a mismatch in the units of ASE and VASP that makes this hard to use. Please use {{TAG|PLUGINS/FORCE_AND_STRESS}} in combinati	官方标 deprecated
+POSNICS	POSNICS	available	6.6.0		1	{{Available|6.6.0}}	
+POTIM	POTIM	cond_default			3	{{DEF|POTIM|none,| *must* be set if {{TAG|IBRION}}{{=}} 0 (MD)|0.5| if {{TAG|IBRION}}{{=}} 1, 2, and 3 (ionic relaxation), and 5 (up to VASP.4.6)|0.015|if {{TAG|IBRION}}{{=}}5, and 6 (as of VASP.5.1)}}	条件：none, ⇒ *must* be set if {{TAG
+POTIM	POTIM	min_version_text	5.1		3	{{DEF|POTIM|none,| *must* be set if {{TAG|IBRION}}{{=}} 0 (MD)|0.5| if {{TAG|IBRION}}{{=}} 1, 2, and 3 (ionic relaxation), and 5 (up to VASP.4.6)|0.015|if {{TAG|IBRION}}{{=}}5, and 6 (as of VASP.5.1)}	正文写明的版本（措辞：as of VASP.5.1）
+PREC	PREC	cond_default			2	{{DEF|PREC|Medium|for VASP.4.X|Normal|since VASP.5.X}}	条件：Medium ⇒ for VASP.4.X
+PREC	PREC	min_version_text	4.5		15	*{{TAG|PREC}}{{=}}Normal and {{TAG|PREC}}{{=}}Accurate are only available in VASP.4.5 and newer versions. The setting {{TAG|PREC}}{{=}}Single is only available as of VASP.5.1, and has been updated in 	正文写明的版本（措辞：in VASP.4.5）
+PREC	PREC	min_version_text	5.1		15	*{{TAG|PREC}}{{=}}Normal and {{TAG|PREC}}{{=}}Accurate are only available in VASP.4.5 and newer versions. The setting {{TAG|PREC}}{{=}}Single is only available as of VASP.5.1, and has been updated in 	正文写明的版本（措辞：as of VASP.5.1）
+PREC	PREC	deprecated			16	{{NB|deprecated|The old settings {{TAG|PREC}}{{=}}Medium, High and Low are no longer recommended and are available only for backward compatibility. Essentially, {{TAG|PREC}}{{=}}High only increases th	官方标 deprecated
+PRECFOCK	PRECFOCK	cond_default			2	{{DEF|PRECFOCK|Fast|for RPAR calculations |Single|if {{TAG|PREC}}{{=}}Single or SingleN |Normal |  else}}	条件：Fast ⇒ for RPAR calculations
+ROPT	ROPT	cond_default			3	{{DEF|ROPT|-5E-4|if {{TAG|LREAL}}{{=}}Auto and {{TAG|PREC}}{{=}}Normal|-5E-4|if {{TAG|LREAL}}{{=}}Auto and {{TAG|PREC}}{{=}}Single or SingleN|-2.5E-4|if {{TAG|LREAL}}{{=}}Auto and {{TAG|PREC}}{{=}}Accurate|-0.01|if {{TAG|LREAL}}{{=}}Auto and {{TAG|PREC}}{{=}}Low|-0.002|if {{TAG|LREAL}}{{=}}Auto and {{TAG|PREC}}{{=}}Medium|-4E-4|if {{TAG|LREAL}}{{=}}Auto and {{TAG|PREC}}{{=}}High}}	条件：-5E-4 ⇒ if {{TAG
+ROPT	ROPT	cond_default			5	{{DEF|ROPT|2/3|if {{TAG|LREAL}}{{=}}On and {{TAG|PREC}}{{=}}Low|1.0|if {{TAG|LREAL}}{{=}}On and {{TAG|PREC}}{{=}}Medium|1.5|if {{TAG|LREAL}}{{=}}On and {{TAG|PREC}}{{=}}High}}	条件：2/3 ⇒ if {{TAG
+SCISSOR	SCISSOR	cond_default			2	{{DEF|SCISSOR|0|}}	条件：0 ⇒ 
+SDFTD3_DAMPING	SDFTD3_DAMPING	min_version_text	6.6.0		8	*The {{TAG|SDFTD3_DAMPING}} tag is available from VASP.6.6.0 onwards.	正文写明的版本（措辞：from VASP.6.6.0）
+SDFTD3_XC	SDFTD3_XC	min_version_text	6.6.0		10	*The {{TAG|SDFTD3_XC}} tag is available from VASP.6.6.0 onwards.	正文写明的版本（措辞：from VASP.6.6.0）
+SPRING_V0	SPRING_V0	cond_default			3	{{DEF|SPRING_V0|0|for all coordinates with status{{=}}8 in {{FILE|ICONST}}.}}	条件：0 ⇒ for all coordinates with status{{=
+SYMPREC	SYMPREC	min_version_text	4.4.4		3	Description: {{TAG|SYMPREC}} determines to which accuracy the positions in the {{FILE|POSCAR}} file must be specified (as of VASP.4.4.4).	正文写明的版本（措辞：as of VASP.4.4.4）
+TRANSPORT_NEDOS	TRANSPORT_NEDOS	available	6.5.0		5	{{Available|6.5.0}}	
+TRANSPORT_RELAXATION_TIME	TRANSPORT_RELAXATION_TIME	available	6.5.0		5	{{Available|6.5.0}}	
+VDW_BETA	VDW_BETA	available	6.6.0		5	{{Available|6.6.0}}	
+VDW_CNRADIUS	VDW_CNRADIUS	cond_default			3	{{DEF|VDW_CNRADIUS|21.17| if {{TAG|IVDW}}{{=}}11, 12 or 15|15.88|if {{TAG|IVDW}}{{=}}13}}	条件：21.17 ⇒ if {{TAG
+VDW_CNRADIUS	VDW_CNRADIUS	min_version_text	6.6.0		9	{{NB|mind|Available for the DFT-D4 and simple-DFT-D3 packages since VASP.6.6.0.}}	正文写明的版本（措辞：since VASP.6.6.0）
+VDW_D	VDW_D	cond_default			3	{{DEF|VDW_D|20|for DFT-D2 and Tkatchenko-Scheffler|0.6966|for DFT-ulg|6|for Many-body dispersion energy}}	条件：20 ⇒ for DFT-D2 and Tkatchenko-Scheffler
+VDW_RADIUS	VDW_RADIUS	cond_default			3	{{DEF|VDW_RADIUS|50| if {{TAG|IVDW}}{{=}}1, 2, 3, 4, or 21|50.20|if {{TAG|IVDW}}{{=}}11, 12, or 15|31.75|if {{TAG|IVDW}}{{=}}13}}	条件：50 ⇒ if {{TAG
+VDW_RADIUS	VDW_RADIUS	min_version_text	6.6.0		9	{{NB|mind|Available for the DFT-D4 and simple-DFT-D3 packages since VASP.6.6.0.}}	正文写明的版本（措辞：since VASP.6.6.0）
+VDW_S6	VDW_S6	min_version_text	6.6.0		9	{{NB|mind|The setting of s_{6} with {{TAG|VDW_S6}} when {{TAG|IVDW}}{{=}}11 or 12 (VASP implementation of DFT-D3) is possible since VASP.6.6.0.}}	正文写明的版本（措辞：since VASP.6.6.0）
+VDW_S9	VDW_S9	cond_default			3	{{DEF|VDW_S9|1|if {{TAG|IVDW}}{{=}}13 (DFT-D4 package)|0|if {{TAG|IVDW}}{{=}}15 (simple DFT-D3 package)|0|if {{TAG|IVDW}}{{=}}11 or 12 (**cannot be changed**)}}	条件：1 ⇒ if {{TAG
+VDW_S9	VDW_S9	min_version_text	6.6.0		9	*The {{TAG|VDW_S9}} tag is available from VASP.6.6.0 onwards.	正文写明的版本（措辞：from VASP.6.6.0）
+VDW_SR8	VDW_SR8	available	6.6.0		5	{{Available|6.6.0}}	
+VELOCITY	VELOCITY	min_version_text	6.4.0		4	{{NB|mind|This tag is only available as of VASP.6.4.0.}}	正文写明的版本（措辞：as of VASP.6.4.0）
+WANNIER90_WIN	WANNIER90_WIN	cond_default			4	{{DEF|WANNIER90_WIN|None|}}	条件：None ⇒ 
+WANNIER90_WIN	WANNIER90_WIN	min_version_text	6.2.0		27	Available as of VASP 6.2.0.	正文写明的版本（措辞：as of VASP 6.2.0）
+WEIMIN	WEIMIN	cond_default			2	{{DEF|WEIMIN|0.001|for {{TAG|IBRION}}&ge;0|0|for {{TAG|IBRION}}{{=}}&minus;1}}	条件：0.001 ⇒ for {{TAG
+WRT_DENSITY	WRT_DENSITY	available	6.6.0		33	{{Available|6.6.0}}	
+WRT_NMRCUR	WRT_NMRCUR	available	6.6.0		5	{{Available|6.6.0}}	
+XC	XC	cond_default			2	{{DEF|XC|{{TAG|GGA}}|if the {{TAG|GGA}} tag is used|{{TAG|METAGGA}}|if the {{TAG|METAGGA}} tag is used|The functional specified by {{TAG|LEXCH}} in the {{TAG|POTCAR}} file|if neither {{TAG|GGA}} nor {{TAG|METAGGA}} is used}}	条件：{{TAG ⇒ GGA
+XC	XC	min_version_text	6.4.3		7	{{NB|mind|This tag is available since VASP.6.4.3.}}	正文写明的版本（措辞：since VASP.6.4.3）
+XC_C	XC_C	min_version_text	6.4.3		9	*{{TAG|XC_C}} is available since VASP.6.4.3.	正文写明的版本（措辞：since VASP.6.4.3）
+XCm_Pn	XCm_Pn	min_version_text	6.4.3		17	{{NB|mind|{{TAG|XCm_Pn}} is available since VASP.6.4.3.}}	正文写明的版本（措辞：since VASP.6.4.3）

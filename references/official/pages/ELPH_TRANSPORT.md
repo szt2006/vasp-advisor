@@ -1,0 +1,21 @@
+{{DISPLAYTITLE:ELPH_TRANSPORT}}
+{{TAGDEF|ELPH_TRANSPORT|[logical]|.FALSE.}}
+
+Description: Activates transport calculation involving electron-phonon coupling
+{{Available|6.5.0}}
+
+----
+
+When {{TAG|ELPH_TRANSPORT|True}}, VASP calculates the transport coefficients from the linearized Boltzmann transport equation.
+In this framework, the transport coefficients are calculated from various relaxation-time approximations selectable via {{TAG|ELPH_SCATTERING_APPROX}}.
+A convenient way to start transport calculations is to set {{TAG|ELPH_MODE|transport}}, which automatically provides reasonable default values for the required {{FILE|INCAR}} tags.
+
+For more information, visit the how-to page on transport calculations.
+## Related tags and articles
+* Transport calculations
+* {{TAG|ELPH_RUN}}
+* {{TAG|ELPH_MODE}}
+* {{TAG|ELPH_SCATTERING_APPROX}}
+* {{TAG|ELPH_TRANSPORT_DRIVER}}
+
+Category:INCAR tagCategory:Electron-phonon_interactions

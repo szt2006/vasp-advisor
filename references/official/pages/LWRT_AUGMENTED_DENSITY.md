@@ -1,0 +1,13 @@
+{{TAGDEF|LWRT_AUGMENTED_DENSITY|.TRUE. {{!}} .FALSE.|.TRUE.}}
+{{DISPLAYTITLE:LWRT_AUGMENTED_DENSITY}}
+
+Description: Switch for {{TAG|WRT_DENSITY}} to write without augmentation (compensation charge=0).
+----
+With {{TAG|LWRT_AUGMENTED_DENSITY|F}} the densities can be written without augmentation (compensation charge=0). Mind that the augmented densities are still used during electronic minimization to evaluate the XC functional (unlike for the MGGA specific tag {{TAG|LNOAUGXC}}).
+## Related tags and articles
+{{TAG|WRT_DENSITY}},
+{{TAG|ENCUT}}, {{TAG|NGXF}}, {{TAG|NGYF}}, {{TAG|NGZF}}
+
+{{sc|LWRT_AUGMENTED_DENSITY|HowTo|Workflows that use this tag}}
+
+Category:INCAR tagCategory:Charge densityCategory:Electronic ground-state properties

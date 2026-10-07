@@ -1,0 +1,17 @@
+{{DISPLAYTITLE:LWRITE_UNK}}
+{{TAGDEF|LWRITE_UNK|.TRUE. {{!}} .FALSE.|.FALSE.}}
+
+Description: {{TAG|LWRITE_UNK}} decides whether the cell-periodic part of the relevant Bloch functions is written.
+----
+For {{TAG|LWRITE_UNK}}=True, VASP writes the cell-periodic part of the Kohn–Sham orbitals in spin channel s at k point p to the file **wannier90.UNKp.s**. This file can be used to plot Wannier orbitals with WANNIER90.
+
+For details on the execution of wannier_setup in VASP, see the description of the {{TAG|LWANNIER90}} tag.
+For information on the **wannier90.win** file and the execution of WANNIER90, we refer to the WANNIER90 manual (http://www.wannier.org/doc/user_guide.pdf).
+## Related tags and articles
+{{TAG|LWANNIER90}},
+{{TAG|LWRITE_MMN_AMN}}
+
+{{sc|LWANNIER90_RUN|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:Wannier functions

@@ -1,0 +1,38 @@
+{{TAGDEF|LTHOMAS|.TRUE. {{!}} .FALSE.|.FALSE.}}
+
+Description: {{TAG|LTHOMAS}} selects a decomposition of the exchange functional based on Thomas-Fermi exponential screening.
+----
+If {{TAG|LTHOMAS}}=.TRUE. the decomposition of the exchange operator (in a [[Hybrid functionals: formalism|range-separated hybrid functional]]) into a short range (SR) and a long range (LR) part will be based on Thomas-Fermi exponential screening:
+
+:<math>E_{\mathrm{xc}}^{\mathrm{hybrid}}=a_{\mathrm{SR}} E_{\mathrm{x,SR}}^{\mathrm{HF}}(\mu) + (1-a_{\mathrm{SR}})E_{\mathrm{x,SR}}^{\mathrm{SL}}(\mu) + E_{\mathrm{x,LR}}^{\mathrm{SL}}(\mu) + E_{\mathrm{c}}^{\mathrm{SL}}</math>
+
+The mixing <math>a_{\mathrm{SR}}</math> and screening <math>\mu=k_{\rm TF}</math> are controlled by the {{TAG|AEXX}} and {{TAG|HFSCREEN}} tags, respectively.
+
+For typical semiconductors, a Thomas-Fermi screening length <math>k_{\rm TF}</math> of about 1.8 &Aring;<sup>-1</sup> yields reasonable band gaps. In principle, however, the Thomas-Fermi screening length depends on the valence-electron density. VASP determines <math>k_{\rm TF}</math> from the number of valence electrons (read from the {{FILE|POTCAR}} file) and the volume (leading to an average density <math>\bar{n}</math>) and writes the corresponding value of <math>k_{\rm TF}=\sqrt{4\bar{k}_{\rm F}/\pi}</math>, where <math>\bar{k}_{\rm F}=(3\pi^2\bar{n})^{1/3}</math> to the {{FILE|OUTCAR}} file ('''note that this value is only printed for information and is not used during the calculation'''):
+  Thomas-Fermi vector in A             =   2.00000
+
+The setting of the sX-LDA functional is shown on the [[list_of_hybrid_functionals|page listing the hybrid functionals]].
+{{NB|mind|
+*If {{TAG|LTHOMAS}}{{=}}.TRUE., then {{TAG|LHFCALC}}{{=}}.TRUE. is automatically set.
+*If {{TAG|LTHOMAS}}{{=}}.TRUE., then {{TAG|AEXX}}{{=}}1 is automatically set, but {{TAG|AEXX}} can be set to another value.}}
+{{NB|important|
+*When {{TAG|AEXX}}{{=}}1 (the default for {{TAG|LTHOMAS}}{{=}}.TRUE.), the correlation <math>E_{\mathrm{c}}^{\mathrm{SL}}</math> is not included. However, it can be included by setting {{TAG|ALDAC}}{{=}}1.0 and {{TAG|AGGAC}}{{=}}1.0.
+*This functional should be used only with LDA ({{TAG|GGA}}{{=}}CA).}}
+Since VASP counts the semi-core states and ''d''-states as valence electrons, although these states do not contribute to the screening, the values reported by VASP are often not recommended.
+
+Another important detail concerns the implementation of the local LDA part in VASP. Literature [see Eqs. (3.10), (3.14), and (3.15) in Ref. {{cite|seidl:prb:96}}] suggests to use in the enhancement factor <math>F(z)</math> a position-independent variable <math>z=k_{\rm TF}/\bar{k}_{\rm F}</math> where <math>\bar{k}_{\rm F}</math> is as defined above but using the average density <math>\bar{n}</math> in the unit cell.
+However, implemented in VASP is a position-dependent variable <math>z({\bf r})=k_{\rm TF}/k_{\rm F}({\bf r})</math>, where <math>k_{\rm F}({\bf r})=(3\pi^2 n({\bf r}))^{1/3}</math> is the Fermi wave vector calculated with the local density <math>n({\bf r})</math>, while the constant <math>k_{\rm TF}</math> is set by {{TAG|HFSCREEN}}.
+
+== Related tags and articles ==
+{{TAG|LHFCALC}},
+{{TAG|HFSCREEN}},
+{{TAG|AEXX}},
+{{TAG|LMODELHF}},
+{{TAG|LRHFCALC}},
+[[list_of_hybrid_functionals|List of hybrid functionals]],
+[[Hybrid_functionals:_formalism|Hybrid functionals: formalism]]
+
+{{sc|LTHOMAS|Examples|Examples that use this tag}}
+----
+
+[[Category:INCAR tag]][[Category:Exchange-correlation functionals]][[Category:Hybrid_functionals]]

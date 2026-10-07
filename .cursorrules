@@ -1,0 +1,38 @@
+{
+  "//": "Cursor 规则文件。⚠️ 本文件只是一个极简指针，不重复内容。",
+  "//1": "唯一真源是仓库根目录的 AGENTS.md —— 请先读它。",
+  "title": "VASP 计算顾问 skill",
+  "read_first": "AGENTS.md",
+  "what_it_is": "一套 VASP 计算顾问：分层可溯源知识库 + 零依赖 CLI 工具链。它不替用户跑计算，只做「推荐参数 / 生成输入 / 校验 / 解析 / 诊断 / 后处理」。",
+  "first_command": "python scripts/doctor.py",
+  "commands": {
+    "环境自检": "python scripts/doctor.py",
+    "生成输入": "python scripts/wizard.py",
+    "校验输入": "python scripts/validate.py <算例目录> --potcar <POTCAR>",
+    "抽取数值": "python scripts/parse_output.py <算例目录>",
+    "判自洽与力平衡": "python scripts/compare.py <算例目录>",
+    "症状诊断": "python scripts/diagnose.py <算例目录>",
+    "参数推荐": "python scripts/recommend.py --goal <目标> --elements \"<元素>\"",
+    "后处理": "python scripts/postprocess.py <子命令> <算例目录>",
+    "改完必跑（串行）": "python _validate_all_suites.py"
+  },
+  "hard_constraints": [
+    "不生成、不复制 POTCAR（受 VASP 许可保护，只能只读头部数字用于校验）。",
+    "站点信息不进仓库（集群地址/队列名/核数上限/账号/机器路径/module load 的具体模块）。出口是 SITE.md（永不入库）。",
+    "不声称验证过但实际没验证的事；查不到就写「来源待核对」。",
+    "不要用「放宽判据」来消灭红灯 —— 先问：是判据太严，还是被检对象真的错了？",
+    "发现自己写错 → 在 CHANGELOG.md 留一条更正记录，不要静默改掉。"
+  ],
+  "honesty": "validate.py / compare.py / diagnose.py 的「OK」都只表示「检查过的那些项没发现问题」。每个工具都会打印「本次未检查的项」——那不是「通过了」，是「没查」。",
+  "references": {
+    "面向人": "USAGE.md",
+    "项目结构": "README.md",
+    "改动规范": "CONTRIBUTING.md",
+    "知识库维护": "references/MAINTENANCE.md",
+    "写作规范": "references/_WRITING_CONTRACT.md",
+    "决策库": "references/decide.md",
+    "排障手册": "references/playbook.md",
+    "官方权威层": "references/official/",
+    "更正记录": "CHANGELOG.md"
+  }
+}

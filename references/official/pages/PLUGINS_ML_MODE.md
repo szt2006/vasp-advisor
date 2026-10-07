@@ -1,0 +1,17 @@
+{{TAGDEF|PLUGINS/ML_MODE| none {{!}} run | none}}
+
+Description: String-based tag selecting operation mode for running {{TAG|PLUGINS/FORCE_AND_STRESS}} plugins.
+----
+
+* {{TAG|PLUGINS/ML_MODE|none}} Forces and stress provided by the plugin are added to the ab-initio forces computed by VASP.
+* {{TAG|PLUGINS/ML_MODE|run}} VASP skips the ab-initio calculation and uses the forces and stress of the plugin to replace the forces of VASP.
+## Related tags and articles
+Plugins,
+{{TAG|PLUGINS/FORCE_AND_STRESS}},
+{{TAG|PLUGINS/ML_OUTBLOCK}},
+{{TAG|PLUGINS/ML_OUTPUT_MODE}},
+{{TAG|PLUGINS/NEIGHBOR_CUTOFF}}
+
+{{sc|PLUGINS/ML_MODE|Examples|Examples that use this tag}}
+
+Category:INCAR tag

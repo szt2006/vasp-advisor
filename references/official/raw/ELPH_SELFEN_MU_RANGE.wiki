@@ -1,0 +1,30 @@
+{{DISPLAYTITLE:ELPH_SELFEN_MU_RANGE}}
+{{TAGDEF|ELPH_SELFEN_MU_RANGE|[real array]}}
+
+Description: List of the range of chemical potentials (in eV) at which to compute the phonon-mediated electron self-energy and transport coefficients. 
+{{Available|6.5.0}}
+
+----
+A set of different chemical potentials can be set using {{TAG|ELPH_SELFEN_MU_RANGE}} as a shift with respect to the Fermi level <math>E_F</math> as an alternative to {{TAG|ELPH_SELFEN_MU}}. 
+A range of chemical potentials can be defined using {{TAG|ELPH_SELFEN_MU_RANGE|l u n}}, where:
+
+* ''l'' is the lower limit of the chemical potential range.
+* ''u'' is the upper limit of the chemical potential range.
+* ''n'' is the number of steps between the two limits.
+<!--This can be useful for producing contour plots, e.g., of the ZT figure of merit link to elph-part5 tutorial + add in the list of mu in the OUTCAR?-->
+
+For example, {{TAG|ELPH_SELFEN_MU_RANGE|-1.0 1.0 101}} would create a list of <b>101</b> points around the Fermi level between <math>E_F - 1.0</math> and <math>E_F + 1.0</math>. 
+==Related tags and articles==
+* [[Transport coefficients including electron-phonon scattering|Transport calculations]]
+* [[Electron-phonon accumulators]]
+* [[Chemical potential in electron-phonon interactions]]
+* {{TAG|ELPH_RUN}}
+* {{TAG|ELPH_SELFEN_MU}}
+* {{TAG|ELPH_SELFEN_CARRIER_DEN}}
+* {{TAG|ELPH_SELFEN_CARRIER_DEN_RANGE}}
+* {{TAG|ELPH_SELFEN_CARRIER_PER_CELL}}
+* {{TAG|ELPH_SELFEN_TEMPS}}
+* {{TAG|ELPH_SELFEN_TEMPS_RANGE}}
+* {{TAG|NELECT}}
+
+[[Category:INCAR tag]][[Category:Electron-phonon_interactions]]

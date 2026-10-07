@@ -1,0 +1,68 @@
+起始行	结束行	主题	要点
+1	11	封面与版权声明	L2 第2章"电子结构计算（1-态密度）"标题页与研之成理课程版权声明；主讲人刘锦程
+12	16	第二章（1）态密度 开篇	章节扉页：二、电子结构计算（1-态密度）
+17	44	从分子轨道到能带	非周期体系分子轨道与成键三原则（能量相近、最大重叠、对称性匹配）；2/3/7/无穷个H原子1s轨道线性组合逐步形成能带，分子轨道不可区分
+45	73	紧束缚模型、LCAO与第一布里渊区	一维H链波函数按布洛赫定理作原子轨道线性组合（相位因子、归一化因子）；LCAO；第一布里渊区[-π/a, π/a]；k=0 能量最低、k=π/a 能量最高
+74	85	能带图的k点取样	在布里渊区k点间隔取值连成能带；k点越密能带越平滑、包含信息越多；组成能带数目多
+86	108	能带展宽与能带走势	能带宽度=该能带覆盖的能量范围，由轨道重叠与相互作用强弱决定（H-H距离）；E-k走势取决于晶胞中相应轨道的拓扑；p轨道σ键 k=0 能量最高、k=π/a 最低
+109	133	多轨道多能带与定性预判	一维K2PtH4链中Pt的s/p/d三种键，s轨道相互作用很强；由轨道组合方式定性预判能带的陡峭程度与能量高低；pz与dz2走势思考题
+134	154	超胞能带反折叠与Peierls畸变	超胞（2个H）导致第一布里渊区出现两条能带，反折叠可还原原包能带；Peierls畸变=周期体系的Jahn-Teller效应，打开带隙使体系更稳定，实例聚乙炔
+155	180	二维能带与高对称点	k=(kx,ky)；高对称点Γ(0,0)、X(π/a,0)、M(π/a,π/a)；算能带即算高对称点连线上的能级，普通自洽计算在第一布里渊区均匀撒点
+181	199	二维/三维布里渊区与高对称路径	二维布里渊区示意图；三维体系k点含kx,ky,kz三分量，边界不可一笔画完故能带图出现"|"断点；BCC金属Fe的第一布里渊区高对称点路径
+200	222	能带计算k点选取	催化体系计算不需要研究能带；非能带计算k点均匀撒点以还原实空间电荷密度；能带计算取布里渊区边界k点；K-mesh与K-path对比
+223	245	态密度定义及与能带的关系	D(E)dE=E到E+dE间电子态数目；DOS是第一性原理中最重要的概念之一；能带越密集/平缓DOS越大，越稀疏/陡峭DOS越小；DOS积分=电子数；DOS的展宽与位置决定体系性质
+246	267	从DOS判断轨道作用；实验DOS	PtH4^2-：DOS展宽判断轨道作用强弱，带心位置影响与其他分子的相互作用；实验上soft-X-ray吸收谱(XAS)与发射谱(XES)给出占据与非占据轨道DOS形状
+268	288	PDOS定义与费米能级对齐	PDOS=把Kohn-Sham本征态投影到正交基函数（原子轨道）；区域按RWIG划分故所有原子PDOS和一般小于总DOS；Si晶体区分3s/3p；Efermi取价带顶、无物理意义，程序对齐到0 eV，纵轴用E-Ef
+289	302	案例一 电荷差分+PDOS研究相互作用	Ce 4f占据局域电子（电子转移）与Ce 4f空轨道；O-Au作用的态密度（共价作用）；JACS 2009
+303	309	案例二 研究缺陷态	TiO2中的Al缺陷导致多余空穴在表面O上
+310	317	案例三 研究表面态与带边位置	GaN表面配位不饱和原子在带隙中产生新的表面态
+318	324	案例五 新材料电子结构分析	对比周期性与孤立体系的DOS；反夹心化合物
+325	335	案例六 吸附分子与载体的相互作用模型	CO与Ni表面作用：σ轨道能量降低、π*轨道能量上升，σ配位与反馈π键共同作用
+336	342	案例七 催化吸附的轨道相互作用模型	部分活化N2：Fe3低电荷态0.59|e|、高自旋极化10 mB；d-π*作用导致电荷从Fe3转移到N2的π*轨道
+343	366	NBANDS 参数	默认值公式（非自旋 NELECT/2+NIONS/2；自旋 0.6*NELECT+NMAG）；不同赝势/体系/原子数/NCORE都会改变NBANDS；VASP默认只算全部价带与部分导带；做DOS或能带想要更高能量需调大；grep NBANDS OUTCAR；建议默认，光学性质/COHP调大
+367	385	NEDOS 参数	默认301；控制DOSCAR取点密度；提高可提高分辨率；建议NEDOS=1000；取值太大会使vasprun.xml与DOSCAR过大不利下载保存；毛刺多建议增大KPOINTS或改用ISMEAR=0
+386	398	EMAX/EMIN 参数	默认 EMAX=最高KS本征值+D、EMIN=最低KS本征值-D，D=2 eV；只控制输出DOS数据的能量范围；建议用默认值
+399	434	练习一 q-Al2O3的DOS计算流程	第一步结构优化（已优化结构可直接用；结构优化得到的DOS不能直接用，因为平均了优化过程中所有结构的DOS）；第二步新建dos文件夹、cp CONTCAR为POSCAR、cp INCAR KPOINTS POTCAR CHGCAR；DOS的INCAR：NSW=0、ICHARG=1(或11)、LORBIT=11(或10)、ISMEAR=-5、NEDOS=1000；ISMEAR=-5为Blöchl修正四面体法更准确且不读SIGMA
+435	468	p4vasp 提取DOS	下载vasprun.xml到本地用p4vasp读取；选DOS+bands看总DOS，Electronic-Local DOS+bands control选原子/元素/轨道PDOS；export数据到origin；导出的多列数据需手动按能量范围拆分
+469	482	把费米能级移到0 eV	DOSCAR直接作图Ef不为0，需把横坐标减去Ef；P4vasp/vaspkit/pymatgen取出的DOS数据都会自动shift；vaspkit需修改~/.vaspkit中SET_FERMI_ENERGY_ZERO；grep E-fermi OUTCAR提取费米能级
+483	552	vaspkit 提取总DOS与各类PDOS	主功能11；0.73以上版本可自定义提取；DOS子菜单111总DOS(ITDOS.dat/TDOS.dat，积分DOS用于判断电子占据数值)、112指定原子序号(PDOS_A10.dat)、113每种元素(PDOS_O/PDOS_Al.dat)、114指定多原子加和(PDOS_SUM.dat)、115指定轨道(PDOS_USER.dat)
+553	613	态密度计算注意事项(1)-(7)	(1)ICHARG=1自洽单点与ICHARG=11非自洽，收敛到同一电子态结果相同；(2)DOS需比结构优化更多的k点；(3)ISMEAR=-5四面体法更准且不读SIGMA，但模型很大/只用Γ/k点数≤3时会报错，结构优化不能用-5（力有误差）；(4)k点<3时用ISMEAR=0或1；(5)NEDOS/EMAX/EMIN只影响作图不影响计算；(6)DOS必须在结构优化之后做；(7)PDOS加和小于总DOS（球谐投影丢信息），故不能用PDOS积分讨论某原子轨道的占据数
+614	623	LORBIT的total charge警告与原子电荷方法	设置LORBIT后OUTCAR末尾输出total charge，仅为原子半径球内电荷布居，不能定量、一般无视；分析原子电荷的常用方法：Bader charge、DDEC、NPA电荷，lobster可得Löwdin与Mulliken电荷
+624	660	轨道相互作用模型	化学相互作用是否对体系稳定性有贡献，可通过能级相互作用判断；四种作用模型：空-占、占-占、空-空；空-占作用按二阶微扰，能量越接近分裂能ΔE越大；占-占作用反键升高多于成键下降故体系能量上升（He2不存在）；空-空作用无电子占据对能量无贡献
+661	692	表面特殊作用模型与吸附能垒	表面作为电子蓄水池吞吐电子使Fermi能级变化；两个占据轨道作用时电子部分从CO的σ轨道转移到金属表面；分子与表面相互作用解释化学吸附能垒（核互斥、占据反键电子向表面转移、占据轨道相互排斥）；实验AFM可检测物理吸附；DFT算物理吸附需DFT-D3
+693	711	练习 Ni(100)-CO 的DOS分析总览	把CO分子放在真空层中避免其吸附在上/下表面继续优化，目的是做DOS时对齐CO与Ni的真空能级；区分固定层与优化层；分析DOS并绘制CO与表面Ni原子的PDOS
+712	733	CO-Ni(100)-c(2×2) 表面建模	用优化好的Ni原胞在Materials Studio中添加对称性(Find Symmetry)转conventional cell；切(100)面取6个原子层厚度；旋转晶格矢量转c(2×2)（c=center，等价于(√2×√2)R45°）；Redefine lattice后加一个CO则覆盖度为0.5 ML
+734	775	表面优化 INCAR 模板	SYSTEM/KPAR/NCORE/ISTART/ICHARG/LWAVE/LCHARG/LVTOT/LVHAR/LELF；ENCUT=520、ISMEAR=1、SIGMA=0.2、EDIFF=1E-6、NELMIN=5、NELM=300、GGA=PE、LREAL=Auto、ISYM=0；EDIFFG=-0.01、IBRION=2、POTIM=0.2、NSW=300、ISIF=2；ISPIN=2；注释掉的LDIPOL/IDIPOL与MAGMOM
+776	785	Ni(100)-CO 四步计算流程与DOS设置	第三步优化Ni(100)-CO吸附态；第四步算DOS，INCAR参数修改为LORBIT=11、NEDOS=2000、NSW=0、ISMEAR=-5并增大k点；上下各保持一定真空距离
+786	796	孤立CO分子的能级标定	CO能级次序3σ/4σ*/1π/5σ/2π*；用vaspkit或p4vasp提取处理结果
+797	848	p4vasp 绘制并对比 CO 与 Ni 的PDOS	可选原子编号或元素C/O、选自旋方向(down需invert y-axis)、选输出轨道分量；对比第21号原子PDOS与CO分子PDOS；晶胞不够大导致镜像分子间作用产生少量噪音；费米能级附近5σ、2π*与Ni的3d能量最接近，若对称性匹配则很可能成键；需区分角动量与磁角动量（CO的σ键成分是s与pz，π键成分是px与py）
+849	886	CO/Ni(100) 相互作用 DOS 结论	最终可对齐费米能级（认为吸附前后不变）或对齐真空能级（需算功函）；结论1：CO的5σ与Ni占据d轨道头碰头作用、能级分裂、部分反键成分高过费米能级从而使电子流入金属表面；结论2：CO的2π*与Ni占据d轨道作用后部分轨道跑到费米能级以下并被占据；DOS重叠意味着共价键贡献，可由重叠积分计算（COOP）
+887	965	练习三 N2/Fe3-q-Al2O3(010) 建模与DOS INCAR	第一步优化N2在Fe3/q-Al2O3(010)表面吸附构型与N2在真空层中的结构，用1×1×1 k点、可用vasp_gam版；INCAR：ENCUT=400、ISMEAR=0、SIGMA=0.05、EDIFF=1E-6、GGA=PE、LREAL=Auto、LDIPOL=.TRUE.、IDIPOL=3、ISYM=0、ISPIN=2、POTIM=0.2、ISIF=2；第二步新建dos文件夹、cp CHGCAR与CONTCAR，非自洽算DOS，改LORBIT=11、NEDOS=1000、NSW=0
+966	1007	片段PDOS分析与N2活化定量结果	只提取N2与催化活性中心Fe3两个片段的PDOS考察作用方式；side-on配位N2吸附后σ型轨道无明显变化、1π与Fe 3d微弱作用发生微小分裂、2π*与Fe 3d作用明显且β自旋能量匹配更好、费米能级以下出现明显2π*成分；反键轨道电子填充降低N-N键级，N-N距离由1.10 Å拉长到1.26 Å，Bader电荷由0降到-1.13|e|；配合NBO、COHP、电荷差分与自旋密度分析
+1008	1014	课后练习 FeN3/graphene 相互作用分析	N2与表面的另一种常见配位方式end-on模式；单原子Fe催化活化N2，JACS 2016
+1015	1021	应用案例 CH4在IrO2(110)上的活化	甲烷活化来源于HOMO轨道与Ir的d轨道作用
+1022	1062	d带中心理论	吸附分子轨道与金属s、d轨道作用，分子轨道-金属d轨道作用导致能级分裂，生成的反键轨道位置对体系稳定性非常重要；反键态被d带推高至费米能级以上则有利于吸附、低于费米能级则不利于吸附；前过渡金属d带中心高吸附能大、后过渡金属d带中心低吸附能小；O在Ag/Au上吸附很弱因O能级高于Au/Ag的d轨道能级，d-p作用后O的p轨道能量上升（反键轨道上也占据电子）使体系能量上升，而Fe/Ru上反键p轨道能级高于费米能级所以吸附更强
+1063	1106	d带中心调控思路与算法	d带中心调控原理：同种元素d带变窄(Wd)则费米能级不变时d带中心一定上升，可通过调控d轨道作用强度→d带宽→d带中心→吸附能；思路一配位数越高d轨道作用越强、d带越宽、d带中心越低、吸附能越小；思路二调控晶格应变改变原子间距从而调控d带宽与d带中心（*OH吸附强度可表征ORR活性）；思路三次表层合金原子比例调控表层Pt相互作用；d带中心=对d轨道PDOS作能量权重平均，Norskov书中119页有详细讲解，大师兄教程第40/41章有origin做法；一般表面催化应对表面体系做DOS再算band center，用bulk模型会与表面体系有差别
+1107	1130	练习二 d带中心计算流程	优化Cu/Ag/Au、Ni/Pd/Pt、Co/Ru/Ir、Fe/Ru/Os的最密堆积表面并得到DOS与d带中心；从Materials Project下载primitive cell的CIF做晶胞优化(ISIF=3)再切表面做表面优化(ISIF=2)；每个文件夹新建dos文件夹单独算单点输出DOS、cp INCAR KPOINTS POTCAR CHGCAR与提交脚本、cp CONTCAR为POSCAR、适当提高k点精度；运行vaspkit 113把PDOS_M_UP.dat导入origin，对5个d轨道求和
+1131	1139	Ag(111) 与 Ru(0001) 的对比	两个表面模型的PDOS与d带中心对比，数值分别为-3.75 eV与-1.74 eV
+1140	1184	vaspkit 503 与脚本法算 d 带中心	方法一：vaspkit 503直接得到所有原子与总的d带中心，读出DOSCAR费米能级并置0，提示d带中心对非占据能带数目敏感、趋势比绝对值重要，默认积分窗口可按y修改，输出D_BAND_CENTER文件；方法二：vaspkit 115得到指定原子与轨道的PDOS(输入115–Ag–d–0得PDOS_USER.dat)，再用Python3 ~/bin/d-bandC.py PDOS_USER.dat 20得中心值，优点是可用于s/p/d/f、可指定若干原子、因高能空轨道误差大可设能量上限（如10 eV）
+1185	1196	催化反应关联与元素周期表数值	HER的H原子吸附能与d带中心成近似线性关系（Pt）；文献给出的元素周期表各元素d带中心数值（左下角ed(eV)）
+1197	1201	第二章（2）开篇	章节扉页：二、电子结构计算（2）
+1202	1258	CHGCAR 文件格式	CHGCAR是包含电子密度信息的格点文件，自旋极化体系还含自旋电子密度，可用VESTA/Jmol打开；前几行与CONTCAR完全相同（晶格矢量与原子坐标）；ISPIN=2时可用chgsplit.pl CHGCAR分出CHGCAR_mag(自旋密度)与CHGCAR_tot(电荷密度)；坐标信息后空一行，再输出NGXF/NGYF/NGZF(grep NGXF OUTCAR可查看)，不建议在INCAR中指定格点（PREC=Accurate产生的格点已足够）；随后是ρ(r)*Vcell共NGXF*NGYF*NGZF个数值
+1259	1292	VESTA导入格点文件、Bader电荷与电荷差分定义	用VESTA导入格点文件；Bader电荷计算：chgsum.pl AECCAR0 AECCAR2 与 bader CHGCAR -ref CHGCAR_sum，输出笛卡尔坐标、原子盆体积、原子核到盆边界最小距离、价电子数，需在INCAR加LAECHG=.TRUE.；原子电荷着色图用vaspkit 508；电荷密度差分两种计算方式：(1)Δρ=ρ_AB-ρ_A-ρ_B，(2)变形电荷密度Δρ=ρ_SCF-ρ_atomic
+1293	1323	练习一 CO/Ni(100) 电荷差分	步骤一优化CO/Ni(100)结构（可选步：若要提高格点精度如PREC=Accurate需再算一步单点）；步骤二分别计算Ni(100)与CO的单点能，结构直接从CO/Ni(100)截取、不要再做结构优化、计算参数保持不变；步骤三用vaspkit 314依次输入三个片段的CHGCAR位置（./CHGCAR ./co/CHGCAR ./slab/CHGCAR）；步骤四把CHGDIFF.vasp重命名为CHGCAR后运行vaspkit 316得CHGPAVG.dat导入origin并把XY坐标反转；isosurface青色为电荷密度减小、黄色为电荷密度增加；r=r(CO/Ni)-r(CO)-r(Ni)
+1324	1347	实空间波函数与 EIGENVAL	WAVECAR为二进制且波函数是倒空间的G=n1b1+n2b2+n3b3，无法直接提取实空间波函数；Feenstra与Widom提供从WAVECAR提取波函数的脚本；vaspkit在其基础上改进，功能511可直接指定k点与轨道序号得实空间轨道波函数，功能515得实空间轨道电荷密度；EIGENVAL文件给出能级与占据数/2，用于标定CO的3σ/4σ*/1π/5σ/2π*
+1348	1380	Band decomposed charge density 概念	波函数平方是电荷密度，WAVECAR可提取k点上的轨道波函数及其电荷密度；Band decomposed charge density计算特定某个(或某些)k点与能带所对应本征波函数的平方，文献中也叫Partial Charge Density（一般指一定能量范围内的电荷密度）；最常见应用为VBM、CBM、表面态或局域态所对应的Partial Charge；比轨道波函数更常见更灵活，可做单轨道、一定能量范围、包含多个k点的总Partial Charge
+1381	1432	partial charge 应用案例与STM对应	Mn掺杂CeO2单原子催化剂产生隙间态、隙间态电荷密度分布在Mn与周围O上；钙钛矿亲疏水性质看水的HOMO与表面CBM电荷密度是否匹配；单层黑磷吸附不同分子改变带隙；graphene/ZnO看费米能级之上0-3 eV所有态的电子密度和；STM与Partial Charge Density的对应：PtSe2两个Pt缺陷的STM模拟图与费米能级附近缺陷态PCD对应（STM图像呈现能量范围内的态，与针尖电压有关），振动针尖可调制隧穿电流(dI/dx)对局域势垒高度成像；2D硼团簇的PCD与模拟STM图像
+1433	1515	LPARD 计算流程与关键词	先做自洽计算得到收敛的WAVECAR，再新建计算直接从WAVECAR提取partial charge信息（相当于把VASP当脚本运行、不做新的SCF）；关键词：LPARD(默认.FALSE.，.TRUE.时读入WAVECAR做计算)、IBAND(能带序号，按EIGENVAL顺序)、NBMOD(默认-1；>0为IBAND中能带数量会自动调整、0包含所有轨道含非占据、-1正常算CHGCAR、-2算EINT能量范围内、-3同-2但以费米能级为0参考)、KPUSE(指定k点在KPOINTS中的序号)、EINT(两个实数时NBMOD=-2且能量参考EIGENVAL；只给一个数时计算EINT到费米能级、NBMOD=-3且能量参考费米能级)、LSEPB与LSEPK(默认.FALSE.即合并；.TRUE.时分别写到PARCHG.$.$)
+1516	1557	三种用法与 INCAR 模板	第一种指定能带(如20/21/22/23号)与k点(如第1个)，研究VBM/CBM常用，输出PARCHG.0020.0001.vasp等需手动加.vasp后缀（VESTA不识别.0001后缀），模板含ISTART=1/LPARD/IBAND/KPUSE/LSEPB/LSEPK；第二种指定能量范围[-10.0,-5.0]不指定k点(NBMOD=-2)适合分析某能量区间波函数性质，输出PARCHG；第三种指定相对费米能级的范围[Efermi-1.0,Efermi]不指定k点(NBMOD=-3)适合分析费米面附近波函数性质，输出PARCHG
+1558	1587	练习五 MoS2/WS2 异质结的 VBM 与 CBM	第一步优化单层(MoS2)16/(WS2)16异质结得到WAVECAR；第二步检查EIGENVAL文件并新建文件夹计算partial charge；IBAND=287 288(KPUSE=1, LSEPB=.FALSE., LSEPK=.TRUE.)为VBM、IBAND=289 290为CBM；EIGENVAL显示287/288占据数1.0、289/290占据数0.0；把简并轨道的CBM或VBM同时输出以保证partial charge的完整性
+1588	1619	partial charge 运行日志与简并轨道合并	OUTCAR回显从pardens读取的参数：NBMOD、Selected bands、Selected kpoints、是否按k点分别输出、每个k点落在能量范围内的能带列表；单独输出288号轨道电荷不完整、对称性不好，287+288(VBM)与289+290(CBM)需合并输出
+1620	1695	STM 模拟	STM原理：探测探针与表面间隧穿电流，恒高模式下压电陶瓷管在z方向保持恒定，以隧穿电流值在xy空间作二维图；INCAR用NBMOD=-3、EINT=2.0表示显示费米能级以上2 eV的态，EINT与实验所加偏压绝对数值并不直接对应、需自己测试对比图像；两个关键值：针尖偏压与恒定高度；计算完下载PARCHG与vasprun.xml，在OUTCAR最后可看partial charge包含哪些轨道；在p4vasp中打开vasprun.xml点STM，选STM自动、读入PARCHG、显示结构、超胞、调整恒定高度、恒高与恒流模式；EINT取负值(如-0.1)则显示费米能级以下的态
+1696	1759	静电势与功函数	静电势衡量r处单位点电荷与体系的静电相互作用势，近核处为负、真空中为0；分子范德华表面静电势中原子核占主导区为正、电子占主导区为负，VASP算得真空能级不为0需shift到0静电势绝对值才有意义；功函数=使电子立即从固体表面逸出所需最小能量(eV)，不是体相本征性质而是表面性质、是金属的重要属性；从计算角度Φ=Evac-EF，Evac由slab模型z方向xy平面平均静电势得到，程序把VBM当费米能级故与实验有差别；计算功函即计算静电势在slab法向上的分布，INCAR设LVHAR=.TRUE.输出LOCPOT(格式与CHGCAR完全一样)，若设LVTOT=.TRUE.且LVHAR=.FALSE.则LOCPOT为包含静电势与交换相关势能的总势能
+1760	1844	练习 优化并计算 Au(111)-p(2×2) 的z方向静电势	步骤一优化Au晶胞；步骤二建Au(111)-p(2×2)表面模型并固定POSCAR中最下面两层Au；步骤三准备INCAR(LVHAR=.TRUE.、ENCUT=400、ISMEAR=1、SIGMA=0.2、EDIFF=1E-6、NELMIN=5、NELM=300、GGA=PE、LREAL=Auto、ISYM=0、EDIFFG=-0.01、IBRION=2、POTIM=0.2、NSW=300、ISIF=2)；步骤四用vaspkit准备POTCAR与KPOINTS；步骤五提交并输出LOCPOT，用vaspkit做z方向积分(自动判断真空能级位置并输出POTPAVG.dat，Vacuum-Level=6.673 eV，提示检查真空能级对真空层厚度的收敛性)；步骤六把POTPAVG.dat导入origin作xy平面平均静电势对z方向坐标的图；然后在OUTCAR中grep fermi得Efermi=1.6561 eV，Φ=6.673-1.6561=5.02 eV，对比实验值认为计算比较准确；另一种方法用p4vasp对LOCPOT在xy平面求和（File-load system导入LOCPOT、Electronic-Local potential、Show Z-direction取中间average那条线、Graph-export）
+1845	1871	练习 优化并计算 O/Au(111)-p(2×2) 的z方向静电势	步骤一在优化Au晶胞基础上建Au(111)-p(2×2)表面模型并固定最下两层；步骤二准备INCAR(与优化Au表面一样)与POTCAR/KPOINTS，注意不确定吸附物自旋状态时用ISPIN=2，本体系已测试无磁性无单电子故为节省时间用ISPIN=1；步骤三提交并用vaspkit处理静电势；给出fcc位与hcp位吸附的O；结果Evac=7.196 eV、Efermi=1.5863 eV、Work function=5.6097 eV；规律：吸附氧原子后功函数增大；由于上下表面不对称在真空层中有明显偶极矫正使上下表面所对应的真空能级位置不同；吸附带负电物种(ex: O)功函增大、吸附带正电物种(ex: K)功函减小
+1872	1893	异质结与负载团簇的静电势分析	静电势不仅可算功函数，也是分析表面电子结构的利器；用异质结模型的静电势高低预测电子流向（Φ=5.22 eV与Φ=6.43 eV）；静电势计算结果与电荷差分结果一致，TiO2/g-C3N4异质结形成时部分电子从g-C3N4转移到TiO2上；静电势分析表面负载团簇的电子流向
+1894	1933	分子范德华表面静电势（扩展内容）	最常用的分子表面是范德华表面，定义为一定电荷密度的表面：气相分子r=0.001 a.u.=0.00675 e/Å3，凝聚相r=0.002 a.u.=0.0135 e/Å3，1 a.u.=1 e/Bohr3=6.748 e/Å3；VESTA导入N2分子的范德华表面静电势分布用0.001 e/Bohr3；可反映分子与材料表面的电子结构特征和电荷分布（孤对电子、离域π键）；受阻路易斯酸碱对异裂活化H2的范德华表面静电势分布，Ce是亲电位点、O是亲核位点，H2靠近时发生极化；在VESTA中绘制：先导入CHGCAR选Edit-Lattice Planes，再在surface coloring里导入LOCPOT；练习绘制O/Au(111)-p(2×2)表面静电势分布，Properties-Isosurface中把电荷密度表面数值调为0.002 e/Bohr3；判据：越红静电势越低越容易受亲电试剂进攻，越蓝越高越容易受亲核试剂进攻
+1934	1998	电子定域化函数 ELF	VASP计算ELF的参数：LELF=.TRUE.、PREC=Accurate或High、去掉NPAR与NCORE参数；ELF对格点精度要求很高，默认网格精度(PREC=Normal)不能满足要求；计算完输出ELFCAR（格式与CHGCAR完全一样）可直接用VESTA打开作图；应用：研究表面催化反应过渡态(H2异裂，O-H共价成分高、Ce-H离子成分强)、研究二维材料电子结构(FeB6中三个B之间更红可能有中心键、Fe-B之间有蓝色成分Fe可能呈离子态)、研究电子化合物(Na2He中电子对可不依赖原子核孤立存在形成高定域化区域)、研究缺陷态电子结构(ZrO2/HfO2/ThO2表面氧缺陷使电子对局域在空穴位置)、研究分子团簇电子定域性质(B13+外围B-B强共价键、中心3个B之间可能存在3中心键)、CO/Ni(100)中的孤对电子与配位键
+1999	2009	声明页	课程版权声明与举报奖励说明

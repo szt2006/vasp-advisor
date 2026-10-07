@@ -1,0 +1,36 @@
+# 为什么这里没有 POTCAR
+
+`POTCAR` 受 VASP 许可保护，**不得再分发**。所以本 skill **不会**替你生成或
+复制它 —— 它只能**校验**你已经有的那个。
+
+## 怎么拼
+
+```bash
+cat <赝势目录>/<元素1>/POTCAR \
+    <赝势目录>/<元素2>/POTCAR > POTCAR
+```
+
+**顺序必须与 POSCAR 第 6 行的元素顺序完全一致。**
+VASP 是**按位置**把 POTCAR 的数据集配给 POSCAR 的元素的，不按元素名匹配。
+顺序错了，每个原子的赝势都是错的，而且**程序不会报错**。
+
+## 拼完立刻校验
+
+```bash
+python scripts/validate.py . --potcar ./POTCAR
+```
+
+它会核对：
+- POSCAR 元素顺序 vs POTCAR 的 TITEL 顺序（`XSPECIES.elements`）
+- 数据集个数 vs 元素种类数（`XSPECIES.counts`）
+- `ENCUT` vs POTCAR 的 `ENMAX`（`XENCUT.enmax`）
+- `MAGMOM` 个数 vs 原子数（`XMAGMOM.count`）
+
+## 也可以用它来定 ENCUT
+
+```bash
+python scripts/wizard.py --potcar ./POTCAR ...   # 会按 max(ENMAX)×1.3 定 ENCUT
+```
+
+本工具**只读** POTCAR 头部的几个数字（`TITEL`/`ENMAX`/`ZVAL` 等），
+**不复制、不缓存、不写出**任何 POTCAR 内容。

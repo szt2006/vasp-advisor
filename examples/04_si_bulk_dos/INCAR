@@ -1,0 +1,31 @@
+#### examples/04_si_bulk_dos —— Si 块体 · 态密度（PDOS） ####
+# 由 examples/_build_examples.py **现场生成**（不是静态文件，避免过期）。
+# 生成后会自动跑 scripts/validate.py 校验。
+SYSTEM = 04_si_bulk_dos
+
+#### 起始参数 I/O ####
+ISTART = 0
+ICHARG = 2
+LWAVE  = .FALSE.
+LCHARG = .TRUE.
+LORBIT = 11
+NEDOS  = 2000
+
+#### 电子步 ####
+ENCUT  = 300.0
+PREC   = Normal
+EDIFF  = 1e-06
+NELM   = 300
+NELMIN = 5
+# 展宽：DOS 用四面体（**必须 Γ 居中**）
+ISMEAR = -5
+SIGMA  = 0.05
+LREAL  = .FALSE.
+
+#### 离子步 ####
+NSW    = 0
+IBRION = -1
+
+#### 并行（**与站点相关，请自己定**）####
+# NCORE = <<<请填写>>>
+# KPAR  = <<<请填写>>>

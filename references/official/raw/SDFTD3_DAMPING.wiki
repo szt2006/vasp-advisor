@@ -1,0 +1,21 @@
+{{DISPLAYTITLE:SDFTD3_DAMPING}}
+{{TAGDEF|SDFTD3_DAMPING|zero {{!}} rational {{!}} mzero {{!}} mrational {{!}} optimizedpower}}
+
+Description: {{TAG|SDFTD3_DAMPING}} sets the type of damping function in the DFT-D3 method implemented in the [[simple-DFT-D3]] package.
+----
+{{TAG|SDFTD3_DAMPING}} allows to set the type of damping function to be used in the DFT-D3 method implemented in the [[simple-DFT-D3]] package ({{TAG|IVDW}}=15). The available damping functions are {{TAG|SDFTD3_DAMPING}}=zero,{{cite|grimme:jcp:10}} rational,{{cite|grimme:jcc:11}} mzero,{{cite|smith:jpcl:2016}} mrational,{{cite|smith:jpcl:2016}} and optimizedpower.{{cite|witte:jctc:2017}}
+{{NB|mind|
+*The {{TAG|SDFTD3_DAMPING}} tag is available from VASP.6.6.0 onwards.
+*The {{TAG|SDFTD3_DAMPING}} can be used only for the [[simple-DFT-D3]] package ({{TAG|IVDW}}{{=}}15).}}
+
+== Related tags and articles ==
+{{TAG|IVDW}},
+[[simple-DFT-D3]]
+
+{{sc|SDFTD3_DAMPING|Examples|Examples that use this tag}}
+
+== References ==
+<references/>
+----
+
+[[Category:INCAR tag]][[Category:Exchange-correlation functionals]][[Category:van der Waals functionals]]

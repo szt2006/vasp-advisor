@@ -1,0 +1,37 @@
+{{DISPLAYTITLE:ELPH_TRANSPORT_DFERMI_TOL}}
+{{TAGDEF|ELPH_TRANSPORT_DFERMI_TOL|[real]|1e-6}}
+
+Description: choose the fraction of the integral weight of the derivative of the Fermi–Dirac distribution that is excluded when defining the energy window for the Onsager coefficients. Must be between 0 and 1, and is only used when {{TAG|ELPH_TRANSPORT_DRIVER}}=1.
+{{Available|6.5.0}}
+
+----
+Using this parameter, {{TAG|ELPH_TRANSPORT_EMIN}} and {{TAG|ELPH_TRANSPORT_EMAX}} are automatically computed from the chemical potentials and the distribution <math>-\partial f^0/\partial \epsilon</math>.  
+Formally, the integration window <math>[\mu-e,\mu+e]</math> is chosen such that
+
+:<math>
+\int_{\mu-e}^{\mu+e} \left(-\frac{\partial f^0}{\partial \epsilon}\right) d\epsilon
+= 1 - \alpha,
+</math>
+
+where <math>\alpha \equiv</math> {{TAG|ELPH_TRANSPORT_DFERMI_TOL}}.  
+This gives
+
+:<math>
+e = k_B T \, \ln\!\left(\tfrac{2-\alpha}{\alpha}\right).
+</math>
+
+A small value means that only the tails of the derivative of the Fermi-dirac distribution are excluded from the integral.
+A large value means that only a small energy window around the chemical potential is used.
+
+The integral is then discretized with a number of energy points set by {{TAG|TRANSPORT_NEDOS}} and evaluated using the Simpson's rule.
+
+==Related tags and articles==
+* [[Transport coefficients including electron-phonon scattering|Transport calculations]]
+* {{TAG|ELPH_RUN}}
+* {{TAG|ELPH_TRANSPORT}}
+* {{TAG|ELPH_TRANSPORT_DRIVER}}
+* {{TAG|ELPH_TRANSPORT_EMIN}}
+* {{TAG|ELPH_TRANSPORT_EMAX}}
+* {{TAG|TRANSPORT_NEDOS}}
+
+[[Category:INCAR tag]][[Category:Electron-phonon_interactions]]

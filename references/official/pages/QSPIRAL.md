@@ -1,0 +1,17 @@
+{{TAGDEF|QSPIRAL|[real array]|3*0.0}}
+
+Description: the {{TAG|QSPIRAL}}-tag specifies the spin spiral propagation vector.
+----
+{{TAG|QSPIRAL}} specifies the spin spiral propagation vector in direct coordinates of the reciprocal lattice.
+
+See the description of spin spiral calculations for more details.
+## Related tags and articles
+Spin spirals,
+{{TAG|LSPIRAL}},
+{{TAG|LZEROZ}}
+
+{{sc|QSPIRAL|Examples|Examples that use this tag}}
+
+----
+
+Category:INCAR tagCategory:MagnetismCategory:Spin spirals

@@ -1,0 +1,24 @@
+{{TAGDEF|LSCALU|[logical]|.FALSE.}}
+
+Description: {{TAG|LSCALU}} switches on the parallel LU decomposition (using scaLAPACK) in the orthonormalization of the wave functions. 
+
+----
+
+For {{TAG|LSCALU}}=.TRUE. the LU decomposition in the orthormalization of the wave functions is done in parallel, using scaLAPACK routines.
+Provided, of course, {{TAG|LSCALAPACK}}=.TRUE. and VASP was compiled with scaLAPACK support (precompiler flag: -DscaLAPACK).
+
+In many cases, the scaLAPACK LU decomposition based is *slower* than the serial LU decomposition (compare the timing ORTHCH in the respective {{FILE|OUTCAR}} files). Hence the default is {{TAG|LSCALU}}=.FALSE.
+(subspace rotations, however, are still done using scaLAPACK).
+## Related tags and articles
+{{TAG|NPAR}},
+{{TAG|NCORE}},
+{{TAG|LPLANE}},
+{{TAG|NSIM}},
+{{TAG|KPAR}},
+{{TAG|LSCALAPACK}},
+{{TAG|LSCAAWARE}}
+
+{{sc|LSCALU|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:PerformanceCategory:parallelization

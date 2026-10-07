@@ -1,0 +1,21 @@
+{{DISPLAYTITLE:ML_LEMPPOT}}
+{{TAGDEF|ML_LEMPPOT|[logical]|.FALSE.}}
+
+Description: Enables the use of auxiliary empirical potentials for thermodynamic integration using {{TAG|VCAIMAGES}}.
+----
+{{TAG|ML_LEMPPOT}}=.TRUE. sets the following defaults:
+*{{TAG|ML_LCOUPLE}}=.TRUE.
+*{{TAG|ML_RCOUPLE}}=0.0
+
+{{TAG|ML_LEMPPOT}}=.TRUE. requires {{TAG|ML_LCOUPLE}}=.TRUE., so no other values for {{TAG|ML_LCOUPLE}} are permitted.
+
+== Related tags and articles ==
+{{TAG|ML_LMLFF}}, {{TAG|ML_LCOUPLE}}, {{TAG|ML_ICOUPLE}}, {{TAG|ML_RCOUPLE}}, {{TAG|ML_NATOM_COUPLED}}, 
+{{TAG|ML_EMPPOT_RCUT}}, {{TAG|ML_SRPOT_B0}}, {{TAG|ML_SRPOT_N0}}, {{TAG|ML_SRPOT_S0}}, 
+{{TAG|ML_MOPOT_NM}}, {{TAG|ML_MOPOT_DM}}, {{TAG|ML_MOPOT_RM}}, 
+{{TAG|ML_MOPOT_RKM}}, {{TAG|ML_MOPOT_IJM}}
+
+{{sc|ML_LCOUPLE|Examples|Examples that use this tag}}
+----
+
+[[Category:INCAR tag]][[Category:Machine-learned force fields]]

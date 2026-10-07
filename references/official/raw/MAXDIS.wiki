@@ -1,0 +1,14 @@
+{{TAGDEF|MAXDIS|[real]}}
+{{DEF|MAXDIS| 0.0 (switched off)| }}
+
+Description: This tag sets the maximum distance that an atom is allowed to travel (in Angstrom) between two ab-initio steps before the charge density is reset to atomic an atomic charge density.
+
+----
+At each ionic step, the maximum Cartesian displacement of any atom (using minimum-image convention) is compared to MAXDIS. If exceeded, the charge density extrapolation controlled by {{TAG|IWAVPR}} is skipped and atomic densities are used instead. Setting {{TAG|MAXDIS}}=0.0 disables this reset entirely.
+
+{{TAG|MAXDIS}} is particularly important in [[:Category:Machine-learned force fields|on-the-fly machine learning force field]] ({{TAG|ML_MODE}}=train) calculations, where many machine-learning-driven ionic steps are executed between successive ab initio evaluations. This allows atoms to travel a considerable distance between two DFT calculations, making the charge density from the previous ab initio step a poor initial guess for the next one — potentially causing slow or problematic electronic convergence.
+
+== Related tags and articles ==
+{{TAG|IWAVPR}}, {{TAG|IBRION}}, {{TAG|POTIM}}, {{TAG|ML_LMLFF}}, {{TAG|ML_MODE}}
+
+[[Category:INCAR tag]]

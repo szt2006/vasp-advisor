@@ -1,0 +1,16 @@
+{{TAGDEF|LH5|[logical]|.FALSE.}}
+
+Description: {{TAG|LH5}} determines whether the output is written to the legacy files ({{FILE|CHGCAR}}, {{FILE|CHG}}, {{FILE|WAVECAR}}) or the {{FILE|vaspwave.h5}} file. Hence, setting {{TAG|LH5}}=.TRUE. will suppress legacy file output all together. Whether or not the charge density or wave functions are written to {{FILE|vaspwave.h5}} is then determined by setting {{TAG|LCHARG}} and {{TAG|LWAVE}} accordingly. 
+
+-----
+{{NB|mind|H5 support is available as of VASP version 6.0}}
+{{NB|mind|Additional datasets are written to this file as of 6.6.0.}}
+
+== Related tags and articles ==
+[[Restart and output files cheat sheet]]
+
+{{TAG|LWAVE}}, {{TAG|LCHARG}}, {{TAG|LCHARGH5}}
+
+{{sc|LH5|Examples|Examples that use this tag}}
+
+[[Category:INCAR tag]][[Category:Charge density]]

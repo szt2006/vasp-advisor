@@ -1,0 +1,16 @@
+The '''Vienna ab-initio simulation package''' (VASP) is a computer program for atomic scale materials modeling from first principles. A so-called ab-initio simulation generally entails 
+* choosing the elements and a structure of the material,
+* [[Electronic minimization|treating the electrons fully quantum mechanically]] and
+* optionally updating the ionic positions
+:* to [[ionic minimization|minimize the forces]] and obtain a stable structure, or
+:* by means of Newton's equation of motion to perform [[MD|molecular dynamics simulations]].
+
+VASP computes an approximate solution to the many-body Schrödinger equation to obtain the [[electronic ground-state properties|electronic ground state]]. This can either be done within density-functional theory (DFT) by solving the Kohn-Sham (KS) equations, or within the Hartree-Fock (HF) approximation by solving the Roothaan equations. [[Hybrid functionals]] that mix the Hartree-Fock approach with density-functional theory are also implemented. Furthermore, Green’s functions methods based on [[many-body perturbation theory]] are available in VASP. For instance, the [[:Category:GW|GW method]], random-phase approximation, 2nd-order Møller-Plesset, [[:Category:Bethe-Salpeter equations|Bethe-Salpeter equations]], and more to grant access to [[optical properties]].
+
+In VASP, central quantities, like the one-electron orbitals, the electronic charge density, and the local potential are expressed in plane-wave basis using the [[projector-augmented-wave formalism|projector-augmented-wave (PAW) method]]. This entails using PAW [[pseudopotentials]] to efficiently treat the relevant valence electrons while appropriately capturing the nodal features near the nuclei. To [[:Category:Electronic minimization|determine the orbitals]] for the electronic ground state, VASP makes use of efficient iterative matrix [[ALGO|diagonalization techniques]]. These are coupled with highly efficient Broyden and Pulay [[:Category:Density mixing|density-mixing]] schemes to speed up the self-consistency cycle.
+
+The ionic degrees of freedom can be updated by various algorithms ({{TAG|IBRION}}) based on [[forces]] that are either obtained directly from the electronic state or from ab-intio quality force fields that were trained by machine learning. VASP is particularly strong in describing crystal structures due to the periodic boundary conditions it exploits. Naturally, these systems feature quantized vibrations in the form of [[phonons]] whose influence on the electronic ground state is taken into account by including [[electron-phonon coupling]].
+
+In this category, we collect theory pages from all the different areas VASP offers functionalities. These can also be reached from the corresponding category. For instance, the article on the [[Blocked-Davidson algorithm]] is also linked from the [[electronic minimization]] page.
+
+For an {{Video|ab_initio:martijn:2021|introduction to ab-initio simulations in VASP}}, check out the lecture available on our YouTube channel.

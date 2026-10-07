@@ -1,0 +1,27 @@
+{{DISPLAYTITLE:ELPH_SELFEN_TEMPS}}
+{{TAGDEF|ELPH_SELFEN_TEMPS|[real array]|0 100 200 300 400 500}}
+
+Description: List of temperatures for which to compute the electron self-energy due to electron-phonon coupling.
+{{Available|6.5.0}}
+
+----
+
+This list of temperatures is used to determine the chemical potential, the occupation factors entering the electron self-energy due to electron-phonon coupling as well as the transport coefficients in the context of a transport calculation.
+
+The chemical potential is determined for the list of temperatures {{TAG|ELPH_SELFEN_TEMPS}} and carrier concentrations specified by
+{{TAG|ELPH_SELFEN_CARRIER_DEN}} or {{TAG|ELPH_SELFEN_CARRIER_PER_CELL}}. You can also express a range of temperatures using {{TAG|ELPH_SELFEN_TEMPS_RANGE}}. Alternatively, one can specify the chemical potential and determine the carrier concentration using {{TAG|ELPH_SELFEN_MU}}.
+## Related tags and articles
+* Bandstructure renormalization
+* Transport calculations
+* Chemical potential in electron-phonon interactions
+* {{TAG|ELPH_RUN}}
+* {{TAG|ELPH_SELFEN_TEMPS_RANGE}}
+* {{TAG|ELPH_SELFEN_CARRIER_DEN}}
+* {{TAG|ELPH_SELFEN_CARRIER_DEN_RANGE}}
+* {{TAG|ELPH_SELFEN_CARRIER_PER_CELL}}
+* {{TAG|ELPH_SELFEN_MU}}
+* {{TAG|ELPH_SELFEN_MU_RANGE}}
+* {{TAG|ELPH_SELFEN_FAN}}
+* {{TAG|ELPH_SELFEN_DW}}
+
+Category:INCAR tagCategory:Electron-phonon_interactions

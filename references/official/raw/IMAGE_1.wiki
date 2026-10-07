@@ -1,0 +1,13 @@
+{{DISPLAYTITLE:IMAGE_1}}
+{{TAGDEF|IMAGE_1|block construct|None}}
+
+Description: Group {{FILE|INCAR}} settings for calculations using {{TAG|IMAGES}}. 
+----
+{{TAG|IMAGE_1}} defines the {{FILE|INCAR}} settings used for a calculation in an image calculation, e.g., <code>01</code> for [[Nudged elastic bands|nudged elastic band]] calculations, [[LTEMPER|parallel tempering]], and [[VCAIMAGES|thermodynamic integration]], cf. {{TAG|IMAGES}} for use cases of the tag. 
+{{NB|important|Replace <code>_1</code>, <code>_2</code>, ... with the desired image index (the same index VASP uses for the per-image subdirectories <code>01</code>, <code>02</code>, ...). The number of usable indices is bounded by {{TAG|IMAGES}}.}}
+
+== Related tags and articles ==
+{{TAG|IMAGES}}, {{TAG|NCORE_IN_IMAGE1}}, {{TAG|IMAGES}}, {{TAG|VCAIMAGES}}
+
+== References ==
+[[Category:INCAR tag]][[Category:Advanced molecular-dynamics sampling]]

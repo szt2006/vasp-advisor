@@ -1,0 +1,13 @@
+{{TAGDEF|ENMIN|[real]|value read from {{FILE|POTCAR}}}}
+
+Description: {{TAG|ENMIN}} describes the minimum viable plane-wave energy cutoff in eV for the pseudopotential it is read from.
+
+----
+
+For a multi-element {{FILE|POTCAR}} file, the maximum {{TAG|ENMIN}} determines the absolutely lowest cutoff energy for the plane-wave basis that should be used. If the deprecated {{TAG|PREC}} setting *Low* is used, this value is used by default. With all recommended {{TAG|PREC}} setting VASP will use the largest *recommended* cutoff energy {{TAG|ENMAX}} found in the POTCAR file instead. In all cases, the value can be overwritten by setting {{TAG|ENCUT}} in the {{FILE|INCAR}} file.
+## Related tags and articles
+{{FILE|POTCAR}}, pseudopotentials
+
+----
+
+Category:POTCAR tagCategory:Projector-augmented-wave method

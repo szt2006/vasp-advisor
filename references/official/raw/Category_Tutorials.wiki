@@ -1,0 +1,18 @@
+This page contains the list of all tutorials. You can find a more up-to-date examples {{Tutorial|tutorials:home|in the tutorial section of our website}}:
+<!--*{{Tutorial|atoms:molecules}}
+**{{Tutorial|atoms:molecules:part1}}
+**{{Tutorial|atoms:molecules:part2}}
+**{{Tutorial|atoms:molecules:part3}}
+*{{Tutorial|bulk}}
+**{{Tutorial|bulk:part1}}
+**{{Tutorial|bulk:part2}}
+**{{Tutorial|bulk:part3}}
+**{{Tutorial|bulk:part4}}-->
+For beginners we recommend to do the following tutorials before freely choosing from the other tutorials:
+#[[Atoms and Molecules - Tutorial]].
+#[[Bulk Systems - Tutorial]].
+#[[Surface Science - Tutorial]].
+
+Here is the list of all example calculations: [[:Category:Examples|Examples]].
+
+[[Category:VASP]]

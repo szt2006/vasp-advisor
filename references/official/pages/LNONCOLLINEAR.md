@@ -1,0 +1,40 @@
+{{TAGDEF|LNONCOLLINEAR|.True. {{!}} .False.}}
+{{DEF|LNONCOLLINEAR|.False.| |.True.|if spin-orbit coupling is included ({{TAG|LSORBIT}}{{=}}.True.)}}
+
+Description: Switch on noncollinear magnetic calculations.
+----
+
+For noncollinear magnetic calculations, set {{TAG|LNONCOLLINEAR}} = True in the {{TAG|INCAR}} file and use the vasp_ncl executable. The electronic minimization treats the full 2x2 spin density{{Cite|hobbs:prb:00}} 
+
+:
+n_{\sigma\sigma'}(\mathbf{r}) = \sum_{n=1}^N \psi_{n\sigma}(\mathbf{r})\psi^*_{n\sigma'}(\mathbf{r}),
+
+which is written to the {{FILE|CHGCAR}} file. In spinor space, the part of the spin density proportional to the 2x2 unit matrix corresponds to the charge density, and the part proportional to the vector of Pauli matrices is the magnetization density.
+This enables the consideration of noncollinear magnetic structures within spin-density-functional theory. {{TAG|MAGMOM}} sets the initial magnetic moments. Write the final magnetic moments by setting {{TAG|LORBIT}}. 
+
+It is possible to **restart a noncollinear calculation** from a previous nonmagnetic calculation ({{TAG|ISPIN}}=1 and {{TAG|LNONCOLLINEAR}}=F) or spin-polarized calculation ({{TAG|ISPIN}}=2) by reading {{TAG|WAVECAR}} or {{TAG|CHGCAR}} files. The magnetization of the spin-polarized calculation is interpreted to point along {{TAG|SAXIS}} (default: Cartesian direction \hat z). It is not possible to rotate the magnetic moment locally on selected atoms when restarting with a magnetization density. The magnetic configuration can globally be rotated with respect to the lattice by restarting with a different {{TAG|SAXIS}}.
+
+In practice, we recommend performing noncollinear calculations in two steps:
+*First, calculate the nonmagnetic ground state and generate a {{FILE|WAVECAR}} and a {{FILE|CHGCAR}} file.
+*Second, read the {{TAG|WAVECAR}} and {{TAG|CHGCAR}} file, and supply initial magnetic moments using the {{TAG|MAGMOM}} tag. 
+
+We recommend setting {{TAG|GGA_COMPAT}} = False and {{TAG|LASPH}}= True for noncollinear calculations since this improves the numerical precision of calculations using the generalized-gradient approximation (GGA).
+
+Consider setting {{TAG|AMIX_MAG}} and {{TAG|BMIX_MAG}} for better convergence when using density mixing.
+
+The {{TAG|I_CONSTRAINED_M}} tag can constrain the on-site magnetic moments.
+
+Supported as of VASP.4.5.
+{{NB|important| For noncollinear calculations {{TAG|ISPIN}} is ignored. In VASP 6.5.0, the calculation will exit with an error message if {{TAG|ISPIN}}{{=}}2 and {{TAG|MAGMOM}} is used in combination with the {{TAG|LNONCOLLINEAR}}{{=}}.TRUE.|}}
+## Related tags and articles
+{{TAG|MAGMOM}},
+{{TAG|LSORBIT}},
+{{TAG|SAXIS}},
+{{TAG|GGA_COMPAT}},
+{{TAG|LASPH}},
+{{TAG|AMIX_MAG}}, {{TAG|BMIX_MAG}},
+
+{{sc|LNONCOLLINEAR|Examples|Examples that use this tag}}
+----
+
+Category:INCAR tagCategory:MagnetismCategory:Noncollinear magnetismCategory:Spin-orbit coupling

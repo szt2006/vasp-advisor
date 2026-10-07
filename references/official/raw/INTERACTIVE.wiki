@@ -1,0 +1,89 @@
+{{TAGDEF|INTERACTIVE|[logical]|.FALSE.}}
+
+Description: {{TAG|INTERACTIVE}} enables an interactive mode in which a series of structures is piped into VASP via <code>stdin</code>.
+----
+{{TAG|INTERACTIVE|.TRUE.}} enables the interactive mode. The interactive mode ({{TAG|IBRION|11}}) is executed by inputting a series of structures into the VASP executable, i.e.:
+
+ vasp_std < POSCAR.interactive
+
+The number of ionic steps {{TAG|NSW}} should be set to the number of structures in the <code>POSCAR.interactive</code> file plus one (or any larger value); the number of atoms in these input structures must be constant. Bear in mind that <code>POSCAR.interactive</code> is just a dummy name for a file that pipes the structures to the executable. Each input structure will then be calculated according to the {{FILE|INCAR}} file and the output will be written as normal.
+{{NB|important|The corresponding {{FILE|POSCAR}} file is required. The first set of positions comes from it, and the calculation will not run without it. After the {{FILE|POSCAR}} structure, the <code>POSCAR.interactive</code> structures will be read.}}
+
+== Fixed lattice (ISIF < 3) ==
+{{NB|important|The coordinates of the ions for each structure must be given in fractional/ direct coordinates (Cartesian coordinates are not supported).}}
+For a fixed lattice {{TAG|ISIF|3|op=<}}, the lattice is defined by the {{FILE|POSCAR}} file. The input structure (e.g., <code>POSCAR.interactive</code>, or any other name) is as follows:
+
+   0.51602654  0.60200207  0.48355839
+   0.47803882  0.52340268  0.50869036
+   0.56717477  0.65578242  0.53100206
+   0.45116332  0.63676166  0.43537938
+   0.31530340  0.74388198  0.64715720
+   0.60071504  0.49851047  0.37872126
+ 
+   0.44216661  0.56361173  0.52960446
+   0.36537533  0.54238027  0.56342416
+   0.50398907  0.58877046  0.59064245
+   0.43618126  0.61788131  0.46024981
+   0.45532341  0.84599587  0.53226938
+   0.50724841  0.41695239  0.46229896
+ 
+   0.53802286  0.56353392  0.51036499
+   0.47205503  0.63101620  0.50503092
+   0.55908887  0.54004979  0.59586980
+   0.61484211  0.57816646  0.45750405
+   0.42364771  0.83966876  0.53596644
+   0.46803897  0.42328326  0.47142822
+
+with the coordinates of the ions for each structure given in fractional/ direct coordinates (Cartesian coordinates are not supported), followed by a blank line, then the next structure, etc. These calculations will then be performed on these structures. As each file is read in, the following will be printed to the <code>stdout</code>:
+ POSITIONS: reading from stdin
+ 
+ POSITIONS: read from stdin
+
+== Variable lattice (ISIF ≥ 3) ==
+When the lattice is not fixed {{TAG|ISIF|3|op=≥}}, the input structure (direct or Cartesian) requires that the lattice also be defined, i.e., <code>POSCAR.interactive</code> is a list of {{FILE|POSCAR}} files (i.e., the same format as an {{FILE|XDATCAR}} file):
+
+ unknown system
+            1
+     -5.608199   -5.441585   -0.050512
+     -5.462972   -0.042950   -5.505922
+      0.000000   -5.460525   -5.460525
+    Si
+     16
+ Direct configuration=          29
+    0.16107731  0.07535964  0.14569368
+    0.08094105  0.11968075  0.63676797
+    0.12674262  0.62205394  0.16549329
+    ...
+    0.76282682  0.79675752  0.20047467
+    0.72878930  0.77068250  0.75446889
+ unknown system
+            1
+     -5.614679   -5.440682   -0.050669
+     -5.464721   -0.042862   -5.507583
+      0.000000   -5.461359   -5.461359
+    Si
+     16
+ Direct configuration=          30
+    0.16122201  0.07550654  0.14846295
+    0.08038750  0.12050178  0.63429276
+    0.12832567  0.62549860  0.16421982
+    ...
+    0.76048160  0.79907085  0.19846135
+    0.73319285  0.76646271  0.75715487
+As each structure is read in, the following will be printed to <code>stdout</code>:
+ POSITIONS AND LATTICE: reading from stdin
+ 
+ POSITIONS AND LATTICE: read from stdin
+{{NB|important|Although the lattice changes, the plane-wave basis remains the same. Be sure that your basis is sufficiently converged to avoid [[Pulay stress]].}}
+{{NB|tip|We suggest using the interactive mode to systematically improve [[:Category:Machine-learned force fields | machine-learned force fields]] (MLFF) by selecting all structures for which the MLFF shows larger errors, and continue to train the MLFF with those structures. For instance, one can select structures where the maximum spilling factor is significantly larger than the average. Preferably, individual thresholds are set for each species (cf. {{TAG|ML_ESTBLOCK}} to evaluate the spilling factor). }}
+
+== Related tags and articles ==
+Tags: {{TAG|IBRION}}, {{TAG|ISIF}}, {{TAG|NSW}}
+
+Files: {{FILE|POSCAR}}, {{FILE|XDATCAR}}
+
+How-to: [[Using metadynamics to train a machine-learned force field]]
+
+{{sc|INTERACTIVE|Howto|Workflows that use this tag}}
+
+[[Category:INCAR tag]][[Category:Molecular dynamics]]

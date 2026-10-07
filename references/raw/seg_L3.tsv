@@ -1,0 +1,30 @@
+起始行	结束行	主题	要点
+1	16	声明与封面	版权声明；分节封面「表面热力学与动力学」主讲人刘锦程
+17	230	吸附基础	物理/化学/解离吸附三种模式；吸附能定义 Eads=Em/slab-Em(g)-Eslab；吸附位点 top/bridge/hollow 与 HCP/FCC；必须 ISYM=0 打破对称性；覆盖度 theta=N/N0
+231	356	频率计算原理	Hessian 与质量加权力常数矩阵 Theta=M^-1/2 H M^-1/2；非线性 3N-6 线性 3N-5；谐振子与零点能 ZPVE；有限位移法 NFREE=2 或 4；VASP 只算 Gamma 点；频率与结构优化必须同级别且 EDIFF=1E-7
+357	497	频率计算实操与虚频判读	vaspkit 403 固定 O 以下原子(阈值 0.48)；INCAR: EDIFF=1E-7,IBRION=5,NFREE=2,POTIM=0.015；离子步数=6x放开原子数+1；grep cm OUTCAR 读 f/i 虚频；过渡态虚频约 132 cm-1 且一般 >100 cm-1；IS/TS/FS 频率对比
+498	514	H2O 分子频率实例	气态分子 VASP 给出 3N 个频率；最小的 6 个(平动转动投影)可能出现虚频可直接无视；关心 3N-6 个；H2O 三个实频 3829.7/3715.4/1584.8 cm-1
+515	650	热力学量计算基础	配分函数 Q 定义与物理意义；U/A/H/G/S 与 Q 的关系式；Cv/Cp 与升温 DeltaU/DeltaH；Q=q^N/N!；理想气体假设 G=A+RT,H=U+RT,Cp=Cv+R；玻尔兹曼常数 k 与 R=k*NA
+651	816	振动热力学贡献与低频处理	能量拆分 eps_tot=eps_trans+eps_rot+eps_vib+eps_ele 与 qtot 为乘积；吸附后平动转动 6 自由度转为振动故需算 3N 个振动；Uvib(T)/Svib(T) 公式；ZPE 与频率关系(H2 4395 cm-1)；低频模式是最困难处；建议 <50 cm-1 按 50 cm-1 计
+817	890	平动/转动/电子热力学贡献	平动配分函数是唯一与压力有关的；Utrans=3/2RT, Htrans=5/2RT, Strans 公式；转动配分函数线性/非线性；Urot=RT 或 3/2RT；电子配分函数与基态简并度对熵的贡献
+891	975	0K 与有限温度热力学数据	G(0)=H(0)=U(0)=eps_ele+ZPE；ZPE 读法；T>0K 时 G(T)=eps_ele+ZPE+DeltaG(0->T)；vaspkit 5->501->温度 流程；Is/Ts/Fs 在 298.15K 与 800K 的数据表；常温可忽略校正高温影响大
+976	1069	气体分子自由能校正	三种方法 JANAF-NIST 查表/Gaussian 频率/vaspkit 502；JANAF 表字段与 H、S 校正读法；O2 只取 3N-5 个振动模式算 ZPE=194.29/2000=0.097145 eV；298.15K 校正约 -0.45 eV 与实验相符；气体校正绝不可忽略
+1070	1104	能量图与热力学分析封面	解离吸附+迁移在 DFT/298.15K/800K 三套数据下的能量图；以第一个状态为能量零点；分节封面「热力学分析」
+1105	1257	化学平衡与 Langmuir 吸附	化学平衡与表面吸附平衡 rads=rdes；Langmuir 等温式 theta_A=K_A P_A/(1+K_A P_A) 及三条前提假设；Norskov 估算吸附损失熵约 -0.002 eV/K；覆盖度对温度/压力/吸附能的敏感性；多组分竞争吸附；CO 毒化 Pt 电极实例
+1258	1293	毒化实例与最稳定表面引言	CO 浓度升高导致输出电压下降(1 ppm 即使覆盖度接近 100%)；Pt1/alpha-MoC 抗 CO 毒化；催化剂中毒其他案例；最稳定表面计算的引出(Phys. Rev. B 2001, 65, 035406)
+1294	1471	表面能与化学势分析	表面能公式 gamma(T,p)=1/(2A)[G_slab - N_Ru G_bulk + (2N_Ru-N_O)mu_O]；RuO2(110) 三种表面算例；bulk 自由能用 phonopy；mu_O 上下限(富氧=G_O2/2、缺氧=分解阈值)；温度压力对 mu_O 的影响；缺陷表面同样处理；Rh/TiO2 随 mu_O 的稳定性
+1472	1600	多自变量相图与表面覆盖度	引入 CO 后 gamma 是 mu_O 与 mu_CO 的函数；CO 与 RuO2 反应的稳定性约束推出 Delta mu_O - Delta mu_CO > -0.15 eV；相图分区；Ag 表面 O 覆盖度与化学势；Ostwald ripening 化学势判据；表面热力学->动力学->TOF->BEP/火山曲线的方法学总结
+1601	1747	过渡态概念与 NEB/CI-NEB 原理	过渡态=一阶鞍点(沿路径极大正交方向极小)；无过渡态的四类过程；方法分类与 VASP(VTST) 推荐 DIMER/CI-NEB；NEB 插 P-1 点与弹簧力；PEB 的两个缺点；nudge 力投影规则；CI-NEB 最高点不受弹簧力且平行分量符号反转；CI-NEB 含初末态 3~5 点已足够且插点越多越好是错的；dist.pl 检查(<5 埃)
+1748	1792	nebmake.pl 插点与可视化	nebmake.pl 用法与插点数经验规则(dist/0.8)；自动生成 00/01/02 且文件统一命名 POSCAR；把 IS/FS 的 OUTCAR 复制到 00/02；nebmovie.pl 0/1 生成 movie.xyz 用 Jmol 检查插点
+1793	1888	CINEB 输入设置与收敛判据	INCAR 逐条: EDIFF=1E-7(关键)、EDIFFG=-0.03(难体系 -0.05)、IBRION=3 POTIM=0 为 VTST 标志、IOPT=1(1/2 精收敛 7 粗收敛)、ICHAIN=0、LCLIMB=.TRUE.、IMAGES、SPRING=-5；并行核数须整除插点数；nebef.pl/nebefs.pl 跟踪(后三列为最大原子受力/能量/相对初态能量)；所有插点最大原子受力 < |EDIFFG| 才收敛
+1889	1927	CINEB 后处理与输出文件	nebresults.pl 依次运行 nebbarrier/nebspline/nebef/nebmovie/nebjmovie/nebconverge 并打包 OUTCAR；输出 Forces and Energy 与 Extremum；mep.eps 含义；vaspgr 下各插点收敛图；gunzip 0*/OUTCAR.gz 解包
+1928	2002	DIMER 原理与历史	二聚体 R1/R2 间距 2DeltaR 约 0.01 埃故需 EDIFF=1E-7；中点受力 F(R)=(F1+F2)/2 能量 E=(E1+E2)/2；旋转 Dimer 即最小化曲率、收敛时平行于虚频方向；平移 Dimer 在曲率 C>0 与 C<0 时 F' 定义不同；收敛判据为 F<|EDIFFG| 且 C<0；方法演进(Henkelman 1999/Heyden 2005/Kastner 2008/solid-state dimer 2014)
+2003	2070	DIMER 初猜结构与 MODECAR	Dimer 可不需要 IS/FS 但建议先算；初猜结构准备(MS 手动调整或用 nebmake.pl 中间点)；初猜技巧: 保证没有过短的键、O 在 bridge 位时 z 更高；MODECAR 定义初始 dimer 方向(缺省则随机,强烈建议设置)；modemake.pl 原理与两种用法；每一旋转步更新 NEWMODECAR
+2071	2248	DIMER 输入设置与 DIMCAR 解读	Dimer INCAR: ICHAIN=2、IBRION=3 POTIM=0、IOPT=2、EDIFF=1E-7、EDIFFG=-0.03；DdR/DRotMax/DFNMin/DFNMax 被注释；必须用编译了 VTST 的 VASP；DIMCAR 逐列解读 Step/Force/Torque/Energy/Curvature/Angle；Torque<1 进入平移步；DIMCAR 的 Energy 不能当过渡态能量(取 OSZICAR 最后一个 E0)；Torque 不降的处方；CENTCAR/NEWMODECAR/dimmode.pl；收敛确认三条命令(grep converged/grep RMS/tail -1 OSZICAR)
+2249	2295	过渡态搜索五类常见问题	(1)中间点能量比初末态低->IS/FS 可能不是极小点或用更严精度重算；(2)出现 10 eV/埃以上极大受力->初始结构不合理,用 idpp.py 非线性插点或人工调整；(3)接近收敛但力长期不达标->提高力精度(PREC=Accurate,EDIFF=1E-7)或换 IOPT=7/IOPT=0 或放宽标准；(4)没有虚频或多个虚频->力精度不够,严格 EDIFF=1E-7 或改用 Dimer；(5)插点结构混乱->检查初末态原子顺序是否一一对应
+2296	2416	补充实例与 NEB+Dimer 组合流程	分节封面「过渡态搜索(补充内容)」；环己烷在 Pt1/graphene 上脱氢的 CINEB INCAR(ICHAIN=0,LCLIMB,IOPT=7,IMAGES=4,SPRING=-5,IVDW=11,EDIFFG=-0.03,EDIFF=1E-6,NSW=1000)；nebresults.pl 流程与 nebef.pl/exts.dat 输出；nebspline.pl 的 spline.dat/exts.dat/mep.eps 且极值点需人工判断与频率验证；NEB+Dimer 组合: 先 CINEB 粗收敛(EDIFFG=-0.5,EDIFF=1E-5)取能量最高结构作 Dimer 初猜,再用 neb2dim.pl 生成 dim 文件夹,并建议手动准备 POSCAR 与 MODECAR
+2417	2487	线性插点缺陷与 IDPP 插点法	nebmake.pl 线性插值的两个缺点(远离真实反应路径、键长键角不合理甚至原子重叠)且只适用于近乎直线的扩散；实例 *C6H11+*H -> C6H10+H2 的 (03)image C-H 只有 0.59 埃而 IDPP 为 1.09 埃；IDPP 原理(J. Chem. Phys. 140, 214106 (2014))；ASE 与 pymatgen-diffusion 已实现；许楠博士的 idpp.py 安装与用法 python3 idpp.py POSCARis POSCARfs 4 得到 00~05 六个文件夹
+2488	2565	反应动力学基础与 TST	基元反应定义与单分子/双分子速率方程；三分子基元反应几乎不存在；Arrhenius 方程与表观活化能；计算速率常数的四类方法(碰撞理论/分子动力学/过渡态理论/RRKM)中最常用 TST；TST 公式 k=(kB T/h) exp(-DeltaG_a/kB T) 与 k.py 脚本输出
+2566	2650	半衰期、HTST 与隧穿效应	一级反应半衰期 t1/2=ln2/k 与 DeltaG_a 从 0.6 到 1.2 eV 的速率/半衰期对照表；谐振过渡态理论 HTST 公式与初态/过渡态振动频率的含义(D 与 D-1 的来源)；隧穿效应使 k(T)>1 并增大反应速率；Wigner 透热系数 kappa(T)=1+1/24[1.44 v/T]^2 与 298K 下 1000/500/100 cm-1 的数值；更准确用 Eckart 方法与多维隧道校正
+2651	2772	催化反应机理 LH/ER/MvK	表面催化基元步骤只有吸附/反应/脱附三类；三大机理 Langmuir-Hinshelwood、Eley-Rideal、Mars-Van Krevelen；各自的机理描述、最简单的反应式与速率表达式；LH 要求两种物种覆盖度接近否则毒化；ER 不被 B 毒化；三个经典实例: 合成氨(LH)、Volmer-Heyrovsky HER(ER)、CO 氧化(MvK)
+2773	2793	催化循环与声明	催化剂必须复原形成闭环；反应的总能量变化等于产物能量减反应物能量；催化剂只改变路径和能垒绝不改变总反应能量变化(部分文献犯此错)；版权声明页

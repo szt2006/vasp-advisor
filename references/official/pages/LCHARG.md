@@ -1,0 +1,16 @@
+{{TAGDEF|LCHARG|[logical]|.True.}}
+
+Description: Determines whether the charge density is written.
+-----
+
+For {{TAGDEF|LCHARG|T}} (default), the files {{FILE|CHGCAR}} and {{FILE|CHG}} are written.
+If {{TAGDEF|LH5|T}}, the charge density is instead written to {{FILE|vaspwave.h5}}. 
+{{NB|mind|For VASP version 6.0 to 6.4.2 the default for {{TAGDEF|LCHARG|.NOT.{{TAG|LH5}}}}}}
+## Related tags and articles
+Restart and output files cheat sheet
+
+{{TAG|LWAVE}}, {{TAG|LCHARGH5}}, {{TAG|LH5}}, {{TAG|LTAU}}
+
+{{sc|LCHARG|Howto|Workflows that use this tag}}
+
+Category:INCAR tagCategory:Charge density
