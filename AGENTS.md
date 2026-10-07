@@ -161,6 +161,30 @@ python scripts/validate.py <输出目录> --potcar <你本地的 POTCAR>
    `references/raw/lvthw/` 是 BigBro(a)s 的站（发布版为行数骨架）。
    ⇒ **逐层清单与合规做法见 [`NOTICE.md`](NOTICE.md)。**
    新增任何第三方内容时，**必须同时更新 `NOTICE.md`**。
+9. **⛔ 文件归位：新增文件前先定它的类别。**
+   四类判定见 [`SKILL_SCOPE.md`](SKILL_SCOPE.md)：
+   **SKILL**（使用者要用的）/ **CONTRACT**（证明靠得住的）⇒ 留在 skill 内；
+   **BUILD·PROCESS**（只在建造期间有用的）/ **PRIVATE**（描述某一台机器或账号的）
+   ⇒ **放在 skill 之外**。**找不到归属就停下来问，不要自己决定。**
+   ⚠️ **`.gitignore` 是安全网，不是分类标准** —— 被忽略的文件照样会误导人
+   （CR-060 / CR-061 两次都栽在这里）。
+   此条由 `_doc_consistency.py` 的 `check_skill_scope` 守着（注入用例 KK2）。
+10. **⛔ 不可逆操作前先确认"源在别处有副本"。**
+   **"移动"必须用 `Move-Item`，永远不要用 `Remove-Item` 去实现"移动"。**
+   ⚠️ 曾经写下"移到 `_MATERIALS\`"的意图，执行的却是
+   `Remove-Item -Recurse -Force` —— **永久删除 2.6 GB 学习材料，不进回收站**
+   （CR-061）。**是运气好才从别处找到原件，不是做对了。**
+11. **⛔ 学习材料是"输入"，不是"交付物"。**
+   用户给的材料（课程 PDF、算例目录、网站导出）**只用来读懂**；
+   **进 skill 的是自己写的文档**，不是材料本身 ——
+   **连"抽取后的文本"也只作为引用锚点，不作内容层。**
+   ⚠️ 材料放在 skill 之外的资料区；`.gitignore` 只是双保险。
+12. **⛔ 核验"某文件在不在"时，不要拿中文名去 grep `git ls-tree` 输出。**
+   git 会把中文转义成八进制 ⇒ **永远搜不到** ⇒ 会得出"不存在"的**错误结论**
+   （CR-060 我因此误报过一次）。用 `git ls-tree <ref> -- <路径>`
+   或先 `git config core.quotepath false`。
+   **「搜不到」不等于「不存在」。**
+
 
 ## 7. 知识是怎么保证可信的（护栏一览）
 
@@ -177,7 +201,7 @@ python scripts/validate.py <输出目录> --potcar <你本地的 POTCAR>
 | `_doc_consistency.py` 的**路径存在性**检查 | **文档里引用的仓库内路径必须真的存在** —— 防"改了机制、漏改文档" | 有注入用例 KK1（注入假路径 ⇒ 必红） |
 | `_known_issues.tsv` | **官方缺陷登记簿**：110 条「不报错但结果错」的官方记录，带首现/修复版本 | 可查 `--for-version 5.4.4` |
 | `references/MAINTENANCE.md` | 维护规矩（**机器细节不进，结论进**） | — |
-| `CHANGELOG.md` 的**更正记录** | 记录"我原先写错了什么" | **61 条**（CR-001…CR-061） |
+| `CHANGELOG.md` 的**更正记录** | 记录"我原先写错了什么" | **62 条**（CR-001…CR-062） |
 
 ## 8. 诚实的能力边界
 
