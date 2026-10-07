@@ -54,7 +54,18 @@ except ImportError:                                          # pragma: no cover
     raise SystemExit(2)
 
 ROOT = os.path.abspath(os.environ.get("VASP_SKILL_ROOT", HERE))
-CORPUS = os.path.join(ROOT, "things to study")
+# ⚠️ **学习材料不在 skill 里**（`SKILL_SCOPE.md`：它属于外部资料）。
+#    优先级：环境变量 > skill 外的资料区（同级）> 旧位置（兼容）。
+#    ⇒ **克隆 skill 的人没有这批资料，这是正常的** ——
+#      `--derive` / `--check` / `--lookup` 会给出友好提示，不是崩溃。
+_CORPUS_CANDIDATES = [
+    os.environ.get("VASP_CORPUS"),
+    os.path.join(os.path.dirname(ROOT), "_MATERIALS", "things to study"),
+    os.path.join(ROOT, "things to study"),
+    os.path.join(os.path.dirname(ROOT), "_MATERIALS"),
+]
+CORPUS = next((c for c in _CORPUS_CANDIDATES
+               if c and os.path.isdir(c)), _CORPUS_CANDIDATES[1])
 
 # 要在画像里统计的 INCAR 标签（**只列有诊断价值的**，不是全部）
 PROFILE_TAGS = [

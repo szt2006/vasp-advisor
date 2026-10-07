@@ -44,7 +44,11 @@ srv/
 # 后来出现了 `things to study2/`，就**没有被忽略** ——
 # 那个目录里有 2595 个文件（含真实账号 `xxx@xxx`、集群 IP、POTCAR 头部回显），
 # 一次 `git add .` 就会把它们全部入库。
-# 现在写成 `things to study*/`，任何编号的同类目录都覆盖。
+# 现在写成 `# ⚠️ **学习材料不属于 skill**（`SKILL_SCOPE.md`）。
+#    它们平时放在 **skill 之外**（工作区那一层的 `_MATERIALS\`）；
+#    下面这几条是**双保险** —— 万一有人放回 skill 根目录也不会误提交。
+_MATERIALS/
+things to study*/`，任何编号的同类目录都覆盖。
 things to study*/
 things-to-study*/
 study/

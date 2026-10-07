@@ -177,7 +177,7 @@ python scripts/validate.py <输出目录> --potcar <你本地的 POTCAR>
 | `_doc_consistency.py` 的**路径存在性**检查 | **文档里引用的仓库内路径必须真的存在** —— 防"改了机制、漏改文档" | 有注入用例 KK1（注入假路径 ⇒ 必红） |
 | `_known_issues.tsv` | **官方缺陷登记簿**：110 条「不报错但结果错」的官方记录，带首现/修复版本 | 可查 `--for-version 5.4.4` |
 | `references/MAINTENANCE.md` | 维护规矩（**机器细节不进，结论进**） | — |
-| `CHANGELOG.md` 的**更正记录** | 记录"我原先写错了什么" | **60 条**（CR-001…CR-060） |
+| `CHANGELOG.md` 的**更正记录** | 记录"我原先写错了什么" | **61 条**（CR-001…CR-061） |
 
 ## 8. 诚实的能力边界
 
